@@ -1,4 +1,4 @@
-package com.example.vitorizkiimanda.sisuper_apps;
+package com.example.vitorizkiimanda.sisuper_apps.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.vitorizkiimanda.sisuper_apps.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
