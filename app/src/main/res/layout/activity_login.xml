@@ -57,7 +57,7 @@
                     android:singleLine="true"
                     android:textColor="@color/colorWhite"
                     android:textColorLink="@color/colorWhite"
-                    android:theme="@style/Autocomplete" />
+                    android:theme="@style/InputWhiteLine" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -80,7 +80,7 @@
                     android:singleLine="true"
                     android:textColor="@color/colorWhite"
                     android:textColorLink="@color/colorWhite"
-                    android:theme="@style/Autocomplete" />
+                    android:theme="@style/InputWhiteLine" />
 
             </android.support.design.widget.TextInputLayout>
 

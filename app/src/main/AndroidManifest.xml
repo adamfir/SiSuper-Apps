@@ -32,7 +32,7 @@
         </activity>
         <activity
             android:name=".activity.RegisterActivity"
-            android:label="@string/title_activity_register"></activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
