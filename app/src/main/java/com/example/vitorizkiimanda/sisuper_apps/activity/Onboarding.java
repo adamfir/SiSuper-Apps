@@ -1,5 +1,8 @@
 package com.example.vitorizkiimanda.sisuper_apps.activity;
 
+import android.app.ActionBar;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,7 +47,7 @@ public class Onboarding extends AppCompatActivity {
             mDots[i] = new TextView(this);
             mDots[i].setText(Html.fromHtml("&#8226"));
             mDots[i].setTextSize(35);
-            mDots[i].setTextColor(getResources().getColor(R.color.colorPurplDark));
+            mDots[i].setTextColor(getResources().getColor(R.color.colorPurpleDark));
 
             mDotsLayout.addView(mDots[i]);
         }
@@ -57,7 +60,7 @@ public class Onboarding extends AppCompatActivity {
     public void changeDotsIndicator(int position){
         for (int i = 0 ; i < mDots.length ; i++){
             if(position == i) mDots[position].setTextColor(getResources().getColor(R.color.colorWhite));
-            else mDots[i].setTextColor(getResources().getColor(R.color.colorPurplDark));
+            else mDots[i].setTextColor(getResources().getColor(R.color.colorPurpleDark));
         }
     }
 
