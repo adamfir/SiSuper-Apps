@@ -50,6 +50,7 @@ public class Onboarding extends AppCompatActivity {
             public void onClick(View v) {
                 Intent moveIntent = new Intent(Onboarding.this, LoginActivity.class);
                 startActivity(moveIntent);
+                finish();
             }
         });
     }

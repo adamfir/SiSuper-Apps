@@ -21,4 +21,8 @@
         completions."
     </string>
     <string name="hello_blank_fragment">Hello World!</string>
+    <string name="title_activity_register">Sign in</string>
+    <string name="masuk">Masuk</string>
+    <string name="tidak_punya_akun_buat_akun">Tidak punya akun? Buat akun</string>
+    <string name="lupa_password">Lupa password</string>
 </resources>
