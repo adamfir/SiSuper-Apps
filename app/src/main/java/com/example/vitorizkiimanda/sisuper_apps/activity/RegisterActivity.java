@@ -3,6 +3,7 @@ package com.example.vitorizkiimanda.sisuper_apps.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -84,13 +85,23 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = (Button) findViewById(R.id.register);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
+
+        Button toLoginButton = (Button) findViewById(R.id.to_login);
+        toLoginButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toLogin();
+            }
+        });
+
+
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -145,6 +156,11 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
+
+    private void toLogin(){
+        finish();
+    }
+
     private void attemptLogin() {
         if (mAuthTask != null) {
             return;
@@ -189,6 +205,10 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
+
+            Intent moveIntent = new Intent(RegisterActivity.this, MainActivity.class);
+            moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(moveIntent);
         }
     }
 

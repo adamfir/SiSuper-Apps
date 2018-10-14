@@ -10,7 +10,7 @@
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
+    <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
@@ -25,4 +25,9 @@
     <string name="masuk">Masuk</string>
     <string name="tidak_punya_akun_buat_akun">Tidak punya akun? Buat akun</string>
     <string name="lupa_password">Lupa password</string>
+    <string name="sudah_punya_akun_masuk">Sudah punya akun? Masuk</string>
+    <string name="daftar">Daftar</string>
+    <string name="nomor_telepon">Nomor Telepon</string>
+    <string name="nama">Nama</string>
+    <string name="alamat">Alamat</string>
 </resources>
