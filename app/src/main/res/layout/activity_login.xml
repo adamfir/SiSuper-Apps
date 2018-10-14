@@ -26,12 +26,13 @@
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="@dimen/margin_bottom"
         app:srcCompat="@drawable/logo" />
 
     <ScrollView
         android:id="@+id/login_form"
+        android:layout_marginTop="24dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -99,7 +100,7 @@
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:textColor="@color/colorWhite"
                 android:background="@android:color/transparent"
                 android:text="@string/tidak_punya_akun_buat_akun"
