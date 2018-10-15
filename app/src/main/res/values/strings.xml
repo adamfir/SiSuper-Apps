@@ -30,4 +30,6 @@
     <string name="nomor_telepon">Nomor Telepon</string>
     <string name="nama">Nama</string>
     <string name="alamat">Alamat</string>
+    <string name="nama_usaha">Nama Usaha</string>
+    <string name="undangan">Undangan : </string>
 </resources>
