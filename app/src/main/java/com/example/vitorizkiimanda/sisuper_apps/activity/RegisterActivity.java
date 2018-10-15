@@ -206,7 +206,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
 
-            Intent moveIntent = new Intent(RegisterActivity.this, MainActivity.class);
+            Intent moveIntent = new Intent(RegisterActivity.this, BusinessListActivity.class);
             moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(moveIntent);
         }
