@@ -5,46 +5,37 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_produkku"
+            android:id="@+id/nav_camera"
             android:icon="@drawable/ic_format_list_bulleted_black_24dp"
             android:title="Produk-ku" />
         <item
-            android:id="@+id/nav_agenda"
+            android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_event_black_24dp"
             android:title="Agenda" />
         <item
-            android:id="@+id/nav_kegiatan"
+            android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_event_available_black_24dp"
             android:title="Kegiatan" />
         <item
-            android:id="@+id/nav_undangan"
+            android:id="@+id/nav_manage"
             android:icon="@drawable/ic_mail_black_24dp"
             android:title="Undangan" />
+        <item
+            android:id="@+id/nav_manage2"
+            android:icon="@drawable/ic_store_black_24dp"
+            android:title="Profil Usaha" />
     </group>
-
-
-    <item android:title="Usaha">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:icon="@drawable/ic_store_black_24dp"
-                    android:title="Profil Usaha" />
-            </group>
-        </menu>
-    </item>
 
     <item android:title="Akun">
         <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_share"
-                    android:icon="@drawable/ic_person_black_24dp"
-                    android:title="Profil Akun" />
-                <item
-                    android:id="@+id/nav_send"
-                    android:icon="@drawable/ic_menu_manage"
-                    android:title="Pengaturan" />
-            </group>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_person_black_24dp"
+                android:title="Profil Akun" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Pengaturan" />
         </menu>
     </item>
 
