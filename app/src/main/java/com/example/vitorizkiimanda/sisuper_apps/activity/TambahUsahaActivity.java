@@ -1,7 +1,9 @@
-package com.example.vitorizkiimanda.sisuper_apps;
+package com.example.vitorizkiimanda.sisuper_apps.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.vitorizkiimanda.sisuper_apps.R;
 
 public class TambahUsahaActivity extends AppCompatActivity {
 

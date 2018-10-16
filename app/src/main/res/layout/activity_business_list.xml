@@ -94,6 +94,7 @@
             >
 
             <Button
+                android:id="@+id/addUsaha_button"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"

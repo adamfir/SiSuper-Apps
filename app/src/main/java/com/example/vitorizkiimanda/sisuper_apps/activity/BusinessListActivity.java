@@ -26,5 +26,15 @@ public class BusinessListActivity extends AppCompatActivity {
                 startActivity(moveIntent);
             }
         });
+
+        View addUsahaButton = findViewById(R.id.addUsaha_button);
+
+        addUsahaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moveIntent = new Intent(BusinessListActivity.this, TambahUsahaActivity.class);
+                startActivity(moveIntent);
+            }
+        });
     }
 }

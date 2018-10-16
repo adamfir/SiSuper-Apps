@@ -30,7 +30,18 @@
     <string name="nomor_telepon">Nomor Telepon</string>
     <string name="nama">Nama</string>
     <string name="alamat">Alamat</string>
+    <!-- Strings related to Add usaha -->
+
     <string name="nama_usaha">Nama Usaha</string>
     <string name="undangan">Undangan : </string>
     <string name="tambah_usaha">Tambah Usaha</string>
+    <string name="lama_usaha">Lama Usaha</string>
+    <string name="omzet_pertahun">Omzet Pertahun</string>
+    <string name="deskripsi_usaha">Deskripsi Usaha</string>
+    <string name="alamat_usaha">Alamat Usaha</string>
+    <string name="website">Website</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">twitter</string>
+    <string name="id_line">ID Line</string>
+    <string name="instagram">Instagram</string>
 </resources>
