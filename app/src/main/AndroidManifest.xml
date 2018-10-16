@@ -34,7 +34,8 @@
             android:name=".activity.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.BusinessListActivity" />
-        <activity android:name=".activity.ProductListActivity"></activity>
+        <activity android:name=".activity.ProductListActivity" />
+        <activity android:name=".TambahUsahaActivity"></activity>
     </application>
 
 </manifest>
