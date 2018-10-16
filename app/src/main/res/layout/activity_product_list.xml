@@ -12,7 +12,10 @@
         android:layout_height="wrap_content"
         android:text="@string/tambah_produk"
         android:textColor="@color/colorWhite"
-        android:background="@color/colorPurpleDark"
+        android:textAllCaps="false"
+        android:textSize="@dimen/button_font_size"
+        android:background="@drawable/button_darkpurple_white_stroke"
+        android:layout_margin="@dimen/margin_top"
         />
 
 </LinearLayout>
