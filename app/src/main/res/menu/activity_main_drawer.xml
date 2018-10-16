@@ -20,11 +20,16 @@
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_mail_black_24dp"
             android:title="Undangan" />
-        <item
-            android:id="@+id/nav_manage2"
-            android:icon="@drawable/ic_store_black_24dp"
-            android:title="Profil Usaha" />
     </group>
+
+    <item android:title="Usaha">
+        <menu>
+            <item
+                android:id="@+id/nav_manage2"
+                android:icon="@drawable/ic_store_black_24dp"
+                android:title="Profil Usaha" />
+        </menu>
+    </item>
 
     <item android:title="Akun">
         <menu>
