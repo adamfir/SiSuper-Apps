@@ -23,6 +23,7 @@
         android:visibility="gone" />
 
     <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_marginTop="24dp"
@@ -36,6 +37,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -49,6 +51,7 @@
                 android:textColorHint="@color/colorWhite">
 
                 <EditText
+                    android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/nama"
@@ -114,6 +117,7 @@
                 android:textColorHint="@color/colorWhite">
 
                 <EditText
+                    android:id="@+id/phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/nomor_telepon"
@@ -136,6 +140,7 @@
                 android:textColorHint="@color/colorWhite">
 
                 <EditText
+                    android:id="@+id/address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/alamat"
