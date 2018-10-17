@@ -22,6 +22,11 @@
         <item name="colorControlActivated">@color/colorWhite</item>
     </style>
 
+    <style name="InputBlackLine">
+        <item name="colorControlNormal">@color/colorGray</item>
+        <item name="colorControlActivated">@color/colorGray</item>
+    </style>
+
     <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorWhite</item>
     </style>

@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+
+    android:gravity="center_horizontal"
+    tools:context=".activity.TambahUsahaActivity">
+
+
+
+
+    <ScrollView
+        android:id="@+id/add_usaha_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/email_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            >
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="160dp"
+                android:src="@drawable/logo"
+                />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                android:textColorHint="@color/colorGray">
+
+                <EditText
+                    android:id="@+id/nama_usaha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/nama_usaha"
+                    android:text="@string/nama_usaha"
+                    android:imeActionId="6"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textColorLink="@color/colorBlack"
+                    android:textColorHint="@color/colorGray"
+                    android:theme="@style/InputBlackLine" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                android:textColorHint="@color/colorGray">
+
+                <EditText
+                    android:id="@+id/lama_usaha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/lama_usaha"
+                    android:text="20"
+                    android:imeActionId="6"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="numberSigned"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textColorLink="@color/colorBlack"
+                    android:textColorHint="@color/colorGray"
+                    android:theme="@style/InputBlackLine" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                android:textColorHint="@color/colorGray">
+
+                <EditText
+                    android:id="@+id/omzet_pertahun"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/omzet_pertahun"
+                    android:text="20,000,000"
+                    android:imeActionId="6"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textColorLink="@color/colorBlack"
+                    android:textColorHint="@color/colorGray"
+                    android:theme="@style/InputBlackLine" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                android:textColorHint="@color/colorGray">
+
+                <EditText
+                    android:id="@+id/deskripsi_usaha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/deskripsi_usaha"
+                    android:text="usaha yang makmur sentosa"
+                    android:imeActionId="6"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textMultiLine"
+                    android:minLines="2"
+                    android:maxLines="3"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/colorBlack"
+                    android:textColorLink="@color/colorBlack"
+                    android:textColorHint="@color/colorGray"
+                    android:theme="@style/InputBlackLine" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                android:textColorHint="@color/colorGray">
+
+                <EditText
+                    android:id="@+id/alamat_usaha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/alamat_usaha"
+                    android:text="Jl. Raya Dramaga"
+                    android:imeActionId="6"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textMultiLine"
+                    android:minLines="2"
+                    android:maxLines="3"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/colorBlack"
+                    android:textColorLink="@color/colorBlack"
+                    android:textColorHint="@color/colorGray"
+                    android:theme="@style/InputBlackLine" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                android:textColorHint="@color/colorGray">
+
+                <EditText
+                    android:id="@+id/email_usaha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email Usaha"
+                    android:text="usaha@mail.com"
+                    android:imeActionId="6"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textColorLink="@color/colorBlack"
+                    android:textColorHint="@color/colorGray"
+                    android:theme="@style/InputBlackLine" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                android:textColorHint="@color/colorGray">
+
+                <EditText
+                    android:id="@+id/no_telepon_usaha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nomor Telepon Usaha"
+                    android:text="085373318178"
+                    android:imeActionId="6"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textColorLink="@color/colorBlack"
+                    android:textColorHint="@color/colorGray"
+                    android:theme="@style/InputBlackLine" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                android:textColorHint="@color/colorGray">
+
+                <EditText
+                    android:id="@+id/website_usaha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/website"
+                    android:text="http://codepanda.web.id"
+                    android:imeActionId="6"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textColorLink="@color/colorBlack"
+                    android:textColorHint="@color/colorGray"
+                    android:theme="@style/InputBlackLine" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                >
+                <TextView
+                    android:id="@+id/SosmedUsaha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sosial Media Usaha"
+                    android:textColor="@color/colorBlack"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:textStyle="bold"
+                    android:textSize="10pt"
+                    />
+                <LinearLayout
+                    android:id="@+id/SosmedForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/SosmedUsaha"
+                    android:orientation="vertical"
+                    >
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                        android:textColorHint="@color/colorGray">
+
+                        <EditText
+                            android:id="@+id/facebook"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/facebook"
+                            android:text="codepanda.id"
+                            android:imeActionId="6"
+                            android:imeActionLabel="@string/action_sign_in_short"
+                            android:imeOptions="actionUnspecified"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColor="@color/colorBlack"
+                            android:textColorLink="@color/colorBlack"
+                            android:textColorHint="@color/colorGray"
+                            android:theme="@style/InputBlackLine" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                        android:textColorHint="@color/colorGray">
+
+                        <EditText
+                            android:id="@+id/twitter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/twitter"
+                            android:text=" @codepanda.id"
+                            android:imeActionId="6"
+                            android:imeActionLabel="@string/action_sign_in_short"
+                            android:imeOptions="actionUnspecified"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColor="@color/colorBlack"
+                            android:textColorLink="@color/colorBlack"
+                            android:textColorHint="@color/colorGray"
+                            android:theme="@style/InputBlackLine" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                        android:textColorHint="@color/colorGray">
+
+                        <EditText
+                            android:id="@+id/id_line"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/id_line"
+                            android:text=" @codepanda.id"
+                            android:imeActionId="6"
+                            android:imeActionLabel="@string/action_sign_in_short"
+                            android:imeOptions="actionUnspecified"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColor="@color/colorBlack"
+                            android:textColorLink="@color/colorBlack"
+                            android:textColorHint="@color/colorGray"
+                            android:theme="@style/InputBlackLine" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                        android:textColorHint="@color/colorGray">
+
+                        <EditText
+                            android:id="@+id/instagram"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/instagram"
+                            android:text=" @codepanda.id"
+                            android:imeActionId="6"
+                            android:imeActionLabel="@string/action_sign_in_short"
+                            android:imeOptions="actionUnspecified"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColor="@color/colorBlack"
+                            android:textColorLink="@color/colorBlack"
+                            android:textColorHint="@color/colorGray"
+                            android:theme="@style/InputBlackLine" />
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sertifikat ...."
+                android:textColor="@color/colorBlack"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textStyle="bold"
+                android:textSize="10pt"
+                android:layout_marginTop="@dimen/margin_top"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                android:src="@drawable/maskot"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sertifikat Wirausahawan"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textStyle="bold"
+                android:textSize="10pt"
+                android:layout_marginTop="@dimen/margin_top"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                android:src="@drawable/maskot" />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorPurpleDark"
+                android:text="TAMBAH SERTIFIKAT"
+                android:drawableStart="@drawable/ic_format_list_bulleted_black_24dp"
+                android:paddingLeft="80dp"
+                android:paddingRight="80dp"
+                android:textColor="@color/colorWhite"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:drawableStart="@drawable/ic_person_black_24dp"
+                android:paddingLeft="80dp"
+                android:paddingRight="80dp"
+                android:background="@color/colorPurpleDark"
+                android:text="SUNTING PROFIL"
+                android:textColor="@color/colorWhite"
+                />
+            <Button
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_border_red"
+                android:text="KELUAR AKUN"
+                android:textStyle="bold"
+                android:textColor="@color/colorRed"
+                />
+
+        </LinearLayout>
+
+
+
+
+
+
+    </ScrollView>
+
+
+</LinearLayout>
