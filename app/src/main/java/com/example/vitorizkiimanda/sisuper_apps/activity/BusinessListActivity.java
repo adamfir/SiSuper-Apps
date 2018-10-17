@@ -27,9 +27,9 @@ public class BusinessListActivity extends AppCompatActivity {
             }
         });
 
-        View addUsahaButton = findViewById(R.id.addUsaha_button);
 
         //to page TambahUsahaActivity
+        View addUsahaButton = findViewById(R.id.addUsaha_button);
         addUsahaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,5 +37,10 @@ public class BusinessListActivity extends AppCompatActivity {
                 startActivity(moveIntent);
             }
         });
+
+        //to list produk
+        View CardUsaha = findViewById(R.id.card_usaha);
+
+
     }
 }
