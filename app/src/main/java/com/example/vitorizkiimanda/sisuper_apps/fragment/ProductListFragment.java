@@ -37,6 +37,16 @@ public class ProductListFragment extends Fragment {
                 startActivity(moveIntent);
             }
         });
+
+        View editProductItem = view.findViewById(R.id.product_item);
+        editProductItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moveIntent = new Intent(getActivity(), ProductInput.class);
+                startActivity(moveIntent);
+            }
+        });
+
         return view;
     }
 
