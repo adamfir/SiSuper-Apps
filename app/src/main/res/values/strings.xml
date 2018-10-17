@@ -34,6 +34,7 @@
 
     <string name="nama_usaha">Nama Usaha</string>
     <string name="undangan">Undangan : </string>
+<<<<<<< HEAD
     <string name="tambah_usaha">Tambah Usaha</string>
     <string name="lama_usaha">Lama Usaha</string>
     <string name="omzet_pertahun">Omzet Pertahun</string>
@@ -44,4 +45,7 @@
     <string name="twitter">twitter</string>
     <string name="id_line">ID Line</string>
     <string name="instagram">Instagram</string>
+=======
+    <string name="tambah_produk">Tambah Produk</string>
+>>>>>>> 53c8ed195fbbe4c13721fff89dee5a73a2bbdac7
 </resources>
