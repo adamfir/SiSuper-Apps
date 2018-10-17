@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPurpleLight"
-    tools:context=".fragment.ProductListFragment">
+    tools:context=".fragment.ProductListFragment"
+    android:orientation="vertical">
 
     <Button
         android:layout_width="match_parent"
@@ -14,8 +15,39 @@
         android:textColor="@color/colorWhite"
         android:textAllCaps="false"
         android:textSize="@dimen/button_font_size"
-        android:background="@drawable/button_darkpurple_white_stroke"
+        android:background="@drawable/rectangle_darkpurplebg_whitestroke"
         android:layout_margin="@dimen/margin_top"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/margin_top"
+        android:padding="@dimen/padding"
+        android:background="@drawable/rectangle_whitebg_purplestroke">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:textSize="@dimen/button_font_size"
+            android:textColor="@color/colorBlack"
+            android:text="Nama Produk"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".4"
+            android:textSize="@dimen/button_font_size"
+            android:textColor="@color/colorBlack"
+            android:text="Rp.200.000,00"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".1"
+            android:textSize="@dimen/button_font_size"
+            android:textColor="@color/colorBlack"
+            android:text="/Pcs"/>
+
+    </LinearLayout>
 
 </LinearLayout>
