@@ -10,4 +10,6 @@
     <dimen name="padding">14dp</dimen>
     <dimen name="paddingCard">4dp</dimen>
     <dimen name="button_font_size">16sp</dimen>
+    <dimen name="font_big">18sp</dimen>
+    <dimen name="spacing_medium">8dp</dimen>
 </resources>
