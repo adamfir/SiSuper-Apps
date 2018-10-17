@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.fragment.ProductListFragment;
 
 public class BusinessListActivity extends AppCompatActivity {
 
@@ -40,6 +41,14 @@ public class BusinessListActivity extends AppCompatActivity {
 
         //to list produk
         View CardUsaha = findViewById(R.id.card_usaha);
+        CardUsaha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moveIntent = new Intent(BusinessListActivity.this, MainActivity.class);
+                moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(moveIntent);
+            }
+        });
 
 
     }
