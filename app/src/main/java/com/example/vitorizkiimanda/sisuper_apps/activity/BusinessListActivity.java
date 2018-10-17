@@ -29,6 +29,7 @@ public class BusinessListActivity extends AppCompatActivity {
 
         View addUsahaButton = findViewById(R.id.addUsaha_button);
 
+        //to page TambahUsahaActivity
         addUsahaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
