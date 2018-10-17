@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.fragment.EventListFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.ProductListFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_agenda) {
 
         } else if (id == R.id.nav_kegiatan) {
-
+            doKegiatan();
         } else if (id == R.id.nav_undangan) {
 
         } else if (id == R.id.nav_share) {
@@ -110,8 +111,18 @@ public class MainActivity extends AppCompatActivity
         //fragment
         FragmentManager mFragmentManager = getSupportFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-        ProductListFragment mProductListFragment = new ProductListFragment();
-        mFragmentTransaction.replace(R.id.frame_container, mProductListFragment, ProductListFragment.class.getSimpleName());
+        ProductListFragment productListFragment = new ProductListFragment();
+        mFragmentTransaction.replace(R.id.frame_container, productListFragment, ProductListFragment.class.getSimpleName());
+        mFragmentTransaction.commit();
+        //fragment ^^^
+    }
+
+    public void doKegiatan(){
+        //fragment
+        FragmentManager mFragmentManager = getSupportFragmentManager();
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        EventListFragment eventListFragment = new EventListFragment();
+        mFragmentTransaction.replace(R.id.frame_container, eventListFragment, EventListFragment.class.getSimpleName());
         mFragmentTransaction.commit();
         //fragment ^^^
     }
