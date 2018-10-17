@@ -29,12 +29,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.Onboarding"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.BusinessListActivity" />
-        <activity android:name=".activity.ProductInput"></activity>
+        <activity android:name=".activity.ProductInput" />
+        <activity android:name=".activity.EventDetail"></activity>
     </application>
 
 </manifest>
