@@ -347,6 +347,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/instagram"
                             android:text=" @codepanda.id"
+                            android:enabled="false"
                             android:imeActionId="6"
                             android:imeActionLabel="@string/action_sign_in_short"
                             android:imeOptions="actionUnspecified"
