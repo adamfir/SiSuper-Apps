@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.fragment.BussinessProfileFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.EventListFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.ProductListFragment;
 
@@ -96,7 +97,12 @@ public class MainActivity extends AppCompatActivity
             doKegiatan();
         } else if (id == R.id.nav_undangan) {
 
+        }
+        else if (id == R.id.nav_profil_usaha) {
+            doProfilUsaha();
+
         } else if (id == R.id.nav_share) {
+            System.out.println("haha");
 
         } else if (id == R.id.nav_send) {
 
@@ -125,5 +131,15 @@ public class MainActivity extends AppCompatActivity
         mFragmentTransaction.replace(R.id.frame_container, eventListFragment, EventListFragment.class.getSimpleName());
         mFragmentTransaction.commit();
         //fragment ^^^
+    }
+
+    public void doProfilUsaha(){
+        //fragment
+        FragmentManager mFragmentManager = getSupportFragmentManager();
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        BussinessProfileFragment bussinessProfileFragment = new BussinessProfileFragment();
+        mFragmentTransaction.replace(R.id.frame_container, bussinessProfileFragment, BussinessProfileFragment.class.getSimpleName());
+        mFragmentTransaction.commit();
+        //fragment
     }
 }
