@@ -32,24 +32,26 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
-                android:textColorHint="@color/colorGray">
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayoutWhite"
+                android:textColorHint="@color/colorGray"
+                android:textColorHighlight="@color/colorGray"
+                >
 
                 <EditText
                     android:id="@+id/nama_usaha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/nama_usaha"
-                    android:text="@string/nama_usaha"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:selectAllOnFocus="false"
                     android:singleLine="true"
+                    android:text="@string/nama_usaha"
                     android:textColor="@color/colorBlack"
                     android:textColorLink="@color/colorBlack"
-                    android:textColorHint="@color/colorGray"
                     android:theme="@style/InputBlackLine" />
 
             </android.support.design.widget.TextInputLayout>
@@ -57,7 +59,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayoutWhite"
                 android:textColorHint="@color/colorGray">
 
                 <EditText
@@ -82,7 +84,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayoutWhite"
                 android:textColorHint="@color/colorGray">
 
                 <EditText
@@ -106,7 +108,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayoutWhite"
                 android:textColorHint="@color/colorGray">
 
                 <EditText
@@ -132,7 +134,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayoutWhite"
                 android:textColorHint="@color/colorGray">
 
                 <EditText
@@ -157,7 +159,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayoutWhite"
                 android:textColorHint="@color/colorGray">
 
                 <EditText
@@ -181,7 +183,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayoutWhite"
                 android:textColorHint="@color/colorGray">
 
                 <EditText
@@ -205,7 +207,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayoutWhite"
                 android:textColorHint="@color/colorGray">
 
                 <EditText
@@ -253,7 +255,7 @@
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                        app:hintTextAppearance="@style/TextAppearance.App.TextInputLayoutWhite"
                         android:textColorHint="@color/colorGray">
 
                         <EditText
@@ -277,7 +279,7 @@
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                        app:hintTextAppearance="@style/TextAppearance.App.TextInputLayoutWhite"
                         android:textColorHint="@color/colorGray">
 
                         <EditText
@@ -301,7 +303,7 @@
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                        app:hintTextAppearance="@style/TextAppearance.App.TextInputLayoutWhite"
                         android:textColorHint="@color/colorGray">
 
                         <EditText
@@ -325,7 +327,7 @@
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                        app:hintTextAppearance="@style/TextAppearance.App.TextInputLayoutWhite"
                         android:textColorHint="@color/colorGray">
 
                         <EditText
@@ -419,13 +421,5 @@
                 />
 
         </LinearLayout>
-
-
-
-
-
-
     </ScrollView>
-
-
 </LinearLayout>
