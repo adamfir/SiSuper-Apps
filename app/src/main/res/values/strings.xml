@@ -27,6 +27,8 @@
     <string name="nomor_telepon">Nomor Telepon</string>
     <string name="nama">Nama</string>
     <string name="alamat">Alamat</string>
+
+    <!-- strings related to Bussiness -->
     <string name="nama_usaha">Nama Usaha</string>
     <string name="undangan">Undangan : </string>
     <string name="tambah_produk">Tambah Produk</string>
@@ -34,4 +36,14 @@
     <string name="tanggal_waktu"><![CDATA[Tanggal & Waktu]]></string>
     <string name="lokasi">Lokasi</string>
     <string name="lorem_long">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="tambah_usaha">Tambah Usaha</string>
+    <string name="omzet_pertahun">Omzet Pertahun</string>
+    <string name="deskripsi_usaha">Deskripsi Usaha</string>
+    <string name="alamat_usaha">Alamat Usaha</string>
+    <string name="website">Website</string>
+    <string name="facebook">Facebook</string>
+    <string name="id_line">ID Line</string>
+    <string name="instagram">Instagram</string>
+    <string name="twitter">Twitter</string>
+    <string name="lama_usaha">Lama Usaha</string>
 </resources>
