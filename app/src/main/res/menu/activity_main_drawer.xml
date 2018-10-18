@@ -2,30 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_produkku"
-            android:icon="@drawable/ic_format_list_bulleted_black_24dp"
-            android:title="Produk-ku" />
-        <item
-            android:id="@+id/nav_agenda"
-            android:icon="@drawable/ic_event_black_24dp"
-            android:title="Agenda" />
-        <item
-            android:id="@+id/nav_kegiatan"
-            android:icon="@drawable/ic_event_available_black_24dp"
-            android:title="Kegiatan" />
-        <item
-            android:id="@+id/nav_undangan"
-            android:icon="@drawable/ic_mail_black_24dp"
-            android:title="Undangan" />
-    </group>
-
-
+    
     <item android:title="Usaha">
         <menu>
             <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_produkku"
+                    android:icon="@drawable/ic_format_list_bulleted_black_24dp"
+                    android:title="Produk-ku" />
+                <item
+                    android:id="@+id/nav_kegiatan"
+                    android:icon="@drawable/ic_event_available_black_24dp"
+                    android:title="Kegiatan" />
                 <item
                     android:id="@+id/nav_profil_usaha"
                     android:icon="@drawable/ic_store_black_24dp"
@@ -37,6 +25,14 @@
     <item android:title="Akun">
         <menu>
             <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_undangan"
+                    android:icon="@drawable/ic_mail_black_24dp"
+                    android:title="Undangan" />
+                <item
+                    android:id="@+id/nav_agenda"
+                    android:icon="@drawable/ic_event_black_24dp"
+                    android:title="Agenda" />
                 <item
                     android:id="@+id/nav_share"
                     android:icon="@drawable/ic_person_black_24dp"
