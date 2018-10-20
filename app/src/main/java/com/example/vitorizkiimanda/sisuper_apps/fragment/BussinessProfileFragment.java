@@ -3,10 +3,12 @@ package com.example.vitorizkiimanda.sisuper_apps.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
@@ -23,7 +25,6 @@ public class BussinessProfileFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,6 +40,16 @@ public class BussinessProfileFragment extends Fragment {
             }
         });
         // Inflate the layout for this fragment
+
+        //camera
+        Button addCertificate = view.findViewById(R.id.addCertificate);
+        addCertificate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 }
