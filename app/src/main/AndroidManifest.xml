@@ -29,9 +29,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.Onboarding"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activity.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -40,7 +38,8 @@
         <activity android:name=".activity.ProductInput" />
         <activity
             android:name=".activity.EventDetail"
-            android:label="@string/label_detail_kegiatan"></activity>
+            android:label="@string/label_detail_kegiatan" />
+        <activity android:name=".activity.EditProfileActivity"></activity>
     </application>
 
 </manifest>

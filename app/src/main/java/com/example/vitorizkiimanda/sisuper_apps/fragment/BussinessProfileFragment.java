@@ -41,8 +41,9 @@ public class BussinessProfileFragment extends Fragment {
         });
         // Inflate the layout for this fragment
 
+
         //camera
-        Button addCertificate = view.findViewById(R.id.addCertificate);
+        Button addCertificate = view.findViewById(R.id.add_certificate);
         addCertificate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,6 +51,10 @@ public class BussinessProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        //edit Profile
+        Button editProfile = view.findViewById(R.id.edit_profile);
+        
         return view;
     }
 }
