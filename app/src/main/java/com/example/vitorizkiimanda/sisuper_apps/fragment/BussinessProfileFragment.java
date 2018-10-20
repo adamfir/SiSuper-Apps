@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
+import com.example.vitorizkiimanda.sisuper_apps.activity.EditProfileActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.MainActivity;
 
@@ -54,7 +55,14 @@ public class BussinessProfileFragment extends Fragment {
 
         //edit Profile
         Button editProfile = view.findViewById(R.id.edit_profile);
-        
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moveIntent = new Intent(getActivity(), EditProfileActivity.class);
+                startActivity(moveIntent);
+            }
+        });
+
         return view;
     }
 }
