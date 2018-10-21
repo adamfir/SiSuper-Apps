@@ -97,8 +97,7 @@ public class MainActivity extends AppCompatActivity
             doKegiatan();
         } else if (id == R.id.nav_undangan) {
 
-        }
-        else if (id == R.id.nav_profil_usaha) {
+        } else if (id == R.id.nav_profil_usaha) {
             doProfilUsaha();
 
         } else if (id == R.id.nav_share) {
