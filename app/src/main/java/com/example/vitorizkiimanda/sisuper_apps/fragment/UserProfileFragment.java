@@ -16,7 +16,6 @@ import android.widget.Button;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
-import com.example.vitorizkiimanda.sisuper_apps.activity.EditProfileActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.EditUserProfile;
 import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.TambahUsahaActivity;

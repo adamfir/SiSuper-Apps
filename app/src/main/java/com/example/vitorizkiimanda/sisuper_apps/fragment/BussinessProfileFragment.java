@@ -18,7 +18,8 @@ import android.widget.Button;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
-import com.example.vitorizkiimanda.sisuper_apps.activity.EditProfileActivity;
+import com.example.vitorizkiimanda.sisuper_apps.activity.EditBussinessProfile;
+
 import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.MainActivity;
 
@@ -44,13 +45,14 @@ public class BussinessProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_bussiness_profile, container, false);
-        final View Logout = view.findViewById(R.id.logout);
+        View Logout = view.findViewById(R.id.logout);
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogOut();
+            LogOut();
             }
         });
+        // Inflate the layout for this fragment
 
 
         //camera
@@ -69,7 +71,7 @@ public class BussinessProfileFragment extends Fragment {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent moveIntent = new Intent(getActivity(), EditProfileActivity.class);
+                Intent moveIntent = new Intent(getActivity(), EditBussinessProfile.class);
                 startActivity(moveIntent);
             }
         });

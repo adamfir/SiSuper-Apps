@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.ProductListFragment;
 
-public class EditProfileActivity extends AppCompatActivity {
+public class EditBussinessProfile extends AppCompatActivity {
     private ImageView photoProfile;
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     @Override
@@ -57,7 +57,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private void SelectImage(){
         final CharSequence[] items = {"Camera", "Gallery", "Cancel"};
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditBussinessProfile.this);
         builder.setTitle("Select Method");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
