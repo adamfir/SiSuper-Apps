@@ -51,7 +51,6 @@ public class BussinessProfileFragment extends Fragment {
                 LogOut();
             }
         });
-        // Inflate the layout for this fragment
 
 
         //camera

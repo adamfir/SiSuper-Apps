@@ -15,7 +15,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
+import com.example.vitorizkiimanda.sisuper_apps.activity.EditProfileActivity;
+import com.example.vitorizkiimanda.sisuper_apps.activity.EditUserProfile;
 import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
+import com.example.vitorizkiimanda.sisuper_apps.activity.TambahUsahaActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,7 +52,19 @@ public class UserProfileFragment extends Fragment {
                 LogOut();
             }
         });
-        // Inflate the layout for this fragment
+
+
+        //move to EditProfileUser
+        Button editProfile = view.findViewById(R.id.edit_profile);
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent moveIntent = new Intent(getActivity(), EditUserProfile.class);
+                startActivity(moveIntent);
+            }
+        });
+
 
 
         //camera
@@ -56,8 +72,6 @@ public class UserProfileFragment extends Fragment {
         addCertificate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //startActivity(intent);
                 SelectImage();
             }
         });
