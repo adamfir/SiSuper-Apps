@@ -19,6 +19,7 @@ import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.BussinessProfileFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.EventListFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.ProductListFragment;
+import com.example.vitorizkiimanda.sisuper_apps.fragment.UserProfileFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -100,8 +101,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_profil_usaha) {
             doProfilUsaha();
 
-        } else if (id == R.id.nav_share) {
-            System.out.println("haha");
+        } else if (id == R.id.nav_profil_akun) {
+            doUserProfle();
 
         } else if (id == R.id.nav_send) {
 
@@ -140,5 +141,14 @@ public class MainActivity extends AppCompatActivity
         mFragmentTransaction.replace(R.id.frame_container, bussinessProfileFragment, BussinessProfileFragment.class.getSimpleName());
         mFragmentTransaction.commit();
         //fragment
+    }
+
+    public void doUserProfle(){
+        //fragment
+        FragmentManager mFragmentManager = getSupportFragmentManager();
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        UserProfileFragment userProfileFragment = new UserProfileFragment();
+        mFragmentTransaction.replace(R.id.frame_container, userProfileFragment, UserProfileFragment.class.getSimpleName());
+        mFragmentTransaction.commit();
     }
 }
