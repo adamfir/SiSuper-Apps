@@ -44,13 +44,11 @@ public class BussinessProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_bussiness_profile, container, false);
-        View Logout = view.findViewById(R.id.logout);
+        final View Logout = view.findViewById(R.id.logout);
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent moveIntent = new Intent(getActivity(), LoginActivity.class);
-                moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(moveIntent);
+                LogOut();
             }
         });
         // Inflate the layout for this fragment
@@ -103,6 +101,30 @@ public class BussinessProfileFragment extends Fragment {
             }
         });
         builder.show();
+    }
+
+    private void LogOut(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+        builder.setMessage("Are You sure want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent moveIntent = new Intent(getActivity(), LoginActivity.class);
+                        moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(moveIntent);
+                    }
+                })
+
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
 
