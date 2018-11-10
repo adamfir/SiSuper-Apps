@@ -18,15 +18,16 @@
         >
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:src="@drawable/example"
+            android:layout_height="200dp"
+            android:src="@drawable/logo"
+            android:background="@color/colorPurpleDark"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:paddingBottom="5dp"
-            android:drawableStart="@drawable/ic_mail_black_24dp"
+            android:drawableLeft="@drawable/ic_date_range_black_24dp"
             android:textColor="@color/colorBlack"
             android:text="2018 - 05 - 03"
             />
@@ -48,6 +49,7 @@
             android:text="Gedung MUI yang Halal"
             android:paddingLeft="10dp"
             android:paddingBottom="5dp"
+            android:drawableLeft="@drawable/ic_pin_drop_black_24dp"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/font_medium"
             />
