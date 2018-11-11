@@ -31,10 +31,19 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.vitorizkiimanda.sisuper_apps.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -237,9 +246,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
 
-            Intent moveIntent = new Intent(LoginActivity.this, BusinessListActivity.class);
-            moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(moveIntent);
         }
     }
 
@@ -355,6 +361,41 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
+
+            final String url = "http://sisuper.codepanda.web.id/users/signIn";
+            StringRequest postRequest  =  new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            //Log.d("Response", response);
+                            Toast.makeText(getApplication(), "Login Sukses", Toast.LENGTH_LONG).show();
+
+                            Intent moveIntent = new Intent(LoginActivity.this, BusinessListActivity.class);
+                            moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(moveIntent);
+                            showProgress(false);
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplication(), error+"", Toast.LENGTH_LONG).show();
+                        }
+                    }
+            ){
+                @Override
+                protected Map<String, String> getParams()
+                {
+                    Map<String, String>  params = new HashMap<String, String>();
+                    params.put("email", mEmail);
+                    params.put("password", mPassword);
+
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
+            requestQueue.add(postRequest);
         }
 
         @Override
@@ -363,7 +404,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             try {
                 // Simulate network access.
-                Thread.sleep(2000);
+                Thread.sleep(4000);
             } catch (InterruptedException e) {
                 return false;
             }
