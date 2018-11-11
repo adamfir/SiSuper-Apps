@@ -374,6 +374,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             //Log.d("Response", response);
                             Toast.makeText(getApplication(), "Login Sukses", Toast.LENGTH_LONG).show();
 
+                            System.out.println("haha " + response);
+
                             Intent moveIntent = new Intent(LoginActivity.this, BusinessListActivity.class);
                             moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(moveIntent);
@@ -384,7 +386,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplication(), error+"", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplication(), "Internal Server Error", Toast.LENGTH_LONG).show();
+
                         }
                     }
             ){
@@ -405,7 +408,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-
+            final boolean param;
             try {
                 // Simulate network access.
                 login();
@@ -435,7 +438,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                finish();
+                //finish();
+                System.out.println("yaan " + success);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
