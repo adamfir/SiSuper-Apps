@@ -34,7 +34,7 @@
                     android:icon="@drawable/ic_event_black_24dp"
                     android:title="Agenda" />
                 <item
-                    android:id="@+id/nav_share"
+                    android:id="@+id/nav_profil_akun"
                     android:icon="@drawable/ic_person_black_24dp"
                     android:title="Profil Akun" />
                 <item
