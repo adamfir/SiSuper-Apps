@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
@@ -18,19 +16,19 @@ import android.widget.Button;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
-import com.example.vitorizkiimanda.sisuper_apps.activity.EditBussinessProfile;
-
+import com.example.vitorizkiimanda.sisuper_apps.activity.EditUserProfile;
 import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
-import com.example.vitorizkiimanda.sisuper_apps.activity.MainActivity;
+import com.example.vitorizkiimanda.sisuper_apps.activity.TambahUsahaActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BussinessProfileFragment extends Fragment {
+public class UserProfileFragment extends Fragment {
+
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     Context mContext;
 
-    public BussinessProfileFragment() {
+    public UserProfileFragment() {
         // Required empty public constructor
     }
 
@@ -43,16 +41,29 @@ public class BussinessProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
-        View view = inflater.inflate(R.layout.fragment_bussiness_profile, container, false);
         View Logout = view.findViewById(R.id.logout);
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            LogOut();
+                LogOut();
             }
         });
-        // Inflate the layout for this fragment
+
+
+        //move to EditProfileUser
+        Button editProfile = view.findViewById(R.id.edit_profile);
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent moveIntent = new Intent(getActivity(), EditUserProfile.class);
+                startActivity(moveIntent);
+            }
+        });
+
 
 
         //camera
@@ -60,19 +71,7 @@ public class BussinessProfileFragment extends Fragment {
         addCertificate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //startActivity(intent);
                 SelectImage();
-            }
-        });
-
-        //edit Profile
-        Button editProfile = view.findViewById(R.id.edit_profile);
-        editProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveIntent = new Intent(getActivity(), EditBussinessProfile.class);
-                startActivity(moveIntent);
             }
         });
 
@@ -127,5 +126,6 @@ public class BussinessProfileFragment extends Fragment {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-}
 
+
+}

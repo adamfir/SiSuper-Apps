@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.camera2" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -29,9 +33,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.Onboarding"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -40,7 +42,9 @@
         <activity android:name=".activity.ProductInput" />
         <activity
             android:name=".activity.EventDetail"
-            android:label="@string/label_detail_kegiatan"></activity>
+            android:label="@string/label_detail_kegiatan" />
+        <activity android:name=".activity.EditBussinessProfile" />
+        <activity android:name=".activity.EditUserProfile"></activity>
     </application>
 
 </manifest>

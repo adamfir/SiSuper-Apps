@@ -25,6 +25,7 @@
             android:gravity="center_horizontal"
             >
             <ImageView
+                android:id="@+id/photo_profile"
                 android:layout_width="200dp"
                 android:layout_height="160dp"
                 android:src="@drawable/logo"
@@ -46,7 +47,6 @@
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="text"
-                    android:enabled="false"
                     android:maxLines="1"
                     android:selectAllOnFocus="false"
                     android:singleLine="true"
@@ -69,7 +69,6 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/lama_usaha"
                     android:text="20"
-                    android:enabled="false"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
@@ -95,7 +94,6 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/omzet_pertahun"
                     android:text="20,000,000"
-                    android:enabled="false"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
@@ -120,7 +118,6 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/deskripsi_usaha"
                     android:text="usaha yang makmur sentosa"
-                    android:enabled="false"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
@@ -146,7 +143,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/alamat_usaha"
-                    android:text="Jl. Raya Dramaga"
                     android:enabled="false"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
@@ -173,7 +169,6 @@
                     android:layout_height="wrap_content"
                     android:hint="Email Usaha"
                     android:text="usaha@mail.com"
-                    android:enabled="false"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
@@ -198,7 +193,6 @@
                     android:layout_height="wrap_content"
                     android:hint="Nomor Telepon Usaha"
                     android:text="085373318178"
-                    android:enabled="false"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
@@ -222,8 +216,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/website"
-                    android:text="http://codepanda.web.id"
-                    android:enabled="false"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
@@ -272,7 +264,6 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/facebook"
                             android:text="codepanda.id"
-                            android:enabled="false"
                             android:imeActionId="6"
                             android:imeActionLabel="@string/action_sign_in_short"
                             android:imeOptions="actionUnspecified"
@@ -297,7 +288,6 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/twitter"
                             android:text=" @codepanda.id"
-                            android:enabled="false"
                             android:imeActionId="6"
                             android:imeActionLabel="@string/action_sign_in_short"
                             android:imeOptions="actionUnspecified"
@@ -322,7 +312,6 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/id_line"
                             android:text=" @codepanda.id"
-                            android:enabled="false"
                             android:imeActionId="6"
                             android:imeActionLabel="@string/action_sign_in_short"
                             android:imeOptions="actionUnspecified"
@@ -347,7 +336,6 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/instagram"
                             android:text=" @codepanda.id"
-                            android:enabled="false"
                             android:imeActionId="6"
                             android:imeActionLabel="@string/action_sign_in_short"
                             android:imeOptions="actionUnspecified"
@@ -363,56 +351,8 @@
                 </LinearLayout>
 
             </android.support.constraint.ConstraintLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sertifikat ...."
-                android:textColor="@color/colorBlack"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:textStyle="bold"
-                android:textSize="10pt"
-                android:layout_marginTop="@dimen/margin_top"
-                />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="256dp"
-                android:src="@drawable/maskot"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sertifikat Wirausahawan"
-                android:textColor="@color/colorBlack"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:textStyle="bold"
-                android:textSize="10pt"
-                android:layout_marginTop="@dimen/margin_top"
-                />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="256dp"
-                android:src="@drawable/maskot" />
-
-
             <Button
-                android:id="@+id/add_certificate"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/colorPurpleDark"
-                android:text="TAMBAH SERTIFIKAT"
-                android:drawableStart="@drawable/ic_format_list_bulleted_black_24dp"
-                android:paddingLeft="80dp"
-                android:paddingRight="80dp"
-                android:textColor="@color/colorWhite"
-                />
-
-            <Button
-                android:id="@+id/edit_profile"
+                android:id="@+id/save_edit"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
@@ -420,20 +360,9 @@
                 android:paddingLeft="80dp"
                 android:paddingRight="80dp"
                 android:background="@color/colorPurpleDark"
-                android:text="SUNTING PROFIL"
+                android:text="SIMPAN"
                 android:textColor="@color/colorWhite"
                 />
-            <Button
-                android:id="@+id/logout"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/button_border_red"
-                android:text="KELUAR AKUN"
-                android:textStyle="bold"
-                android:textColor="@color/colorRed"
-                />
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
