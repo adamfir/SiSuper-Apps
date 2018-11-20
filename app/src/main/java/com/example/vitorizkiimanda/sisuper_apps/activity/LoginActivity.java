@@ -46,6 +46,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -76,11 +80,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    SessionManagement session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Session Manager
+        session = new SessionManagement(getApplicationContext());
+        session.checkLogin();
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -373,6 +383,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         public void onResponse(String response) {
                             //Log.d("Response", response);
                             Toast.makeText(getApplication(), "Login Sukses", Toast.LENGTH_LONG).show();
+                            try {
+                                JSONObject result = new JSONObject(response);
+                                String token = result.getString("token");
+                                JSONObject results = result.getJSONObject("result");
+                                session.createLoginSession(token, results);
+
+                                System.out.println(session.isLoggedIn());
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
 
                             System.out.println("haha " + response);
 
@@ -412,7 +434,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             try {
                 // Simulate network access.
                 login();
-                Thread.sleep(4000);
+                Thread.sleep(7000);
                 //System.out.println("masuk pak eko");
             } catch (InterruptedException e) {
                 return false;
