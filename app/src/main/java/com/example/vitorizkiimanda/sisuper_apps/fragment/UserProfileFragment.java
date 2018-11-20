@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
@@ -20,6 +21,8 @@ import com.example.vitorizkiimanda.sisuper_apps.activity.EditUserProfile;
 import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.TambahUsahaActivity;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +32,11 @@ public class UserProfileFragment extends Fragment {
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     Context mContext;
     SessionManagement session;
+    String Username;
+    String Email;
+    String Phone;
+    String Address;
+    String Image;
 
     public UserProfileFragment() {
         // Required empty public constructor
@@ -69,7 +77,19 @@ public class UserProfileFragment extends Fragment {
             }
         });
 
+        //get data from session
+        getData();
 
+        //parse data
+        EditText Usernames = (EditText) view.findViewById(R.id.nama);
+        EditText Emails = (EditText) view.findViewById(R.id.email);
+        EditText Phones = (EditText) view.findViewById(R.id.phone_user);
+        EditText Addresses = (EditText) view.findViewById(R.id.alamat_user);
+
+        Usernames.setText(Username);
+        Emails.setText(Email);
+        Phones.setText(Phone);
+        Addresses.setText(Address);
 
         //camera
         Button addCertificate = view.findViewById(R.id.add_certificate);
@@ -116,7 +136,6 @@ public class UserProfileFragment extends Fragment {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                         session.logoutUser();
                     }
                 })
@@ -129,6 +148,18 @@ public class UserProfileFragment extends Fragment {
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    public void getData(){
+        HashMap result = session.getUserDetails();
+        Username = (String) result.get("username");
+        Email = (String) result.get("email");
+        Address = (String) result.get("address");
+        Phone = (String) result.get("phone");
+        Image = (String) result.get("image");
+
+
+        System.out.println("hasil " + Username);
     }
 
 

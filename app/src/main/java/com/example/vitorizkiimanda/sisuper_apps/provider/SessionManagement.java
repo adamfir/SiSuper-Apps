@@ -102,10 +102,14 @@ public class SessionManagement {
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<String, String>();
         // user name
-        user.put(KEY_NAME, pref.getString(KEY_NAME, null));
-
+        user.put(KEY_TOKEN, pref.getString(KEY_TOKEN, null));
         // user email id
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+        user.put(KEY_ID, pref.getString(KEY_ID, null));
+        user.put(KEY_USERNAME, pref.getString(KEY_USERNAME, null));
+        user.put(KEY_PHONE, pref.getString(KEY_PHONE, null));
+        user.put(KEY_IMAGE, pref.getString(KEY_IMAGE, null));
+        user.put(KEY_ADDRESS, pref.getString(KEY_ADDRESS, null));
 
         // return user
         return user;
@@ -122,7 +126,7 @@ public class SessionManagement {
         // After logout redirect user to Loing Activity
         Intent i = new Intent(_context, LoginActivity.class);
         // Closing all the Activities
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
         // Add new Flag to start new Activity
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
