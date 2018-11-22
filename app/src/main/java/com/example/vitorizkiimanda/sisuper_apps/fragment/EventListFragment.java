@@ -1,10 +1,14 @@
 package com.example.vitorizkiimanda.sisuper_apps.fragment;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -100,7 +104,6 @@ public class EventListFragment extends Fragment {
         HashMap result = session.getUserDetails();
         token = (String) result.get("token");
         String URI = "http://sisuper.codepanda.web.id/events";
-
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -153,6 +156,7 @@ public class EventListFragment extends Fragment {
         };
         requestQueue.add(jsonObjectRequest);
     }
+
 
     public class getEventsTask extends AsyncTask<String, Void, Void>{
 
