@@ -51,6 +51,8 @@ public class EventListFragment extends Fragment {
     private EventListAdapter eventListAdapter;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
+    private View mProgressView;
+    private View mRcView;
 
 
 
@@ -64,8 +66,6 @@ public class EventListFragment extends Fragment {
         super.onAttach(activity);
         mContext = activity;
     }
-
-
 
 
     @Override
@@ -87,12 +87,15 @@ public class EventListFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(mLayoutManager);
 
+        mRcView = view.findViewById(R.id.event_list);
+        mProgressView = view.findViewById(R.id.events_progress);
         //session manager
         session = new SessionManagement(mContext);
         this.eventList = new ArrayList<>();
-
+        showProgress(true);
         getEventsTask getEventsTask = new getEventsTask();
         getEventsTask.execute();
+
 
 
 
@@ -155,6 +158,44 @@ public class EventListFragment extends Fragment {
             }
         };
         requestQueue.add(jsonObjectRequest);
+
+    }
+
+
+    /**
+     * Shows the progress UI and hides the login form.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mRcView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mRcView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mRcView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mRcView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
     }
 
 
@@ -164,6 +205,12 @@ public class EventListFragment extends Fragment {
         protected Void doInBackground(String... strings) {
             getData();
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            //super.onPostExecute(aVoid);
+            showProgress(false);
         }
     }
 
