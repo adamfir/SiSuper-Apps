@@ -20,8 +20,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     private static final String TAG = "EventListAdapter";
     private Context context;
     private ArrayList<EventClass> eventList;
-    private AdapterView.OnItemClickListener mListener;
-
+    private OnItemClickListener mListener;
 
     public EventListAdapter(Context context, ArrayList<EventClass> eventList){
         this.context = context;
@@ -33,7 +32,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){
-        this.mListener = (AdapterView.OnItemClickListener) listener;
+        this.mListener = listener;
     }
 
 
@@ -82,6 +81,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                 public void onClick(View view) {
                     if(mListener != null){
                         int position = getAdapterPosition();
+                        mListener.onItemClick(position);
 
                     }
                 }

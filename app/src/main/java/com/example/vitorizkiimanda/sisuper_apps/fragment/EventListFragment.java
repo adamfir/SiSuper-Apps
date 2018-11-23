@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,10 +44,11 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventListFragment extends Fragment {
+public class EventListFragment extends Fragment implements EventListAdapter.OnItemClickListener{
     SessionManagement session;
     Context mContext;
     String token;
+    private String TAG = "MainActivity";
     private ArrayList<EventClass> eventList;
     private EventListAdapter eventListAdapter;
     private RecyclerView recyclerView;
@@ -132,6 +134,7 @@ public class EventListFragment extends Fragment {
                             }
                             eventListAdapter = new EventListAdapter(mContext, eventList);
                             recyclerView.setAdapter(eventListAdapter);
+                            eventListAdapter.setOnItemClickListener(EventListFragment.this);
 
 
                         } catch (JSONException e) {
@@ -212,6 +215,15 @@ public class EventListFragment extends Fragment {
             //super.onPostExecute(aVoid);
             showProgress(false);
         }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(mContext, EventDetail.class);
+        EventClass clickedItem = eventList.get(position);
+        System.out.println("haha"+clickedItem);
+//        intent.putExtra("model", clickedItem);
+//        startActivity(intent);
     }
 
 }
