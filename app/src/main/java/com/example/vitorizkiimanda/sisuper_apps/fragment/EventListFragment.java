@@ -129,12 +129,15 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
                                 eventClass.setEventName(data.getString("name"));
                                 eventClass.setEventPlace(data.getString("location"));
                                 eventClass.setDate(data.getString("date"));
+                                eventClass.setOrganized(data.getString("organized_by"));
+                                eventClass.setDescription(data.getString("description"));
 
                                 eventList.add(eventClass);
                             }
                             eventListAdapter = new EventListAdapter(mContext, eventList);
                             recyclerView.setAdapter(eventListAdapter);
                             eventListAdapter.setOnItemClickListener(EventListFragment.this);
+                            showProgress(false);
 
 
                         } catch (JSONException e) {
@@ -206,14 +209,17 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
 
         @Override
         protected Void doInBackground(String... strings) {
+
             getData();
+
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             //super.onPostExecute(aVoid);
-            showProgress(false);
+            //showProgress(false);
+
         }
     }
 
@@ -222,8 +228,8 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
         Intent intent = new Intent(mContext, EventDetail.class);
         EventClass clickedItem = eventList.get(position);
         System.out.println("haha"+clickedItem);
-//        intent.putExtra("model", clickedItem);
-//        startActivity(intent);
+        intent.putExtra("model", clickedItem);
+        startActivity(intent);
     }
 
 }

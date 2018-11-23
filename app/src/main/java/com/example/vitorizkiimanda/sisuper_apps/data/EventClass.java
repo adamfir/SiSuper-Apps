@@ -9,12 +9,17 @@ public class EventClass implements Parcelable {
     private String date;
     private String eventName;
     private String eventPlace;
+    private String organized;
+    private String description;
 
     public EventClass(){
         this.image = "";
         this.date = "";
         this.eventName = "";
         this.eventPlace = "";
+        this.organized = "";
+        this.description = "";
+
     }
 
     public String getImage() {
@@ -49,11 +54,29 @@ public class EventClass implements Parcelable {
         this.eventPlace = eventPlace;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getOrganized() {
+        return organized;
+    }
+
+    public void setOrganized(String organized) {
+        this.organized = organized;
+    }
+
     protected EventClass(Parcel in) {
         this.image = in.readString();
         this.date = in.readString();
         this.eventName = in.readString();
         this.eventPlace = in.readString();
+        this.description = in.readString();
+        this.organized = in.readString();
     }
 
     public static final Creator<EventClass> CREATOR = new Creator<EventClass>() {
@@ -79,5 +102,7 @@ public class EventClass implements Parcelable {
         parcel.writeString(this.date);
         parcel.writeString(this.eventName);
         parcel.writeString(this.eventPlace);
+        parcel.writeString(this.description);
+        parcel.writeString(this.organized);
     }
 }
