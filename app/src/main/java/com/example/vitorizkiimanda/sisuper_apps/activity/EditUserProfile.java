@@ -79,6 +79,7 @@ public class EditUserProfile extends AppCompatActivity {
                 String editAddress = Addresses.getText().toString();
                 String editPhones = Phones.getText().toString();
 
+                showProgress(true);
                 editProfileJobs = new editProfileTask(editAddress, editPhones, Token, ID);
                 editProfileJobs.execute((Void) null);
             }
@@ -113,14 +114,14 @@ public class EditUserProfile extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mScrollView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
+//            mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
+//            mScrollView.animate().setDuration(shortAnimTime).alpha(
+//                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+//                @Override
+//                public void onAnimationEnd(Animator animation) {
+//                    mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
+//                }
+//            });
 
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
@@ -134,7 +135,7 @@ public class EditUserProfile extends AppCompatActivity {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
+//            mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 
@@ -173,6 +174,7 @@ public class EditUserProfile extends AppCompatActivity {
                                 System.out.println(mId + " " + mToken + " " + mPhone);
                                 System.out.println(result);
                                 Toast.makeText(getApplication(), "Edit Profile Sukses", Toast.LENGTH_LONG).show();
+                                showProgress(false);
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -185,7 +187,7 @@ public class EditUserProfile extends AppCompatActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Toast.makeText(getApplication(), "Internal Server Error", Toast.LENGTH_LONG).show();
-
+                            showProgress(false);
                         }
                     }
             ){
