@@ -45,7 +45,9 @@
             android:name=".activity.EventDetail"
             android:label="@string/label_detail_kegiatan" />
         <activity android:name=".activity.EditBussinessProfile" />
-        <activity android:name=".activity.EditUserProfile"></activity>
+        <activity android:name=".activity.EditUserProfile"
+                  android:label="Edit User Profile"
+            ></activity>
     </application>
 
 </manifest>
