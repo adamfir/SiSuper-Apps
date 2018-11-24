@@ -33,7 +33,7 @@
                 android:gravity="center"
                 >
                 <EditText
-                    android:id="@+id/nama"
+                    android:id="@+id/name_user_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeActionId="6"
@@ -43,6 +43,7 @@
                     android:maxLines="1"
                     android:selectAllOnFocus="false"
                     android:singleLine="true"
+                    android:enabled="false"
                     android:gravity="center"
                     android:text="Ryan Azrian Syach"
                     android:textSize="25dp"
@@ -62,7 +63,7 @@
                 >
 
                 <EditText
-                    android:id="@+id/email"
+                    android:id="@+id/email_user_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
@@ -73,6 +74,7 @@
                     android:maxLines="1"
                     android:selectAllOnFocus="false"
                     android:singleLine="true"
+                    android:enabled="false"
                     android:text="azrian.ryan@gmail.com"
                     android:textColor="@color/colorBlack"
                     android:textColorLink="@color/colorBlack"
@@ -89,7 +91,7 @@
                 >
 
                 <EditText
-                    android:id="@+id/phone_user"
+                    android:id="@+id/phone_user_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/nomor_telepon"
@@ -114,7 +116,7 @@
                 android:textColorHint="@color/colorGray">
 
                 <EditText
-                    android:id="@+id/alamat_user"
+                    android:id="@+id/address_user_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/alamat_usaha"
