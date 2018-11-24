@@ -42,6 +42,7 @@ public class SessionManagement {
     public static final String KEY_ADDRESS = "address";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_TOKEN = "token";
+    public static final String KEY_PASSWORD = "password";
 
 
 
@@ -67,6 +68,7 @@ public class SessionManagement {
         editor.putString(KEY_PHONE, result.getString("phone"));
         editor.putString(KEY_ADDRESS, result.getString("address"));
         editor.putString(KEY_IMAGE, result.getString("image"));
+        editor.putString(KEY_PASSWORD, result.getString("password"));
 
         // commit changes
         editor.commit();
@@ -110,6 +112,7 @@ public class SessionManagement {
         user.put(KEY_PHONE, pref.getString(KEY_PHONE, null));
         user.put(KEY_IMAGE, pref.getString(KEY_IMAGE, null));
         user.put(KEY_ADDRESS, pref.getString(KEY_ADDRESS, null));
+        user.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null));
 
         // return user
         return user;
