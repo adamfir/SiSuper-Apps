@@ -41,7 +41,6 @@ public class EditUserProfile extends AppCompatActivity {
 
     private View mScrollView;
     private View mProgressView;
-
     private editProfileTask editProfileJobs = null;
 
     @Override
@@ -163,6 +162,7 @@ public class EditUserProfile extends AppCompatActivity {
                                 JSONObject result = new JSONObject(response);
                                 System.out.println(mId + " " + mToken + " " + mPhone);
                                 System.out.println(result);
+                                session.updateSession(mAddress, mPhone);
                                 Toast.makeText(getApplication(), "Edit Profile Sukses", Toast.LENGTH_LONG).show();
                                 showProgress(false);
 

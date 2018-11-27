@@ -84,6 +84,28 @@
                 android:layout_marginTop="5dp"
                 />
 
+            <Button
+                android:id="@+id/edit_edit_produk"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="80dp"
+                android:paddingRight="80dp"
+                android:background="@color/colorPurpleDark"
+                android:text="UBAH"
+                android:textColor="@color/colorWhite"
+                />
+            <Button
+                android:id="@+id/delete_edit_produk"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorRed"
+                android:text="HAPUS"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                />
+
 
 
         </LinearLayout>

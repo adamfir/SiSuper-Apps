@@ -74,6 +74,12 @@ public class SessionManagement {
         editor.commit();
     }
 
+    public void updateSession(String Address, String Phone){
+        editor.putString(KEY_ADDRESS, Address);
+        editor.putString(KEY_PHONE, Phone);
+        editor.commit();
+    }
+
     /**
      * Check login method wil check user login status
      * If false it will redirect user to login page

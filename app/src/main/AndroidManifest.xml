@@ -47,7 +47,9 @@
         <activity
             android:name=".activity.EditUserProfile"
             android:label="Edit User Profile" />
-        <activity android:name=".activity.EditProduct"></activity>
+        <activity android:name=".activity.EditProduct"
+                  android:label="Edit Produk"
+            ></activity>
     </application>
 
 </manifest>
