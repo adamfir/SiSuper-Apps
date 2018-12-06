@@ -14,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.EditUserProfile;
@@ -37,6 +39,8 @@ public class UserProfileFragment extends Fragment {
     String Phone;
     String Address;
     String Image;
+    String Id;
+
 
     public UserProfileFragment() {
         // Required empty public constructor
@@ -78,18 +82,8 @@ public class UserProfileFragment extends Fragment {
         });
 
         //get data from session
-        getData();
+        getData(view);
 
-        //parse data
-        EditText Usernames = (EditText) view.findViewById(R.id.nama);
-        EditText Emails = (EditText) view.findViewById(R.id.email);
-        EditText Phones = (EditText) view.findViewById(R.id.phone_user);
-        EditText Addresses = (EditText) view.findViewById(R.id.alamat_user);
-
-        Usernames.setText(Username);
-        Emails.setText(Email);
-        Phones.setText(Phone);
-        Addresses.setText(Address);
 
         //camera
         Button addCertificate = view.findViewById(R.id.add_certificate);
@@ -150,17 +144,34 @@ public class UserProfileFragment extends Fragment {
         alertDialog.show();
     }
 
-    public void getData(){
+    public void getData(View view){
         HashMap result = session.getUserDetails();
+        Id = (String) result.get("id");
         Username = (String) result.get("username");
         Email = (String) result.get("email");
         Address = (String) result.get("address");
         Phone = (String) result.get("phone");
         Image = (String) result.get("image");
 
+        //parse data
+        EditText Usernames = (EditText) view.findViewById(R.id.nama);
+        EditText Emails = (EditText) view.findViewById(R.id.email);
+        EditText Phones = (EditText) view.findViewById(R.id.phone_user);
+        EditText Addresses = (EditText) view.findViewById(R.id.alamat_user);
+        ImageView Image = (ImageView) view.findViewById(R.id.UserProfileFragment_img);
 
-        System.out.println("hasil " + Username);
+        //set data to text
+        Usernames.setText(Username);
+        Emails.setText(Email);
+        Phones.setText(Phone);
+        Addresses.setText(Address);
+        Glide.with(view).load("http://sisuper.codepanda.web.id/users/profilePicture/" + Id).into(Image);
+
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData(getView());
+    }
 }

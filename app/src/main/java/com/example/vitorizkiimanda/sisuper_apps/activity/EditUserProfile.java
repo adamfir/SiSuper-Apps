@@ -3,14 +3,18 @@ package com.example.vitorizkiimanda.sisuper_apps.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -20,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
@@ -57,6 +62,7 @@ public class EditUserProfile extends AppCompatActivity {
         final EditText Phones = (EditText) findViewById(R.id.phone_user_edit);
         final EditText Addresses = (EditText) findViewById(R.id.address_user_edit);
         Button editProfile  = (Button) findViewById(R.id.button_user_edit);
+        ImageView Image = (ImageView) findViewById(R.id.image_user_edit);
         mScrollView = findViewById(R.id.profile_user_edit);
         mProgressView = findViewById(R.id.edit_user_progress);
 
@@ -68,6 +74,7 @@ public class EditUserProfile extends AppCompatActivity {
         Emails.setText(Email);
         Phones.setText(Phone);
         Addresses.setText(Address);
+        Glide.with(getApplicationContext()).load("http://sisuper.codepanda.web.id/users/profilePicture/" + ID).into(Image);
 
 
         editProfile.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +88,13 @@ public class EditUserProfile extends AppCompatActivity {
                 showProgress(true);
                 editProfileJobs = new editProfileTask(editAddress, editPhones, Token, ID);
                 editProfileJobs.execute((Void) null);
+            }
+        });
+
+        Image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SelectImage();
             }
         });
 
@@ -100,6 +114,32 @@ public class EditUserProfile extends AppCompatActivity {
 
 
         System.out.println("hasil " + ID);
+    }
+
+
+    private void SelectImage(){
+        final CharSequence[] items = {"Camera", "Gallery", "Cancel"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select Method");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(items[i].equals("Camera")){
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivity(intent);
+                }
+                else if (items[i].equals("Gallery")){
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    intent.setType("image/*");
+                    startActivity(intent.createChooser(intent, "Select File"));
+                }
+                else if (items[i].equals("Cancel")){
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+        builder.show();
     }
 
     /**
