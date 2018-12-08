@@ -3,8 +3,11 @@ package com.example.vitorizkiimanda.sisuper_apps.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -26,11 +29,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,9 +45,12 @@ public class EditUserProfile extends AppCompatActivity {
     String Email;
     String Phone;
     String Address;
-    String Image;
+    String Images;
     String ID;
     String Token;
+    Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
+    ImageView Image;
+    Bitmap bitmap;
 
     private View mScrollView;
     private View mProgressView;
@@ -62,7 +70,7 @@ public class EditUserProfile extends AppCompatActivity {
         final EditText Phones = (EditText) findViewById(R.id.phone_user_edit);
         final EditText Addresses = (EditText) findViewById(R.id.address_user_edit);
         Button editProfile  = (Button) findViewById(R.id.button_user_edit);
-        ImageView Image = (ImageView) findViewById(R.id.image_user_edit);
+        Image = (ImageView) findViewById(R.id.image_user_edit);
         mScrollView = findViewById(R.id.profile_user_edit);
         mProgressView = findViewById(R.id.edit_user_progress);
 
@@ -108,7 +116,7 @@ public class EditUserProfile extends AppCompatActivity {
         Email = (String) result.get("email");
         Address = (String) result.get("address");
         Phone = (String) result.get("phone");
-        Image = (String) result.get("image");
+        Images = (String) result.get("image");
         ID = (String) result.get("id");
         Token = (String) result.get("token");
 
@@ -127,12 +135,12 @@ public class EditUserProfile extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(items[i].equals("Camera")){
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivity(intent);
+                    startActivityForResult(intent, REQUEST_CAMERA);
                 }
                 else if (items[i].equals("Gallery")){
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/*");
-                    startActivity(intent.createChooser(intent, "Select File"));
+                    startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
                 }
                 else if (items[i].equals("Cancel")){
                     dialogInterface.dismiss();
@@ -140,6 +148,32 @@ public class EditUserProfile extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == Activity.RESULT_OK){
+
+            if (requestCode == REQUEST_CAMERA){
+                Bundle bundle = data.getExtras();
+                bitmap = (Bitmap) bundle.get("data");
+                Image.setImageBitmap(bitmap);
+
+            }
+            else if(requestCode == SELECT_FILE){
+                Uri selectImage = data.getData();
+                Image.setImageURI(selectImage);
+
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectImage);
+
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
@@ -190,7 +224,7 @@ public class EditUserProfile extends AppCompatActivity {
         }
 
         private void editProfile(){
-            final String url = "http://sisuper.codepanda.web.id/users/editProfile/" +mId;
+            final String url = EndPoints.ROOT_URL+"/users/editProfile/" +mId;
 
             StringRequest postRequest  =  new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
