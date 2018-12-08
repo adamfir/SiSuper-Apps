@@ -1,10 +1,25 @@
 package com.example.vitorizkiimanda.sisuper_apps.activity;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,6 +39,9 @@ import com.example.vitorizkiimanda.sisuper_apps.fragment.UserProfileFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    public static final int NOTIFICAITION_ID = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +69,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         doProdukku();
+        sendNotification(this, "test notif",
+                "lorem ipsum", 1001);
     }
 
     @Override
@@ -113,6 +133,42 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void sendNotification(Context context, String title, String desc, int id) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(
+                Context.NOTIFICATION_SERVICE);
+        Intent intent = new Intent(context, MainActivity.class);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, id, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Uri uriTone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                .setContentTitle(title)
+                .setContentText(desc)
+                .setContentIntent(pendingIntent)
+                .setColor(ContextCompat.getColor(context, android.R.color.transparent))
+                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
+                .setSound(uriTone);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel(
+                    "11001", "NOTIFICATION_CHANNEL_NAME",
+                    NotificationManager.IMPORTANCE_HIGH);
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.YELLOW);
+            notificationChannel.enableVibration(true);
+            notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+
+            builder.setChannelId("11001");
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+        notificationManager.notify(id, builder.build());
+
     }
 
     public void doProdukku(){
