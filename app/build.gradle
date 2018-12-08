@@ -35,4 +35,8 @@ dependencies {
     //recycler View
     implementation 'com.android.support:recyclerview-v7:27.1.1'
 
+    //android upload sercive
+    def uploadServiceVersion = "3.4.2"
+    implementation "net.gotev:uploadservice:2.1"
+
 }
