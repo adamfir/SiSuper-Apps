@@ -13,12 +13,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.EditUserProfile;
 import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.TambahUsahaActivity;
+import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +33,14 @@ public class UserProfileFragment extends Fragment {
 
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     Context mContext;
+    SessionManagement session;
+    String Username;
+    String Email;
+    String Phone;
+    String Address;
+    String Image;
+    String Id;
+
 
     public UserProfileFragment() {
         // Required empty public constructor
@@ -43,6 +57,9 @@ public class UserProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
+
+        // Session Manager
+        session = new SessionManagement(mContext);
 
         View Logout = view.findViewById(R.id.logout);
         Logout.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +81,8 @@ public class UserProfileFragment extends Fragment {
             }
         });
 
+        //get data from session
+        getData(view);
 
 
         //camera
@@ -111,9 +130,7 @@ public class UserProfileFragment extends Fragment {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent moveIntent = new Intent(getActivity(), LoginActivity.class);
-                        moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(moveIntent);
+                        session.logoutUser();
                     }
                 })
 
@@ -127,5 +144,34 @@ public class UserProfileFragment extends Fragment {
         alertDialog.show();
     }
 
+    public void getData(View view){
+        HashMap result = session.getUserDetails();
+        Id = (String) result.get("id");
+        Username = (String) result.get("username");
+        Email = (String) result.get("email");
+        Address = (String) result.get("address");
+        Phone = (String) result.get("phone");
+        Image = (String) result.get("image");
 
+        //parse data
+        EditText Usernames = (EditText) view.findViewById(R.id.nama);
+        EditText Emails = (EditText) view.findViewById(R.id.email);
+        EditText Phones = (EditText) view.findViewById(R.id.phone_user);
+        EditText Addresses = (EditText) view.findViewById(R.id.alamat_user);
+        ImageView Image = (ImageView) view.findViewById(R.id.UserProfileFragment_img);
+
+        //set data to text
+        Usernames.setText(Username);
+        Emails.setText(Email);
+        Phones.setText(Phone);
+        Addresses.setText(Address);
+        Glide.with(view).load("http://sisuper.codepanda.web.id/users/profilePicture/" + Id).into(Image);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData(getView());
+    }
 }

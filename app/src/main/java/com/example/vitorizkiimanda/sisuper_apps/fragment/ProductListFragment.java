@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.activity.EditProduct;
 import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.Onboarding;
 import com.example.vitorizkiimanda.sisuper_apps.activity.ProductInput;
@@ -42,7 +43,7 @@ public class ProductListFragment extends Fragment {
         editProductItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent moveIntent = new Intent(getActivity(), ProductInput.class);
+                Intent moveIntent = new Intent(getActivity(), EditProduct.class);
                 startActivity(moveIntent);
             }
         });

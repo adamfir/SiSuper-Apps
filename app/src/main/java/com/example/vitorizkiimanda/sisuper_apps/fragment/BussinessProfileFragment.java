@@ -22,6 +22,7 @@ import com.example.vitorizkiimanda.sisuper_apps.activity.EditBussinessProfile;
 
 import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.MainActivity;
+import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +30,8 @@ import com.example.vitorizkiimanda.sisuper_apps.activity.MainActivity;
 public class BussinessProfileFragment extends Fragment {
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     Context mContext;
+    SessionManagement session;
+
 
     public BussinessProfileFragment() {
         // Required empty public constructor
@@ -45,6 +48,10 @@ public class BussinessProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_bussiness_profile, container, false);
+
+        // Session Manager
+        session = new SessionManagement(mContext);
+
         View Logout = view.findViewById(R.id.logout);
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,9 +119,7 @@ public class BussinessProfileFragment extends Fragment {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent moveIntent = new Intent(getActivity(), LoginActivity.class);
-                        moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(moveIntent);
+                        session.logoutUser();
                     }
                 })
 
