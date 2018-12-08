@@ -34,7 +34,7 @@
                 android:textColorHint="@color/colorWhite">
 
                 <EditText
-                    android:id="@+id/name_input_product"
+                    android:id="@+id/product_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nama Produk"
@@ -47,6 +47,7 @@
                     android:textColor="@color/colorWhite"
                     android:textColorLink="@color/colorWhite"
                     android:theme="@style/InputWhiteLine"
+                    android:text="Bebek Geprek"
                     />
 
             </android.support.design.widget.TextInputLayout>
@@ -58,7 +59,7 @@
                 android:textColorHint="@color/colorWhite">
 
                 <EditText
-                    android:id="@+id/price_input_product"
+                    android:id="@+id/product_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Harga Produk (Rp.)"
@@ -71,6 +72,7 @@
                     android:textColor="@color/colorWhite"
                     android:textColorLink="@color/colorWhite"
                     android:theme="@style/InputWhiteLine"
+                    android:text="22000"
                     />
 
             </android.support.design.widget.TextInputLayout>
@@ -83,16 +85,27 @@
                 />
 
             <Button
-                android:id="@+id/add_input_product"
+                android:id="@+id/edit_edit_produk"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:paddingLeft="80dp"
                 android:paddingRight="80dp"
                 android:background="@color/colorPurpleDark"
-                android:text="TAMBAH"
+                android:text="UBAH"
                 android:textColor="@color/colorWhite"
                 />
+            <Button
+                android:id="@+id/delete_edit_produk"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorRed"
+                android:text="HAPUS"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                />
+
 
 
         </LinearLayout>

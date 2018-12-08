@@ -31,4 +31,8 @@
         <item name="android:textColor">@color/colorWhite</item>
     </style>
 
+    <style name="TextAppearance.App.TextInputLayoutWhite" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorGray</item>
+    </style>
+
 </resources>

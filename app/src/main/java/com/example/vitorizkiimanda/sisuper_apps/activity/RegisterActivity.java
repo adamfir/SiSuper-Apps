@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,10 +30,19 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.vitorizkiimanda.sisuper_apps.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -44,8 +54,10 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
     /**
      * Id to identity READ_CONTACTS permission request.
+     *
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+    //RequestQueue queue = Volley.newRequestQueue(this);
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -60,8 +72,12 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     private UserLoginTask mAuthTask = null;
 
     // UI references.
+    private EditText mUsername;
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
+    private EditText mAddress;
+    private EditText mPhone;
+
     private View mProgressView;
     private View mLoginFormView;
 
@@ -70,6 +86,8 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         // Set up the login form.
+
+        mUsername = (EditText) findViewById(R.id.username);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
@@ -85,11 +103,17 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             }
         });
 
+        mPhone = (EditText) findViewById(R.id.phone);
+        mAddress = (EditText) findViewById(R.id.address);
+
+
+
         Button mEmailSignInButton = (Button) findViewById(R.id.register);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                //attemptLogin();
+                attempRegister();
             }
         });
 
@@ -211,6 +235,101 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             startActivity(moveIntent);
         }
     }
+
+    private void register(final String username, final String email, final String password, final String phone, final String address){
+        final String url = "http://sisuper.codepanda.web.id/users/signUp";
+        StringRequest postRequest  =  new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //Log.d("Response", response);
+                        Toast.makeText(getApplication(), response, Toast.LENGTH_LONG).show();
+                        showProgress(false);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplication(), error+"", Toast.LENGTH_LONG).show();
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("username", username);
+                params.put("email", email);
+                params.put("password", password);
+                params.put("phone", phone);
+                params.put("address", address);
+
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(postRequest);
+    }
+
+
+
+
+    private void attempRegister(){
+        if (mAuthTask != null) {
+            return;
+        }
+
+        // Reset errors.
+        mEmailView.setError(null);
+        mPasswordView.setError(null);
+
+        // Store values at the time of the login attempt.
+        String username = mUsername.getText().toString();
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+        String phone = mPhone.getText().toString();
+        String address = mAddress.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // Check for a valid password, if the user entered one.
+        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+            showProgress(true);
+            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask.execute((Void) null);
+
+            register(username, email, password, phone, address);
+            //Intent moveIntent = new Intent(RegisterActivity.this, BusinessListActivity.class);
+            //moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            //startActivity(moveIntent);
+        }
+
+    }
+
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic

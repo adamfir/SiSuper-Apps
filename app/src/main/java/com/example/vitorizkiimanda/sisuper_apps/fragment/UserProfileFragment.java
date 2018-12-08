@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
@@ -15,25 +13,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
-import com.example.vitorizkiimanda.sisuper_apps.activity.EditBussinessProfile;
-
+import com.example.vitorizkiimanda.sisuper_apps.activity.EditUserProfile;
 import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
-import com.example.vitorizkiimanda.sisuper_apps.activity.MainActivity;
+import com.example.vitorizkiimanda.sisuper_apps.activity.TambahUsahaActivity;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BussinessProfileFragment extends Fragment {
+public class UserProfileFragment extends Fragment {
+
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     Context mContext;
     SessionManagement session;
+    String Username;
+    String Email;
+    String Phone;
+    String Address;
+    String Image;
+    String Id;
 
 
-    public BussinessProfileFragment() {
+    public UserProfileFragment() {
         // Required empty public constructor
     }
 
@@ -46,8 +55,8 @@ public class BussinessProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_bussiness_profile, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
         // Session Manager
         session = new SessionManagement(mContext);
@@ -56,10 +65,24 @@ public class BussinessProfileFragment extends Fragment {
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            LogOut();
+                LogOut();
             }
         });
-        // Inflate the layout for this fragment
+
+
+        //move to EditProfileUser
+        Button editProfile = view.findViewById(R.id.edit_profile);
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent moveIntent = new Intent(getActivity(), EditUserProfile.class);
+                startActivity(moveIntent);
+            }
+        });
+
+        //get data from session
+        getData(view);
 
 
         //camera
@@ -67,19 +90,7 @@ public class BussinessProfileFragment extends Fragment {
         addCertificate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //startActivity(intent);
                 SelectImage();
-            }
-        });
-
-        //edit Profile
-        Button editProfile = view.findViewById(R.id.edit_profile);
-        editProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveIntent = new Intent(getActivity(), EditBussinessProfile.class);
-                startActivity(moveIntent);
             }
         });
 
@@ -132,5 +143,35 @@ public class BussinessProfileFragment extends Fragment {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-}
 
+    public void getData(View view){
+        HashMap result = session.getUserDetails();
+        Id = (String) result.get("id");
+        Username = (String) result.get("username");
+        Email = (String) result.get("email");
+        Address = (String) result.get("address");
+        Phone = (String) result.get("phone");
+        Image = (String) result.get("image");
+
+        //parse data
+        EditText Usernames = (EditText) view.findViewById(R.id.nama);
+        EditText Emails = (EditText) view.findViewById(R.id.email);
+        EditText Phones = (EditText) view.findViewById(R.id.phone_user);
+        EditText Addresses = (EditText) view.findViewById(R.id.alamat_user);
+        ImageView Image = (ImageView) view.findViewById(R.id.UserProfileFragment_img);
+
+        //set data to text
+        Usernames.setText(Username);
+        Emails.setText(Email);
+        Phones.setText(Phone);
+        Addresses.setText(Address);
+        Glide.with(view).load("http://sisuper.codepanda.web.id/users/profilePicture/" + Id).into(Image);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData(getView());
+    }
+}

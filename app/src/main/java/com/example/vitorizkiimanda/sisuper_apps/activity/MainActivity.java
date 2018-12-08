@@ -16,9 +16,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.fragment.AgendaFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.BussinessProfileFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.EventListFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.ProductListFragment;
+import com.example.vitorizkiimanda.sisuper_apps.fragment.UserProfileFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -92,17 +94,17 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_produkku) {
             doProdukku();
         } else if (id == R.id.nav_agenda) {
+            doAgenda();
 
         } else if (id == R.id.nav_kegiatan) {
             doKegiatan();
         } else if (id == R.id.nav_undangan) {
 
-        }
-        else if (id == R.id.nav_profil_usaha) {
+        } else if (id == R.id.nav_profil_usaha) {
             doProfilUsaha();
 
-        } else if (id == R.id.nav_share) {
-            System.out.println("haha");
+        } else if (id == R.id.nav_profil_akun) {
+            doUserProfle();
 
         } else if (id == R.id.nav_send) {
 
@@ -142,4 +144,24 @@ public class MainActivity extends AppCompatActivity
         mFragmentTransaction.commit();
         //fragment
     }
+
+    public void doUserProfle(){
+        //fragment
+        FragmentManager mFragmentManager = getSupportFragmentManager();
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        UserProfileFragment userProfileFragment = new UserProfileFragment();
+        mFragmentTransaction.replace(R.id.frame_container, userProfileFragment, UserProfileFragment.class.getSimpleName());
+        mFragmentTransaction.commit();
+    }
+
+    public void doAgenda(){
+        //fragment
+        FragmentManager mFragmentManager = getSupportFragmentManager();
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        AgendaFragment agendaFragment = new AgendaFragment();
+        mFragmentTransaction.replace(R.id.frame_container, agendaFragment, AgendaFragment.class.getSimpleName());
+        mFragmentTransaction.commit();
+    }
+
+
 }
