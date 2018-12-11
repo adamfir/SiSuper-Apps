@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.signature.ObjectKey;
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.EditUserProfile;
@@ -165,7 +167,10 @@ public class UserProfileFragment extends Fragment {
         Emails.setText(Email);
         Phones.setText(Phone);
         Addresses.setText(Address);
-        Glide.with(view).load("http://sisuper.codepanda.web.id/users/profilePicture/" + Id).into(Image);
+        Glide.with(view)
+                .load("http://sisuper.codepanda.web.id/users/profilePicture/" + Id)
+                .apply(RequestOptions.signatureOf(new ObjectKey(Long.toString(System.currentTimeMillis()))))
+                .into(Image);
 
     }
 

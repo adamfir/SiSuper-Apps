@@ -34,6 +34,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.signature.ObjectKey;
 import com.example.vitorizkiimanda.sisuper_apps.BuildConfig;
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
@@ -48,6 +51,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -70,6 +74,7 @@ public class EditUserProfile extends AppCompatActivity {
     private editProfileTask editProfileJobs = null;
     private editImageTask editImageJobs = null;
     private static final int STORAGE_PERMISSION_CODE = 123;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +105,11 @@ public class EditUserProfile extends AppCompatActivity {
         Emails.setText(Email);
         Phones.setText(Phone);
         Addresses.setText(Address);
-        Glide.with(getApplicationContext()).load("http://sisuper.codepanda.web.id/users/profilePicture/" + ID).into(Image);
+        URI uri = URI.create("http://sisuper.codepanda.web.id/users/profilePicture/" + ID);
+        Glide.with(getApplicationContext())
+                .load(Uri.parse("http://sisuper.codepanda.web.id/users/profilePicture/" + ID))
+                .apply(RequestOptions.signatureOf(new ObjectKey(Long.toString(System.currentTimeMillis()))))
+                .into(Image);
 
 
         editProfile.setOnClickListener(new View.OnClickListener() {
@@ -234,6 +243,8 @@ public class EditUserProfile extends AppCompatActivity {
                     .setMaxRetries(2)
                     .startUpload(); //Starting the upload
 
+            Toast.makeText(this, "Upload Sukses", Toast.LENGTH_SHORT).show();
+
         } catch (Exception exc) {
             Toast.makeText(this, exc.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -252,6 +263,8 @@ public class EditUserProfile extends AppCompatActivity {
         //And finally ask for the permission
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
     }
+
+
 
 
 
