@@ -124,6 +124,7 @@ public class UserProfileFragment extends Fragment {
         builder.show();
     }
 
+
     private void LogOut(){
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
