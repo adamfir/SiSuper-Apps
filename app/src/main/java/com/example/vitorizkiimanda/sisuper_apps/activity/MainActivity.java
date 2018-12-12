@@ -237,9 +237,8 @@ public class MainActivity extends AppCompatActivity
 
 
     public void getDataUser(){
-        Log.d("get data profile", "masook");
-
         HashMap result = session.getUserDetails();
+        Log.d("get data profile", "masook"+result);
         Id = (String) result.get("id");
             Log.d("get data profile", "Id"+Id);
         Username = (String) result.get("username");
