@@ -107,10 +107,6 @@ public class EditUserProfile extends AppCompatActivity {
         mScrollView = findViewById(R.id.profile_user_edit);
         mProgressView = findViewById(R.id.edit_user_progress);
 
-        //camera
-//        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSION);
-//        }
 
         //get data
         getData();
@@ -120,7 +116,7 @@ public class EditUserProfile extends AppCompatActivity {
         Emails.setText(Email);
         Phones.setText(Phone);
         Addresses.setText(Address);
-        URI uri = URI.create("http://sisuper.codepanda.web.id/users/profilePicture/" + ID);
+        URI uri = URI.create(EndPoints.ROOT_URL + "/users/profilePicture/" + ID);
         Glide.with(getApplicationContext())
                 .load(Uri.parse("http://sisuper.codepanda.web.id/users/profilePicture/" + ID))
                 .apply(RequestOptions.signatureOf(new ObjectKey(Long.toString(System.currentTimeMillis()))))
@@ -253,7 +249,7 @@ public class EditUserProfile extends AppCompatActivity {
             String uploadId = UUID.randomUUID().toString();
 
             //Creating a multi part request
-            new MultipartUploadRequest(this, "1", "http://sisuper.codepanda.web.id/users/editProfilePicture/5be6c607474dd72b66cbdf81")
+            new MultipartUploadRequest(this, "1", EndPoints.ROOT_URL +"/users/editProfilePicture/" + ID)
                     .addFileToUpload(path, "userProfilePicture") //Adding file
                     .addHeader("Authorization", "Bearer " + Token)
                     .setMaxRetries(2)

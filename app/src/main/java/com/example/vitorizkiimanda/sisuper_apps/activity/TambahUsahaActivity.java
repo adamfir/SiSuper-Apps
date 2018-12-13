@@ -143,27 +143,8 @@ public class TambahUsahaActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(items[i].equals("Camera")){
-//                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                    startActivityForResult(intent, REQUEST_CAMERA);
-
-                    Intent pictureIntent = new Intent(
-                            MediaStore.ACTION_IMAGE_CAPTURE);
-                    if(pictureIntent.resolveActivity(getPackageManager()) != null){
-                        //Create a file to store the image
-                        File photoFile = null;
-                        try {
-                            photoFile = createImageFile();
-                        } catch (IOException ex) {
-                            // Error occurred while creating the File
-                        }
-                        if (photoFile != null) {
-                            System.out.println(photoFile);
-                            Uri photoURI = FileProvider.getUriForFile(TambahUsahaActivity.this,"com.example.vitorizkiimanda.sisuper_apps.provider", photoFile);
-                            System.out.println(photoURI);
-                            startActivityForResult(pictureIntent,
-                                    REQUEST_CAMERA);
-                        }
-                    }
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent, REQUEST_CAMERA);
                 }
                 else if (items[i].equals("Gallery")){
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -178,23 +159,6 @@ public class TambahUsahaActivity extends AppCompatActivity {
         builder.show();
     }
 
-
-    private File createImageFile() throws IOException {
-        String timeStamp =
-                new SimpleDateFormat("yyyyMMdd_HHmmss",
-                        Locale.getDefault()).format(new Date());
-        String imageFileName = "IMG_" + timeStamp + "_";
-        File storageDir =
-                getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        imageFilePath = image.getAbsolutePath();
-        return image;
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -270,8 +234,8 @@ public class TambahUsahaActivity extends AppCompatActivity {
                     .addParameter("userId", ID).addParameter("businessName", namaUsaha).addParameter("businessCategory", "haha")
                     .addParameter("establishedDate", lamaUsaha).addParameter("businessRevenue", omzetUsaha).addParameter("businessDescription", deskripsiUsaha)
                     .addParameter("businessAddress", alamatUsaha).addParameter("businessEmail", emailUsaha).addParameter("businessPhone", teleponUsaha)
-                    .addParameter("businessWebsite", websiteUsaha).addParameter("businessFacebook", facebookUsaha).addParameter("businessFacebook", facebookUsaha)
-                    .addParameter("businessTwitter", twitterUsaha).addParameter("businessLine", lineUsaha).addParameter("businessInstagram", instagramUsaha)
+                    .addParameter("businessSite", websiteUsaha).addParameter("businessFacebook", facebookUsaha).addParameter("businessTwitter", twitterUsaha)
+                    .addParameter("businessLine", lineUsaha).addParameter("businessInstagram", instagramUsaha)
                     .addHeader("Authorization", "Bearer " + Token)
                     .setMaxRetries(2)
                     .setNotificationConfig(new UploadNotificationConfig())
