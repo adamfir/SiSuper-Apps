@@ -1,5 +1,6 @@
 package com.example.vitorizkiimanda.sisuper_apps.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -31,6 +32,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.vitorizkiimanda.sisuper_apps.R;
@@ -44,6 +46,8 @@ import com.example.vitorizkiimanda.sisuper_apps.fragment.UserProfileFragment;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
 import java.util.HashMap;
+
+import static com.example.vitorizkiimanda.sisuper_apps.R.id.business_email;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -61,6 +65,10 @@ public class MainActivity extends AppCompatActivity
     private Bundle bundle;
     private BusinessClass model;
 
+    TextView Name;
+    View Emails;
+
+    @SuppressLint({"WrongViewCast", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +100,15 @@ public class MainActivity extends AppCompatActivity
 
         doProdukku();
 
+
+        //test
+//        Name = findViewById(R.id.business_name);
+//        Emails = findViewById(R.id.business_email);
+
+        Emails = navigationView.getHeaderView(0);
+        Name = (TextView) Emails.findViewById(R.id.business_name);
+        Name.setText("haha");
+//        System.out.println(Emails.getText());
 
         // Session Manager
         session = new SessionManagement(this);
