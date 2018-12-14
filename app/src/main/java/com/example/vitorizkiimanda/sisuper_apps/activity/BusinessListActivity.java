@@ -126,6 +126,11 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
                                 businessClass.setAlamatUsaha(event.getString("address"));
                                 businessClass.setEmailUsaha(event.getString("email"));
                                 businessClass.setTeleponUsaha(event.getString("phone"));
+                                businessClass.setWebsiteUsaha(event.getString("site"));
+                                businessClass.setFacebokUsaha(event.getString("facebook"));
+                                businessClass.setTwitterUsaha(event.getString("twitter"));
+                                businessClass.setLineUsaha(event.getString("line"));
+
 
                                 businessList.add(businessClass);
 

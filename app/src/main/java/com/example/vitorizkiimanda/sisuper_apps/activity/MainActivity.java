@@ -190,6 +190,9 @@ public class MainActivity extends AppCompatActivity
         FragmentManager mFragmentManager = getSupportFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         BussinessProfileFragment bussinessProfileFragment = new BussinessProfileFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("model", model);
+        bussinessProfileFragment.setArguments(bundle);
         mFragmentTransaction.replace(R.id.frame_container, bussinessProfileFragment, BussinessProfileFragment.class.getSimpleName());
         mFragmentTransaction.commit();
         //fragment

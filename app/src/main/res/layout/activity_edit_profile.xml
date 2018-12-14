@@ -39,7 +39,7 @@
                 >
 
                 <EditText
-                    android:id="@+id/nama_usaha"
+                    android:id="@+id/nama_usaha_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/nama_usaha"
@@ -64,7 +64,7 @@
                 android:textColorHint="@color/colorGray">
 
                 <EditText
-                    android:id="@+id/lama_usaha"
+                    android:id="@+id/lama_usaha_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/lama_usaha"
@@ -89,7 +89,7 @@
                 android:textColorHint="@color/colorGray">
 
                 <EditText
-                    android:id="@+id/omzet_pertahun"
+                    android:id="@+id/omzet_pertahun_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/omzet_pertahun"
@@ -113,7 +113,7 @@
                 android:textColorHint="@color/colorGray">
 
                 <EditText
-                    android:id="@+id/deskripsi_usaha"
+                    android:id="@+id/deskripsi_usaha_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/deskripsi_usaha"
@@ -139,7 +139,7 @@
                 android:textColorHint="@color/colorGray">
 
                 <EditText
-                    android:id="@+id/alamat_usaha"
+                    android:id="@+id/alamat_usaha_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/alamat_usaha"
@@ -164,7 +164,7 @@
                 android:textColorHint="@color/colorGray">
 
                 <EditText
-                    android:id="@+id/email_usaha"
+                    android:id="@+id/email_usaha_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email Usaha"
@@ -188,7 +188,7 @@
                 android:textColorHint="@color/colorGray">
 
                 <EditText
-                    android:id="@+id/no_telepon_usaha"
+                    android:id="@+id/no_telepon_usaha_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nomor Telepon Usaha"
@@ -212,7 +212,7 @@
                 android:textColorHint="@color/colorGray">
 
                 <EditText
-                    android:id="@+id/website_usaha"
+                    android:id="@+id/website_usaha_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/website"
@@ -259,7 +259,7 @@
                         android:textColorHint="@color/colorGray">
 
                         <EditText
-                            android:id="@+id/facebook"
+                            android:id="@+id/facebook_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/facebook"
@@ -283,7 +283,7 @@
                         android:textColorHint="@color/colorGray">
 
                         <EditText
-                            android:id="@+id/twitter"
+                            android:id="@+id/twitter_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/twitter"
@@ -307,7 +307,7 @@
                         android:textColorHint="@color/colorGray">
 
                         <EditText
-                            android:id="@+id/id_line"
+                            android:id="@+id/id_line_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/id_line"
@@ -331,7 +331,7 @@
                         android:textColorHint="@color/colorGray">
 
                         <EditText
-                            android:id="@+id/instagram"
+                            android:id="@+id/instagram_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/instagram"

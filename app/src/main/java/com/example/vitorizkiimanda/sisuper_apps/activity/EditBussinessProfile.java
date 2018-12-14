@@ -11,9 +11,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.data.BusinessClass;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.ProductListFragment;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
@@ -22,6 +24,22 @@ import java.util.HashMap;
 public class EditBussinessProfile extends AppCompatActivity {
     private ImageView photoProfile;
     SessionManagement session;
+    BusinessClass model;
+    Bundle bundle;
+
+    EditText NamaUsaha;
+    EditText LamaUsaha;
+    EditText OmzetUsaha;
+    EditText DeskripsiUsaha;
+    EditText AlamatUsaha;
+    EditText EmailUsaha;
+    EditText TeleponUsaha;
+    EditText WebsiteUsaha;
+    EditText FacebookUsaha;
+    EditText TwitterUsaha;
+    EditText LineUsaha;
+    EditText InstagramUsaha;
+    ImageView LogoUsaha;
 
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     @Override
@@ -29,8 +47,28 @@ public class EditBussinessProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        bundle = getIntent().getExtras();
+        model = bundle.getParcelable("model");
+        System.out.println(model.getID());
+
         //session
         session = new SessionManagement(this);
+
+        //parsing
+        NamaUsaha = findViewById(R.id.nama_usaha_edit);
+        LamaUsaha = findViewById(R.id.lama_usaha_edit);
+        OmzetUsaha = findViewById(R.id.omzet_pertahun_edit);
+        DeskripsiUsaha = findViewById(R.id.deskripsi_usaha_edit);
+        AlamatUsaha = findViewById(R.id.alamat_usaha_edit);
+        EmailUsaha = findViewById(R.id.email_usaha_edit);
+        TeleponUsaha = findViewById(R.id.no_telepon_usaha_edit);
+        WebsiteUsaha = findViewById(R.id.website_usaha_edit);
+        FacebookUsaha = findViewById(R.id.facebook_edit);
+        TwitterUsaha = findViewById(R.id.twitter_edit);
+        LineUsaha = findViewById(R.id.twitter_edit);
+        InstagramUsaha = findViewById(R.id.instagram_edit);
+        parsingData();
+
 
         //change photo profile
         photoProfile = findViewById(R.id.photo_profile);
@@ -44,7 +82,6 @@ public class EditBussinessProfile extends AppCompatActivity {
             }
         });
 
-        getData();
     }
 
     @Override
@@ -89,9 +126,20 @@ public class EditBussinessProfile extends AppCompatActivity {
         builder.show();
     }
 
-    public void getData(){
-        HashMap result = session.getBusiness();
-        String ID = (String) result.get("business");
-        System.out.println(ID);
+
+
+    public void parsingData(){
+        NamaUsaha.setText(model.getNamaUsaha());
+        LamaUsaha.setText(model.getLamaUsaha());
+        OmzetUsaha.setText(model.getOmzetUsaha());
+        DeskripsiUsaha.setText(model.getDeskripsiUsaha());
+        AlamatUsaha.setText(model.getAlamatUsaha());
+        EmailUsaha.setText(model.getEmailUsaha());
+        TeleponUsaha.setText(model.getTeleponUsaha());
+        WebsiteUsaha.setText(model.getWebsiteUsaha());
+        FacebookUsaha.setText(model.getFacebokUsaha());
+        TwitterUsaha.setText(model.getTwitterUsaha());
+        LineUsaha.setText(model.getLineUsaha());
+
     }
 }
