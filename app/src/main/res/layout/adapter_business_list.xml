@@ -6,7 +6,9 @@
     android:id="@+id/card_usaha"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_top"
+    android:layout_marginTop="@dimen/spacing_medium"
+    android:layout_marginLeft="@dimen/spacing_medium"
+    android:layout_marginRight="@dimen/spacing_medium"
     android:orientation="horizontal"
     android:background="@color/colorPurpleDark"
     >
