@@ -322,5 +322,11 @@ public class BussinessProfileFragment extends Fragment {
             return null;
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData();
+    }
 }
 

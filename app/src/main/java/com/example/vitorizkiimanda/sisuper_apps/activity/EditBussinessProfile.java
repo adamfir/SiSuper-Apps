@@ -165,7 +165,7 @@ public class EditBussinessProfile extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONObject results = new JSONObject(response);
-
+                            Toast.makeText(EditBussinessProfile.this, "Update Profile Sukses", Toast.LENGTH_LONG).show();
                             System.out.println(results);
 
                         } catch (JSONException e) {
