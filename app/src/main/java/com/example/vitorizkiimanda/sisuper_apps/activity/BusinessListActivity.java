@@ -130,11 +130,14 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
                                 businessClass.setFacebokUsaha(event.getString("facebook"));
                                 businessClass.setTwitterUsaha(event.getString("twitter"));
                                 businessClass.setLineUsaha(event.getString("line"));
+                                businessClass.setInstagramUsaha(event.getString("instagram"));
 
-
+                                System.out.println(businessClass.getLineUsaha());
                                 businessList.add(businessClass);
 
                             }
+
+
                             businessListAdapter = new BusinessListAdapter(getApplication(), businessList);
                             recyclerView.setAdapter(businessListAdapter);
                             businessListAdapter.setOnItemClickListener(BusinessListActivity.this);
@@ -231,8 +234,8 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
         moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         BusinessClass clickedItem = businessList.get(position);
 
-        String ID = clickedItem.getID();
-        session.businessSession(ID);
+        System.out.println("Line" +
+                " " +clickedItem.getLineUsaha());
         moveIntent.putExtra("model", clickedItem);
         startActivity(moveIntent);
     }

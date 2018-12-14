@@ -1,10 +1,14 @@
 package com.example.vitorizkiimanda.sisuper_apps.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -56,6 +60,8 @@ public class EditBussinessProfile extends AppCompatActivity {
     ImageView LogoUsaha;
     Button SaveEdit;
 
+    View mProgressView;
+
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +86,12 @@ public class EditBussinessProfile extends AppCompatActivity {
         WebsiteUsaha = findViewById(R.id.website_usaha_edit);
         FacebookUsaha = findViewById(R.id.facebook_edit);
         TwitterUsaha = findViewById(R.id.twitter_edit);
-        LineUsaha = findViewById(R.id.twitter_edit);
+        LineUsaha = findViewById(R.id.id_line_edit);
         InstagramUsaha = findViewById(R.id.instagram_edit);
         parsingData();
+
+        //progressview
+        mProgressView = findViewById(R.id.progress_edit_business_profile);
 
 
         //change photo profile
@@ -103,6 +112,7 @@ public class EditBussinessProfile extends AppCompatActivity {
         SaveEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showProgress(true);
                 updateBusinessProfile();
             }
         });
@@ -167,6 +177,7 @@ public class EditBussinessProfile extends AppCompatActivity {
                             JSONObject results = new JSONObject(response);
                             Toast.makeText(EditBussinessProfile.this, "Update Profile Sukses", Toast.LENGTH_LONG).show();
                             System.out.println(results);
+                            showProgress(false);
 
                         } catch (JSONException e) {
                             Toast.makeText(EditBussinessProfile.this, "Internal Server Error", Toast.LENGTH_LONG).show();
@@ -216,6 +227,33 @@ public class EditBussinessProfile extends AppCompatActivity {
         requestQueue.add(postRequest);
     }
 
+    /**
+     * Shows the progress UI and hides the login form.
+     */
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
+    }
+
 
 
     public void parsingData(){
@@ -230,6 +268,7 @@ public class EditBussinessProfile extends AppCompatActivity {
         FacebookUsaha.setText(model.getFacebokUsaha());
         TwitterUsaha.setText(model.getTwitterUsaha());
         LineUsaha.setText(model.getLineUsaha());
+        InstagramUsaha.setText(model.getInstagramUsaha());
 
     }
 }
