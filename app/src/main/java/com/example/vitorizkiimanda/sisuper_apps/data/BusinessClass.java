@@ -150,6 +150,8 @@ public class BusinessClass implements Parcelable{
 
 
     protected BusinessClass(Parcel in) {
+        this.ID = in.readString();
+        this.category = in.readString();
         this.namaUsaha = in.readString();
         this.lamaUsaha = in.readString();
         this.omzetUsaha = in.readString();
@@ -183,6 +185,8 @@ public class BusinessClass implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(this.ID);
+        parcel.writeString(this.category);
         parcel.writeString(this.namaUsaha);
         parcel.writeString(this.lamaUsaha);
         parcel.writeString(this.omzetUsaha);

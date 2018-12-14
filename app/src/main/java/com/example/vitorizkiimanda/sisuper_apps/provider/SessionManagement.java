@@ -43,6 +43,7 @@ public class SessionManagement {
     public static final String KEY_IMAGE = "image";
     public static final String KEY_TOKEN = "token";
     public static final String KEY_PASSWORD = "password";
+    public static final String KEY_BUSINESS = "business";
 
 
 
@@ -71,6 +72,11 @@ public class SessionManagement {
         editor.putString(KEY_PASSWORD, result.getString("password"));
 
         // commit changes
+        editor.commit();
+    }
+
+    public void businessSession(String ID){
+        editor.putString(KEY_BUSINESS, ID);
         editor.commit();
     }
 
@@ -122,6 +128,14 @@ public class SessionManagement {
 
         // return user
         return user;
+    }
+
+    public HashMap<String, String> getBusiness(){
+        HashMap<String, String> business = new HashMap<String, String>();
+
+        business.put(KEY_BUSINESS, pref.getString(KEY_BUSINESS, null));
+
+        return business;
     }
 
     /**

@@ -115,7 +115,6 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
 
                             for(int i = 0; i<events.length(); i++){
                                 JSONObject event = events.getJSONObject(i);
-                                System.out.println(event);
 
                                 BusinessClass businessClass = new BusinessClass();
                                 businessClass.setID(event.getString("_id"));
@@ -137,7 +136,6 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
                             Toast.makeText(getApplication(), "Edit Profile Sukses", Toast.LENGTH_LONG).show();
                             showProgress(false);
 
-                            System.out.println(result);
 
 
                         } catch (JSONException e) {
@@ -227,6 +225,9 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
         Intent moveIntent = new Intent(BusinessListActivity.this, MainActivity.class);
         moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         BusinessClass clickedItem = businessList.get(position);
+
+        String ID = clickedItem.getID();
+        session.businessSession(ID);
         moveIntent.putExtra("model", clickedItem);
         startActivity(moveIntent);
     }

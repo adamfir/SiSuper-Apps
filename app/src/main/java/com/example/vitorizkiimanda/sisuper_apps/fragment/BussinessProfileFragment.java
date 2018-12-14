@@ -24,6 +24,8 @@ import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.MainActivity;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
+import java.util.HashMap;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -83,6 +85,8 @@ public class BussinessProfileFragment extends Fragment {
             }
         });
 
+        getData();
+
         return view;
     }
 
@@ -109,6 +113,17 @@ public class BussinessProfileFragment extends Fragment {
             }
         });
         builder.show();
+    }
+
+    public void getData(){
+        HashMap result = session.getBusiness();
+        HashMap getToken = session.getUserDetails();
+        String Token = (String) getToken.get("token");
+        String ID = (String) result.get("business");
+
+
+
+
     }
 
     private void LogOut(){

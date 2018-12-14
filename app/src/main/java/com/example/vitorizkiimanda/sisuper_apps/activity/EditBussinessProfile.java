@@ -15,14 +15,22 @@ import android.widget.ImageView;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.ProductListFragment;
+import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
+
+import java.util.HashMap;
 
 public class EditBussinessProfile extends AppCompatActivity {
     private ImageView photoProfile;
+    SessionManagement session;
+
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
+        //session
+        session = new SessionManagement(this);
 
         //change photo profile
         photoProfile = findViewById(R.id.photo_profile);
@@ -35,6 +43,8 @@ public class EditBussinessProfile extends AppCompatActivity {
                 SelectImage();
             }
         });
+
+        getData();
     }
 
     @Override
@@ -77,5 +87,11 @@ public class EditBussinessProfile extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    public void getData(){
+        HashMap result = session.getBusiness();
+        String ID = (String) result.get("business");
+        System.out.println(ID);
     }
 }

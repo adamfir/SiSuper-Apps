@@ -34,6 +34,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.data.BusinessClass;
+import com.example.vitorizkiimanda.sisuper_apps.data.EventClass;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.AgendaFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.BussinessProfileFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.EventListFragment;
@@ -56,6 +58,9 @@ public class MainActivity extends AppCompatActivity
     String Id;
     String Certificate;
 
+    private Bundle bundle;
+    private BusinessClass model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +76,10 @@ public class MainActivity extends AppCompatActivity
 //                        .setAction("Action", null).show();
 //            }
 //        });
+
+        bundle = getIntent().getExtras();
+        model = bundle.getParcelable("model");
+        System.out.println(model.getID());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
