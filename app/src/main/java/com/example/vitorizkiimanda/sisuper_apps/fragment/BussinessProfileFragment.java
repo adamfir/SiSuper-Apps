@@ -252,11 +252,10 @@ public class BussinessProfileFragment extends Fragment {
 //                                    .load(EndPoints.ROOT_URL + "/business/getBusinessPicture/" + result.getString("logo"))
 //                                    .apply(RequestOptions.signatureOf(new ObjectKey(Long.toString(System.currentTimeMillis()))))
 //                                    .into(LogoUsaha);
-
                             System.out.println(result);
 
                         } catch (JSONException e) {
-                            Toast.makeText(mContext, "Retrieve Data Usaha Berhasil", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, "Internal Server Error", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
                         }
 

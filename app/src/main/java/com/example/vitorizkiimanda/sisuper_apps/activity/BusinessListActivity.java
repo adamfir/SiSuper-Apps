@@ -138,13 +138,13 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
                             businessListAdapter = new BusinessListAdapter(getApplication(), businessList);
                             recyclerView.setAdapter(businessListAdapter);
                             businessListAdapter.setOnItemClickListener(BusinessListActivity.this);
-                            Toast.makeText(getApplication(), "Edit Profile Sukses", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplication(), "Retrieve Data Usaha Berhasil", Toast.LENGTH_LONG).show();
                             showProgress(false);
 
 
 
                         } catch (JSONException e) {
-                            Toast.makeText(getApplication(), "Retrieve Data Usaha Berhasil", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplication(), "Internal Server Error", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
                         }
 
