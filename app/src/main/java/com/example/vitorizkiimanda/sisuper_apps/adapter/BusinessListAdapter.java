@@ -12,19 +12,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.data.BusinessClass;
 import com.example.vitorizkiimanda.sisuper_apps.data.EventClass;
 
 import java.util.ArrayList;
 
 public class BusinessListAdapter extends RecyclerView.Adapter<BusinessListAdapter.ViewHolder>{
-    private static final String TAG = "EventListAdapter";
+    private static final String TAG = "BusinessListAdapter";
     private Context context;
-    private ArrayList<EventClass> eventList;
+    private ArrayList<BusinessClass> businessList;
     private OnItemClickListener mListener;
 
-    public BusinessListAdapter(Context context, ArrayList<EventClass> eventList){
+    public BusinessListAdapter(Context context, ArrayList<BusinessClass> businessList){
         this.context = context;
-        this.eventList = eventList;
+        this.businessList = businessList;
     }
 
     public interface OnItemClickListener{
@@ -41,41 +42,49 @@ public class BusinessListAdapter extends RecyclerView.Adapter<BusinessListAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.adapter_list_evets, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.adapter_business_list, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        EventClass currentEvent = eventList.get(position);
+        BusinessClass currentBusiness = businessList.get(position);
 
-        String eventName = currentEvent.getEventName();
-        String eventDate = currentEvent.getDate();
-        String eventLocation = currentEvent.getEventPlace();
+        String namaUsaha = currentBusiness.getNamaUsaha();
+        String lamaUsaha = currentBusiness.getLamaUsaha();
+        String omzetUsaha = currentBusiness.getOmzetUsaha();
+        String deskripsiUsaha = currentBusiness.getDeskripsiUsaha();
+        String alamatUsaha = currentBusiness.getAlamatUsaha();
+        String emailUsaha = currentBusiness.getEmailUsaha();
+        String teleponUsaha = currentBusiness.getTeleponUsaha();
+        String websiteUsaha = currentBusiness.getWebsiteUsaha();
+        String lineUsaha = currentBusiness.getLineUsaha();
+        String facebookUsaha = currentBusiness.getFacebokUsaha();
+        String twitterUsaha = currentBusiness.getTwitterUsaha();
+        String instagramUsaha = currentBusiness.getInstagramUsaha();
 
-        holder.eventName.setText(eventName);
-        holder.eventPlace.setText(eventLocation);
-        holder.date.setText(eventDate);
+
+        holder.namaUsaha.setText(namaUsaha);
+//        holder.numberInvitation.setText(eventLocation);
+//        holder.date.setText(eventDate);
     }
 
     @Override
     public int getItemCount() {
-        return eventList.size();
+        return businessList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView image;
-        TextView date;
-        TextView eventName;
-        TextView eventPlace;
+        TextView namaUsaha;
+        TextView numberInvitation;
         RelativeLayout parentEventListLayout;
         public ViewHolder(View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.image_event_list);
-            date = itemView.findViewById(R.id.date_event_list);
-            eventName = itemView.findViewById(R.id.name_event_list);
-            eventPlace = itemView.findViewById(R.id.place_event_list);
+            image = itemView.findViewById(R.id.image_business_list);
+            namaUsaha = itemView.findViewById(R.id.name_business_list);
+            numberInvitation = itemView.findViewById(R.id.number_business_list);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

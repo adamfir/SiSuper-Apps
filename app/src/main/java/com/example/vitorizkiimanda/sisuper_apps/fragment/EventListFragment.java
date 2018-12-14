@@ -75,17 +75,6 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event_list, container, false);
-//        View eventItem = view.findViewById(R.id.event_item);
-//        eventItem.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent moveIntent = new Intent(getActivity(), EventDetail.class);
-//                startActivity(moveIntent);
-//            }
-//        });
-
-        recyclerView = view.findViewById(R.id.event_list);
-        recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(mLayoutManager);
 

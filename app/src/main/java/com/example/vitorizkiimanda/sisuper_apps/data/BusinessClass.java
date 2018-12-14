@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class BusinessClass implements Parcelable{
+    private String ID;
+    private String category;
     private String namaUsaha;
     private String lamaUsaha;
     private String omzetUsaha;
@@ -18,6 +20,8 @@ public class BusinessClass implements Parcelable{
     private String instagramUsaha;
 
     public BusinessClass(){
+        this.ID = "";
+        this.category = "";
         this.namaUsaha = "";
         this.lamaUsaha = "";
         this.omzetUsaha = "";
@@ -30,6 +34,22 @@ public class BusinessClass implements Parcelable{
         this.facebokUsaha = "";
         this.twitterUsaha = "";
         this.instagramUsaha = "";
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getNamaUsaha() {
