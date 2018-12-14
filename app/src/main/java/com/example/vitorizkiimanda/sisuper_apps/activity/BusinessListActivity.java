@@ -1,6 +1,11 @@
 package com.example.vitorizkiimanda.sisuper_apps.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,6 +48,7 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
     BusinessListAdapter businessListAdapter;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
+    private View mProgressView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +65,8 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getApplication());
         recyclerView.setLayoutManager(mLayoutManager);
+
+        mProgressView = findViewById(R.id.business_progress);
 
 
 
@@ -84,7 +92,9 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
                 startActivity(moveIntent);
             }
         });
-        getData();
+        showProgress(true);
+        BusinessListActivity.getBusinessTask getBusinessTask = new BusinessListActivity.getBusinessTask();
+        getBusinessTask.execute();
 
     }
 
@@ -124,11 +134,14 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
                             businessListAdapter = new BusinessListAdapter(getApplication(), businessList);
                             recyclerView.setAdapter(businessListAdapter);
                             businessListAdapter.setOnItemClickListener(BusinessListActivity.this);
+                            Toast.makeText(getApplication(), "Edit Profile Sukses", Toast.LENGTH_LONG).show();
+                            showProgress(false);
 
                             System.out.println(result);
 
 
                         } catch (JSONException e) {
+                            Toast.makeText(getApplication(), "Retrieve Data Usaha Berhasil", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
                         }
 
@@ -164,9 +177,58 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
         requestQueue.add(postRequest);
         }
 
+    /**
+     * Shows the progress UI and hides the login form.
+     */
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
+    }
+    public class getBusinessTask extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... strings) {
+
+            getData();
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            //super.onPostExecute(aVoid);
+            //showProgress(false);
+
+        }
+    }
+
+
     @Override
     public void onItemClick(int position) {
-
+        Intent moveIntent = new Intent(BusinessListActivity.this, MainActivity.class);
+        moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        BusinessClass clickedItem = businessList.get(position);
+        moveIntent.putExtra("model", clickedItem);
+        startActivity(moveIntent);
     }
 
 }
