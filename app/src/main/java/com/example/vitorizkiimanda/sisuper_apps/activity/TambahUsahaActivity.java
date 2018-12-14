@@ -423,6 +423,9 @@ public class TambahUsahaActivity extends AppCompatActivity {
             //your implementation
             Toast.makeText(TambahUsahaActivity.this, "Upload Sukses", Toast.LENGTH_SHORT).show();
             showProgress(false);
+
+            Intent moveIntent = new Intent(TambahUsahaActivity.this, BusinessListActivity.class);
+            startActivity(moveIntent);
         }
 
         @Override
