@@ -209,8 +209,8 @@ public class EditBussinessProfile extends AppCompatActivity {
                 params.put("businessSite", WebsiteUsaha.getText().toString());
                 params.put("businessFacebook", FacebookUsaha.getText().toString());
                 params.put("businessTwitter", TwitterUsaha.getText().toString());
+                params.put("businessLine", LineUsaha.getText().toString());
                 params.put("businessInstagram", InstagramUsaha.getText().toString());
-
                 return params;
             }
 

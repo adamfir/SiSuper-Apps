@@ -13,13 +13,13 @@
         android:background="@color/colorPurpleMedium"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/action_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+        <!--<Button-->
+            <!--android:id="@+id/action_button"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Button"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintRight_toRightOf="parent" />-->
 
         <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

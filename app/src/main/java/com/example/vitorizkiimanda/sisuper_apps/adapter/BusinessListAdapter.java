@@ -105,7 +105,6 @@ public class BusinessListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ImageView image;
         TextView namaUsaha;
         TextView numberInvitation;
-        RelativeLayout parentEventListLayout;
         public ViewHolderOne(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image_business_list);

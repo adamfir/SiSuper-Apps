@@ -4,13 +4,16 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -68,30 +71,6 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
 
         mProgressView = findViewById(R.id.business_progress);
 
-
-
-        View actionButton = findViewById(R.id.action_button);
-
-//        onClickListener
-        actionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveIntent = new Intent(BusinessListActivity.this, MainActivity.class);
-                moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(moveIntent);
-            }
-        });
-
-
-        //to page TambahUsahaActivity
-//        View addUsahaButton = findViewById(R.id.addUsaha_button);
-//        addUsahaButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent moveIntent = new Intent(BusinessListActivity.this, TambahUsahaActivity.class);
-//                startActivity(moveIntent);
-//            }
-//        });
         showProgress(true);
         BusinessListActivity.getBusinessTask getBusinessTask = new BusinessListActivity.getBusinessTask();
         getBusinessTask.execute();
@@ -112,6 +91,11 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
                         try {
                             JSONObject result = new JSONObject(response);
                             JSONArray events = result.getJSONArray("result");
+
+                            //marker
+                            BusinessClass businessClasses  = new BusinessClass();
+                            businessClasses.setID("null");
+                            businessList.add(businessClasses);
 
                             for(int i = 0; i<events.length(); i++){
                                 JSONObject event = events.getJSONObject(i);
@@ -136,25 +120,24 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
                                 businessList.add(businessClass);
                             }
 
-                            //marker
-                            BusinessClass businessClass  = new BusinessClass();
-                            businessClass.setID("null");
-                            businessList.add(businessClass);
+
 
                             businessListAdapter = new BusinessListAdapter(getApplication(), businessList);
                             recyclerView.setAdapter(businessListAdapter);
                             businessListAdapter.setOnItemClickListener(BusinessListActivity.this);
+
+                            //setDecoration
+                            float offsetPx = getResources().getDimension(R.dimen.padding);
+                            BottomOffsetDecoration bottomOffsetDecoration = new BottomOffsetDecoration((int) offsetPx);
+                            recyclerView.addItemDecoration(bottomOffsetDecoration);
+
                             Toast.makeText(getApplication(), "Retrieve Data Usaha Berhasil", Toast.LENGTH_LONG).show();
                             showProgress(false);
-
-
 
                         } catch (JSONException e) {
                             Toast.makeText(getApplication(), "Internal Server Error", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
                         }
-
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -241,6 +224,36 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
         startActivity(moveIntent);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        startActivity(a);
+    }
+
+    static class BottomOffsetDecoration extends RecyclerView.ItemDecoration {
+        private int mBottomOffset;
+
+        public BottomOffsetDecoration(int bottomOffset) {
+            mBottomOffset = bottomOffset;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+            int dataSize = state.getItemCount();
+            int position = parent.getChildAdapterPosition(view);
+            if (dataSize > 0 && position == dataSize - 1) {
+                outRect.set(0, 0, 0, mBottomOffset);
+            } else {
+                outRect.set(0, 0, 0, 0);
+            }
+
+        }
+    }
 
 }
+
+
 
