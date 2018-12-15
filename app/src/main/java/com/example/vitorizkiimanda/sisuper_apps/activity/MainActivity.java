@@ -66,7 +66,11 @@ public class MainActivity extends AppCompatActivity
     private BusinessClass model;
 
     TextView Name;
-    View Emails;
+    TextView Emails;
+
+    View headers;
+
+    HashMap businessData;
 
     @SuppressLint({"WrongViewCast", "SetTextI18n"})
     @Override
@@ -101,18 +105,18 @@ public class MainActivity extends AppCompatActivity
         doProdukku();
 
 
-        //test
-//        Name = findViewById(R.id.business_name);
-//        Emails = findViewById(R.id.business_email);
-
-        Emails = navigationView.getHeaderView(0);
-        Name = (TextView) Emails.findViewById(R.id.business_name);
-        Name.setText("haha");
-//        System.out.println(Emails.getText());
-
         // Session Manager
         session = new SessionManagement(this);
         getDataUser();
+        getDataBusiness();
+
+        headers = navigationView.getHeaderView(0);
+        Name = (TextView) headers.findViewById(R.id.business_name);
+        Emails = (TextView) headers.findViewById(R.id.business_email);
+        Name.setText(businessData.get("businessName").toString());
+        Emails.setText(businessData.get("businessEmail").toString());
+
+
     }
 
     @Override
@@ -293,6 +297,10 @@ public class MainActivity extends AppCompatActivity
                     "Lengkapi profil Anda", 1001);
         }
 
+    }
+
+    public void getDataBusiness(){
+        businessData = session.getBusiness();
     }
 
 }
