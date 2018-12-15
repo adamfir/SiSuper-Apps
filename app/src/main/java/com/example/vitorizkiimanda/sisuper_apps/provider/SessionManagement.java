@@ -43,7 +43,10 @@ public class SessionManagement {
     public static final String KEY_IMAGE = "image";
     public static final String KEY_TOKEN = "token";
     public static final String KEY_PASSWORD = "password";
-    public static final String KEY_BUSINESS = "business";
+    public static final String KEY_BUSINESS_ID = "business";
+    public static final String KEY_BUSINESS_NAME = "businessName";
+    public static final String KEY_BUSINESS_EMAIL = "businessEmail";
+
 
 
 
@@ -75,8 +78,10 @@ public class SessionManagement {
         editor.commit();
     }
 
-    public void businessSession(String ID){
-        editor.putString(KEY_BUSINESS, ID);
+    public void businessSession(String ID, String Name, String Email){
+        editor.putString(KEY_BUSINESS_ID, ID);
+        editor.putString(KEY_BUSINESS_NAME, Name);
+        editor.putString(KEY_BUSINESS_EMAIL, Email);
         editor.commit();
     }
 
@@ -133,7 +138,9 @@ public class SessionManagement {
     public HashMap<String, String> getBusiness(){
         HashMap<String, String> business = new HashMap<String, String>();
 
-        business.put(KEY_BUSINESS, pref.getString(KEY_BUSINESS, null));
+        business.put(KEY_BUSINESS_ID, pref.getString(KEY_BUSINESS_ID, null));
+        business.put(KEY_BUSINESS_NAME, pref.getString(KEY_BUSINESS_NAME, null));
+        business.put(KEY_BUSINESS_EMAIL, pref.getString(KEY_BUSINESS_EMAIL, null));
 
         return business;
     }
