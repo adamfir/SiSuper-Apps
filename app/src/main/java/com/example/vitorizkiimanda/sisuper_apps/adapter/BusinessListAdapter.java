@@ -1,6 +1,7 @@
 package com.example.vitorizkiimanda.sisuper_apps.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,16 +13,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
+import com.example.vitorizkiimanda.sisuper_apps.activity.TambahUsahaActivity;
 import com.example.vitorizkiimanda.sisuper_apps.data.BusinessClass;
 import com.example.vitorizkiimanda.sisuper_apps.data.EventClass;
 
 import java.util.ArrayList;
 
-public class BusinessListAdapter extends RecyclerView.Adapter<BusinessListAdapter.ViewHolder>{
+public class BusinessListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private static final String TAG = "BusinessListAdapter";
     private Context context;
     private ArrayList<BusinessClass> businessList;
     private OnItemClickListener mListener;
+    String namaUsaha;
 
     public BusinessListAdapter(Context context, ArrayList<BusinessClass> businessList){
         this.context = context;
@@ -37,20 +41,39 @@ public class BusinessListAdapter extends RecyclerView.Adapter<BusinessListAdapte
     }
 
 
+    public int getItemViewType(int position){
+        if (businessList.get(position).getID() == "null") {
+            return 1;
+        } else if (businessList.get(position) != null) {
+            return 2;
+        }
+        return -1;
+    }
 
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.adapter_business_list, parent, false);
-        return new ViewHolder(v);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if(viewType == 1){
+            View s = LayoutInflater.from(context).inflate(R.layout.adapter_new_business, parent, false);
+            return new ViewHolderTwo(s);
+        }
+        else{
+            View v = LayoutInflater.from(context).inflate(R.layout.adapter_business_list, parent, false);
+            return new ViewHolderOne(v);
+        }
+    }
+
+    private void initLayoutList(ViewHolderOne holder, int position){
+        holder.namaUsaha.setText(namaUsaha);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        int viewType = holder.getItemViewType();
         BusinessClass currentBusiness = businessList.get(position);
 
-        String namaUsaha = currentBusiness.getNamaUsaha();
+        namaUsaha = currentBusiness.getNamaUsaha();
         String lamaUsaha = currentBusiness.getLamaUsaha();
         String omzetUsaha = currentBusiness.getOmzetUsaha();
         String deskripsiUsaha = currentBusiness.getDeskripsiUsaha();
@@ -64,7 +87,10 @@ public class BusinessListAdapter extends RecyclerView.Adapter<BusinessListAdapte
         String instagramUsaha = currentBusiness.getInstagramUsaha();
 
 
-        holder.namaUsaha.setText(namaUsaha);
+        if(viewType == 2){
+            initLayoutList((ViewHolderOne) holder, position);
+        }
+
 //        holder.numberInvitation.setText(eventLocation);
 //        holder.date.setText(eventDate);
     }
@@ -74,13 +100,13 @@ public class BusinessListAdapter extends RecyclerView.Adapter<BusinessListAdapte
         return businessList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolderOne extends RecyclerView.ViewHolder{
 
         ImageView image;
         TextView namaUsaha;
         TextView numberInvitation;
         RelativeLayout parentEventListLayout;
-        public ViewHolder(View itemView) {
+        public ViewHolderOne(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image_business_list);
             namaUsaha = itemView.findViewById(R.id.name_business_list);
@@ -94,6 +120,19 @@ public class BusinessListAdapter extends RecyclerView.Adapter<BusinessListAdapte
                         mListener.onItemClick(position);
 
                     }
+                }
+            });
+        }
+    }
+    public class ViewHolderTwo extends RecyclerView.ViewHolder{
+
+        public ViewHolderTwo(View itemView) {
+            super(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent movesIntent = new Intent(context, TambahUsahaActivity.class);
+                    context.startActivity(movesIntent);
                 }
             });
         }

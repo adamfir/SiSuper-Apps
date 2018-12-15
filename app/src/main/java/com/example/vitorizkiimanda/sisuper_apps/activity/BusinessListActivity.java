@@ -84,14 +84,14 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
 
 
         //to page TambahUsahaActivity
-        View addUsahaButton = findViewById(R.id.addUsaha_button);
-        addUsahaButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveIntent = new Intent(BusinessListActivity.this, TambahUsahaActivity.class);
-                startActivity(moveIntent);
-            }
-        });
+//        View addUsahaButton = findViewById(R.id.addUsaha_button);
+//        addUsahaButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent moveIntent = new Intent(BusinessListActivity.this, TambahUsahaActivity.class);
+//                startActivity(moveIntent);
+//            }
+//        });
         showProgress(true);
         BusinessListActivity.getBusinessTask getBusinessTask = new BusinessListActivity.getBusinessTask();
         getBusinessTask.execute();
@@ -134,9 +134,12 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
 
                                 System.out.println(businessClass.getLineUsaha());
                                 businessList.add(businessClass);
-
                             }
 
+                            //marker
+                            BusinessClass businessClass  = new BusinessClass();
+                            businessClass.setID("null");
+                            businessList.add(businessClass);
 
                             businessListAdapter = new BusinessListAdapter(getApplication(), businessList);
                             recyclerView.setAdapter(businessListAdapter);
@@ -233,11 +236,11 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
         Intent moveIntent = new Intent(BusinessListActivity.this, MainActivity.class);
         moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         BusinessClass clickedItem = businessList.get(position);
-
         session.businessSession(clickedItem.getID(), clickedItem.getNamaUsaha(), clickedItem.getEmailUsaha());
         moveIntent.putExtra("model", clickedItem);
         startActivity(moveIntent);
     }
+
 
 }
 

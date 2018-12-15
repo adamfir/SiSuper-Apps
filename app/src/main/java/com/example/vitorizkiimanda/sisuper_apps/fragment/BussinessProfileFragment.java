@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -424,6 +425,7 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
             String uploadId = UUID.randomUUID().toString();
             uploadReceiver.setDelegate(this);
             uploadReceiver.setUploadID(uploadId);
+
 
             //Creating a multi part request
             new MultipartUploadRequest(mContext, uploadId, EndPoints.ROOT_URL +"/certificates/addCertificateUser")
