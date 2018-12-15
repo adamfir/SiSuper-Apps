@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +82,8 @@ public class BussinessProfileFragment extends Fragment {
     private View mRcView;
 
     BusinessClass model;
+    Dialog namesDialog;
+    String certificatesName = "";
 
 
     public BussinessProfileFragment() {
@@ -141,7 +145,8 @@ public class BussinessProfileFragment extends Fragment {
             public void onClick(View view) {
                 //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 //startActivity(intent);
-                SelectImage();
+//                SelectImage();
+                showDialog();
             }
         });
 
@@ -311,6 +316,38 @@ public class BussinessProfileFragment extends Fragment {
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private void showDialog(){
+        namesDialog = new Dialog(mContext);
+        namesDialog.setContentView(R.layout.dialog);
+        final EditText certificateNames = namesDialog.findViewById(R.id.body);
+        namesDialog.show();
+        Button okBtn = (Button) namesDialog.findViewById(R.id.ok);
+        okBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                certificatesName = certificateNames.getText().toString();
+                if(TextUtils.isEmpty(certificatesName)){
+                    certificateNames.setError("This field is required");
+                }
+                else{
+                    SelectImage();
+                    namesDialog.dismiss();
+                }
+
+            }
+        });
+
+        Button cancelBtn = (Button) namesDialog.findViewById(R.id.cancel);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                namesDialog.dismiss();
+            }
+        });
+
+
     }
 
 

@@ -21,8 +21,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
-
-
         <LinearLayout
             android:id="@+id/linLayout"
             android:layout_width="match_parent"
