@@ -234,8 +234,7 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
         moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         BusinessClass clickedItem = businessList.get(position);
 
-        System.out.println("Line" +
-                " " +clickedItem.getLineUsaha());
+        session.businessSession(clickedItem.getID(), clickedItem.getNamaUsaha(), clickedItem.getEmailUsaha());
         moveIntent.putExtra("model", clickedItem);
         startActivity(moveIntent);
     }
