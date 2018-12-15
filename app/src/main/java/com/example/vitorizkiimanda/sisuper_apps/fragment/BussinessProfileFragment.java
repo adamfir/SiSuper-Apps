@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -18,6 +19,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,24 +44,33 @@ import com.example.vitorizkiimanda.sisuper_apps.activity.EditBussinessProfile;
 
 import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.MainActivity;
+import com.example.vitorizkiimanda.sisuper_apps.activity.TambahUsahaActivity;
 import com.example.vitorizkiimanda.sisuper_apps.adapter.BusinessListAdapter;
 import com.example.vitorizkiimanda.sisuper_apps.data.BusinessClass;
 import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
+import com.example.vitorizkiimanda.sisuper_apps.provider.SingleUploadBroadcastReceiver;
+
+import net.gotev.uploadservice.MultipartUploadRequest;
+import net.gotev.uploadservice.UploadNotificationConfig;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import static android.os.Build.ID;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BussinessProfileFragment extends Fragment {
+public class BussinessProfileFragment extends Fragment implements SingleUploadBroadcastReceiver.Delegate {
+
+
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     Context mContext;
     SessionManagement session;
@@ -80,21 +91,29 @@ public class BussinessProfileFragment extends Fragment {
 
     private View mProgressView;
     private View mRcView;
+    String Token;
+    String ID;
+    Uri certificatePict;
 
     BusinessClass model;
     Dialog namesDialog;
     String certificatesName = "";
+
+    private final SingleUploadBroadcastReceiver uploadReceiver = new SingleUploadBroadcastReceiver();
 
 
     public BussinessProfileFragment() {
         // Required empty public constructor
     }
 
+
+
     @Override
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
         mContext = activity;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -210,12 +229,12 @@ public class BussinessProfileFragment extends Fragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(items[i].equals("Camera")){
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivity(intent);
+                    startActivityForResult(intent, REQUEST_CAMERA);
                 }
                 else if (items[i].equals("Gallery")){
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/*");
-                    startActivity(intent.createChooser(intent, "Select File"));
+                    startActivityForResult(intent.createChooser(intent, "Select File"), SELECT_FILE);
                 }
                 else if (items[i].equals("Cancel")){
                     dialogInterface.dismiss();
@@ -225,11 +244,32 @@ public class BussinessProfileFragment extends Fragment {
         builder.show();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == Activity.RESULT_OK){
+            if (requestCode == REQUEST_CAMERA){
+                Bundle bundle = data.getExtras();
+                certificatePict = data.getData();
+                uploadMultipart(certificatePict, certificatesName);
+
+            }
+            else if(requestCode == SELECT_FILE){
+                certificatePict = data.getData();
+                Log.d("uri", certificatePict.toString());
+                Log.d("name", certificatesName);
+
+                uploadMultipart(certificatePict, certificatesName);
+            }
+        }
+    }
+
     public void getData(){
         HashMap result = session.getBusiness();
         HashMap getToken = session.getUserDetails();
-        final String Token = (String) getToken.get("token");
-        final String ID = (String) result.get("business");
+        Token = (String) getToken.get("token");
+        ID = (String) result.get("business");
 
         final String url = EndPoints.ROOT_URL+"/business/getBusinessById";
         StringRequest postRequest  =  new StringRequest(Request.Method.POST, url,
@@ -347,6 +387,82 @@ public class BussinessProfileFragment extends Fragment {
             }
         });
 
+    }
+
+    public String getPath(Uri uri) {
+        Cursor cursor = mContext.getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        cursor.close();
+
+        cursor = mContext.getContentResolver().query(
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor.moveToFirst();
+        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+        cursor.close();
+
+
+        return path;
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        uploadReceiver.unregister(mContext);
+    }
+
+    public void uploadMultipart(Uri filePath, String namaCertificate) {
+
+        //getting the actual path of the image
+        String path = getPath(filePath);
+
+        //Uploading code
+        try {
+            String uploadId = UUID.randomUUID().toString();
+            uploadReceiver.setDelegate(this);
+            uploadReceiver.setUploadID(uploadId);
+
+            //Creating a multi part request
+            new MultipartUploadRequest(mContext, uploadId, EndPoints.ROOT_URL +"/certificates/addCertificateUser")
+                    .addFileToUpload(path, "certificatePicture") //Adding file
+                    .addHeader("Authorization", "Bearer " + Token)
+                    .addParameter("idOwner", ID)
+                    .setMaxRetries(2)
+                    .setNotificationConfig(new UploadNotificationConfig())
+                    .startUpload(); //Starting the upload
+
+        } catch (Exception exc) {
+            exc.printStackTrace();
+            Toast.makeText(mContext, exc.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onProgress(int progress) {
+
+    }
+
+    @Override
+    public void onProgress(long uploadedBytes, long totalBytes) {
+
+    }
+
+    @Override
+    public void onError(Exception exception) {
+        exception.printStackTrace();
+    }
+
+    @Override
+    public void onCompleted(int serverResponseCode, byte[] serverResponseBody) {
+        System.out.println(serverResponseBody.toString());
+        Toast.makeText(mContext, "Upload Sukses", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCancelled() {
 
     }
 
@@ -363,6 +479,7 @@ public class BussinessProfileFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        uploadReceiver.register(mContext);
         getData();
     }
 }
