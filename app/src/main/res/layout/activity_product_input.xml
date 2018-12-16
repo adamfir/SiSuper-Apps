@@ -76,7 +76,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Spinner
-                android:id="@+id/product_spinner"
+                android:id="@+id/input_product_spinner"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
