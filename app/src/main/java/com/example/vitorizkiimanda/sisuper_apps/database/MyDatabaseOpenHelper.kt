@@ -2,9 +2,13 @@ package com.example.vitorizkiimanda.sisuper_apps.database
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import com.example.vitorizkiimanda.sisuper_apps.data.EventClass
 import org.jetbrains.anko.db.*
+import java.util.ArrayList
 
 class MyDatabaseOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "Agenda.db", null, 1) {
+    private lateinit var db: SQLiteDatabase
+
     companion object {
         private var instance: MyDatabaseOpenHelper? = null
 
