@@ -1,5 +1,6 @@
 package com.example.vitorizkiimanda.sisuper_apps.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -31,9 +32,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.data.BusinessClass;
+import com.example.vitorizkiimanda.sisuper_apps.data.EventClass;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.AgendaFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.BussinessProfileFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.EventListFragment;
@@ -42,6 +46,8 @@ import com.example.vitorizkiimanda.sisuper_apps.fragment.UserProfileFragment;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
 import java.util.HashMap;
+
+import static com.example.vitorizkiimanda.sisuper_apps.R.id.business_email;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,6 +62,17 @@ public class MainActivity extends AppCompatActivity
     String Id;
     String Certificate;
 
+    private Bundle bundle;
+    private BusinessClass model;
+
+    TextView Name;
+    TextView Emails;
+
+    View headers;
+
+    HashMap businessData;
+
+    @SuppressLint({"WrongViewCast", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +89,10 @@ public class MainActivity extends AppCompatActivity
 //            }
 //        });
 
+        bundle = getIntent().getExtras();
+        model = bundle.getParcelable("model");
+        System.out.println(model.getID());
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -87,6 +108,15 @@ public class MainActivity extends AppCompatActivity
         // Session Manager
         session = new SessionManagement(this);
         getDataUser();
+        getDataBusiness();
+
+        headers = navigationView.getHeaderView(0);
+        Name = (TextView) headers.findViewById(R.id.business_name);
+        Emails = (TextView) headers.findViewById(R.id.business_email);
+        Name.setText(businessData.get("businessName").toString());
+        Emails.setText(businessData.get("businessEmail").toString());
+
+
     }
 
     @Override
@@ -145,6 +175,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
+        else if(id == R.id.nav_ganti_usaha){
+            Intent moveIntent = new Intent(MainActivity.this, BusinessListActivity.class);
+            moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(moveIntent);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -176,6 +211,9 @@ public class MainActivity extends AppCompatActivity
         FragmentManager mFragmentManager = getSupportFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         BussinessProfileFragment bussinessProfileFragment = new BussinessProfileFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("model", model);
+        bussinessProfileFragment.setArguments(bundle);
         mFragmentTransaction.replace(R.id.frame_container, bussinessProfileFragment, BussinessProfileFragment.class.getSimpleName());
         mFragmentTransaction.commit();
         //fragment
@@ -259,6 +297,10 @@ public class MainActivity extends AppCompatActivity
                     "Lengkapi profil Anda", 1001);
         }
 
+    }
+
+    public void getDataBusiness(){
+        businessData = session.getBusiness();
     }
 
 }
