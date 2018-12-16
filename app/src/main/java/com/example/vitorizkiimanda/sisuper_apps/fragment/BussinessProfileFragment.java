@@ -148,24 +148,12 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
         // Session Manager
         session = new SessionManagement(mContext);
 
-        View Logout = view.findViewById(R.id.logout);
-        Logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            LogOut();
-            }
-        });
-        // Inflate the layout for this fragment
-
 
         //camera
         Button addCertificate = view.findViewById(R.id.add_certificate);
         addCertificate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //startActivity(intent);
-//                SelectImage();
                 showDialog();
             }
         });
