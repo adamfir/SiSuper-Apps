@@ -41,7 +41,6 @@ dependencies {
     def uploadServiceVersion = "3.4.2"
     implementation "net.gotev:uploadservice:2.1"
 
-
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
@@ -54,3 +53,5 @@ dependencies {
 repositories {
     mavenCentral()
 }
+
+apply plugin: 'kotlin-android-extensions'

@@ -39,6 +39,7 @@ import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.data.BusinessClass;
 import com.example.vitorizkiimanda.sisuper_apps.data.EventClass;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.AgendaFragment;
+import com.example.vitorizkiimanda.sisuper_apps.fragment.AgendaKotlinFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.BussinessProfileFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.EventListFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.ProductListFragment;
@@ -232,8 +233,8 @@ public class MainActivity extends AppCompatActivity
         //fragment
         FragmentManager mFragmentManager = getSupportFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-        AgendaFragment agendaFragment = new AgendaFragment();
-        mFragmentTransaction.replace(R.id.frame_container, agendaFragment, AgendaFragment.class.getSimpleName());
+        AgendaKotlinFragment agendaKotlinFragment = new AgendaKotlinFragment();
+        mFragmentTransaction.replace(R.id.frame_container, agendaKotlinFragment, AgendaKotlinFragment.class.getSimpleName());
         mFragmentTransaction.commit();
     }
 
