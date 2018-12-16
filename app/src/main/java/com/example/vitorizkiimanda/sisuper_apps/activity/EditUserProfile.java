@@ -339,6 +339,8 @@ public class EditUserProfile extends AppCompatActivity {
                                 Toast.makeText(getApplication(), "Edit Profile Sukses", Toast.LENGTH_LONG).show();
                                 showProgress(false);
 
+                                finish();
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
