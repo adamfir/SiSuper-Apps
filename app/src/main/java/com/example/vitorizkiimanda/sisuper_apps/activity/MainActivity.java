@@ -33,7 +33,15 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.data.BusinessClass;
@@ -43,11 +51,18 @@ import com.example.vitorizkiimanda.sisuper_apps.fragment.BussinessProfileFragmen
 import com.example.vitorizkiimanda.sisuper_apps.fragment.EventListFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.ProductListFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.UserProfileFragment;
+import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.vitorizkiimanda.sisuper_apps.R.id.business_email;
+import static com.example.vitorizkiimanda.sisuper_apps.R.id.right_side;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -62,6 +77,10 @@ public class MainActivity extends AppCompatActivity
     String Id;
     String Certificate;
 
+    String Token;
+    String ID;
+    Integer numberCerf = 0;
+
     private Bundle bundle;
     private BusinessClass model;
 
@@ -69,6 +88,7 @@ public class MainActivity extends AppCompatActivity
     TextView Emails;
 
     View headers;
+    JSONArray certificate;
 
     HashMap businessData;
 
@@ -91,7 +111,7 @@ public class MainActivity extends AppCompatActivity
 
         bundle = getIntent().getExtras();
         model = bundle.getParcelable("model");
-        System.out.println(model.getID());
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -276,7 +296,7 @@ public class MainActivity extends AppCompatActivity
 
     public void getDataUser(){
         HashMap result = session.getUserDetails();
-        Log.d("get data profile", "masook"+result);
+//        Log.d("get data profile", "masook"+result);
         Id = (String) result.get("id");
             Log.d("get data profile", "Id"+Id);
         Username = (String) result.get("username");
@@ -291,11 +311,73 @@ public class MainActivity extends AppCompatActivity
             Log.d("get data profile", "Image"+Image);
         Certificate = null;
 
-        //check data
-        if(Id == null || Username == null || Email == null || Address == null || Phone == null || Image == null || Certificate == null){
-            sendNotification(this, "Profil",
-                    "Lengkapi profil Anda", 1001);
-        }
+
+        getCertificate();
+        System.out.println(numberCerf);
+
+
+    }
+
+    public void getCertificate(){
+        HashMap result = session.getBusiness();
+        HashMap getToken = session.getUserDetails();
+        Token = (String) getToken.get("token");
+        ID = (String) result.get("business");
+
+        final String url = EndPoints.ROOT_URL+"/certificates/getCertificateUser";
+        StringRequest postRequest  =  new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject results = new JSONObject(response);
+                            certificate = results.getJSONArray("result");
+                            numberCerf = certificate.length();
+
+                            //check data
+                            if(Id == null || Username == null || Email == null || Address == null || Phone == null || Image == null || numberCerf == 0){
+                                sendNotification(getApplication(), "Profil",
+                                        "Lengkapi profil Anda", 1001);
+                            }
+
+//                            Log.d("getCertificate", result.toString());
+
+                        } catch (JSONException e) {
+                            Toast.makeText(getApplication(), "Internal Server Error", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplication(), "Internal Server Error", Toast.LENGTH_LONG).show();
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("userId", ID);
+
+                return params;
+            }
+
+            /** Passing some request headers* */
+            @Override
+            public Map getHeaders() throws AuthFailureError {
+                HashMap headers = new HashMap();
+                headers.put("Authorization", "Bearer " + Token);
+                return headers;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(postRequest);
+
+
 
     }
 

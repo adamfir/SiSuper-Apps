@@ -324,25 +324,25 @@
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/legalitas_usaha"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Legalitas Usaha"
-                    android:textColor="@color/colorWhite"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/SosmedForm"
-                    android:textStyle="bold"
-                    android:textSize="10pt"
-                    android:layout_marginTop="20dp"
-                    />
-                <Button
-                    android:id="@+id/button_legalitas_usaha"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="Kartu Legalitas"
-                    app:layout_constraintTop_toBottomOf="@id/legalitas_usaha"
-                    />
+                <!--<TextView-->
+                    <!--android:id="@+id/legalitas_usaha"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Legalitas Usaha"-->
+                    <!--android:textColor="@color/colorWhite"-->
+                    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                    <!--app:layout_constraintTop_toBottomOf="@id/SosmedForm"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:textSize="10pt"-->
+                    <!--android:layout_marginTop="20dp"-->
+                    <!--/>-->
+                <!--<Button-->
+                    <!--android:id="@+id/button_legalitas_usaha"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:text="Kartu Legalitas"-->
+                    <!--app:layout_constraintTop_toBottomOf="@id/legalitas_usaha"-->
+                    <!--/>-->
             </android.support.constraint.ConstraintLayout>
 
 
