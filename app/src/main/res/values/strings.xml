@@ -67,4 +67,5 @@
     <string name="subtext">Sub text</string>
     <string name="channel_name">notif_test</string>
     <string name="tambahkan_ke_agenda">Tambahkan ke Agenda</string>
+    <string name="hapus_agenda">Hapus dari Agenda</string>
 </resources>

@@ -1,10 +1,13 @@
 package com.example.vitorizkiimanda.sisuper_apps.activity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
@@ -20,6 +23,10 @@ public class EventDetail extends AppCompatActivity {
     private TextView eventDate;
     private TextView eventLocation;
     private TextView eventDescription;
+    private Boolean isAgenda;
+    private String origin;
+    private Button agendaButton;
+    private SQLiteOpenHelper database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +35,9 @@ public class EventDetail extends AppCompatActivity {
 
         bundle = getIntent().getExtras();
         model = bundle.getParcelable("model");
+
+        origin = "notAgenda";
+
         System.out.println(model.getDescription());
 
         eventName = findViewById(R.id.name_event_detail);
@@ -35,11 +45,49 @@ public class EventDetail extends AppCompatActivity {
         eventDate = findViewById(R.id.date_event_detail);
         eventLocation = findViewById(R.id.location_event_detail);
         eventDescription = findViewById(R.id.description_event_detail);
+        agendaButton = findViewById(R.id.add_agenda_button);
 
         eventName.setText(model.getEventName());
         eventOrganizer.setText(model.getOrganized());
         eventDate.setText(model.getDate());
         eventLocation.setText(model.getEventPlace());
-        eventDescription.setText(model.getDescription()+"as;lkfjas;lkjf l;kasdflk ;asjdflk sal;kf jsal;kfj ;lksaklf jsalkjf lk;sad;fl jasl;kf jl;ask jfjas dl;fjs;lk lksd f;lkjasldk jl;sdakj ;lskdj fksajdl;fk jaslkd jflk;saj dfl;k sda;lkfj ;lskadfj ;laskdjf ;lsjd ;lkjsdlkfj sldfj ;sldjf;l jsa;ld kj;saldkj fl;sadkj f;slakj d;ls kdjslkdf j;sla lksaj d;lsd lkajs d;lksjda ;lksj lksdaj f;lksdj ;lsdkj f;aslkd jfas;ldkf jas; lkjsfda ;lks dj;salkd j;salk fjs;ld jkfas;kldjfsd;lk ja;sdlk jsd;lfj as;ldfj a;lsdjf ;asldjf ;sdljkf lksajdf;lkjsa;dlfk j;lsdkf j;lksadjf ;lksjad; flsdlk; fls;dj f;ls jd;sdfsdsd f sdf sf sad f sa fsd f ds f sa f asd f asd f sdf  sdf sd f s df dsfs df s df sa df asdf as dfsdf sd fsd f sdfsadf sa fd dasf sa df sd f sd f sdf safs adf asf sad f sfdajsdkljsdalk;f jlksdj flksdl;kfjs;ld kj;lsj l;ksdlfk jalskf lk;asd;lfk as;lkfj asd");
+        eventDescription.setText(model.getDescription());
+
+        checkAgenda(model.getIdEvent());
     }
+
+    public void checkAgenda(String id){
+        if(origin.equals("agenda")){
+            isAgenda = true;
+        }
+        else {
+//            database.use {
+//                Log.d("checkDB", "id :" + id)
+//                val result = select(FavouriteTeam.TABLE_FAVORITE_TEAM)
+//                        .whereArgs("(TEAM_ID = {id})",
+//                                "id" to id)
+//                val favorite = result.parseList(classParser<FavouriteTeam>())
+//                if (!favorite.isEmpty()) isFavorite = true
+//            }
+
+            isAgenda = false;
+        }
+        setAgenda();
+    }
+
+    public void setAgenda(){
+        if (isAgenda){
+            agendaButton.setText(R.string.hapus_agenda);
+        }
+        else {
+            agendaButton.setText(R.string.tambahkan_ke_agenda);
+        }
+    }
+
+    public void agendaHandler(View target) {
+        // Do stuff
+        Log.d("test","awawaw");
+    }
+
+
 }

@@ -196,6 +196,7 @@
         android:text="@string/tambahkan_ke_agenda"
         android:textColor="@color/colorWhite"
         android:background="@color/colorPurpleLight"
+        android:onClick="agendaHandler"
         />
 
 </android.support.constraint.ConstraintLayout>
