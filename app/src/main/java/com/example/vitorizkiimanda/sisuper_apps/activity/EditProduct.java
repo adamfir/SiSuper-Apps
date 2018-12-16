@@ -53,7 +53,6 @@ public class EditProduct extends AppCompatActivity implements AdapterView.OnItem
         editProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 editProduct();
 
             }
