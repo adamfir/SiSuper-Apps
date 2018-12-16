@@ -11,8 +11,10 @@ public class EventClass implements Parcelable {
     private String eventPlace;
     private String organized;
     private String description;
+    private String idEvent;
 
     public EventClass(){
+        this.idEvent = "";
         this.image = "";
         this.date = "";
         this.eventName = "";
@@ -20,6 +22,14 @@ public class EventClass implements Parcelable {
         this.organized = "";
         this.description = "";
 
+    }
+
+    public String getIdEvent() {
+        return idEvent;
+    }
+
+    public void setIdEvent(String idEvent) {
+        this.idEvent = idEvent;
     }
 
     public String getImage() {
@@ -70,26 +80,6 @@ public class EventClass implements Parcelable {
         this.organized = organized;
     }
 
-    protected EventClass(Parcel in) {
-        this.image = in.readString();
-        this.date = in.readString();
-        this.eventName = in.readString();
-        this.eventPlace = in.readString();
-        this.description = in.readString();
-        this.organized = in.readString();
-    }
-
-    public static final Creator<EventClass> CREATOR = new Creator<EventClass>() {
-        @Override
-        public EventClass createFromParcel(Parcel in) {
-            return new EventClass(in);
-        }
-
-        @Override
-        public EventClass[] newArray(int size) {
-            return new EventClass[size];
-        }
-    };
 
     @Override
     public int describeContents() {
@@ -97,12 +87,35 @@ public class EventClass implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(this.image);
-        parcel.writeString(this.date);
-        parcel.writeString(this.eventName);
-        parcel.writeString(this.eventPlace);
-        parcel.writeString(this.description);
-        parcel.writeString(this.organized);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.image);
+        dest.writeString(this.date);
+        dest.writeString(this.eventName);
+        dest.writeString(this.eventPlace);
+        dest.writeString(this.organized);
+        dest.writeString(this.description);
+        dest.writeString(this.idEvent);
     }
+
+    protected EventClass(Parcel in) {
+        this.image = in.readString();
+        this.date = in.readString();
+        this.eventName = in.readString();
+        this.eventPlace = in.readString();
+        this.organized = in.readString();
+        this.description = in.readString();
+        this.idEvent = in.readString();
+    }
+
+    public static final Creator<EventClass> CREATOR = new Creator<EventClass>() {
+        @Override
+        public EventClass createFromParcel(Parcel source) {
+            return new EventClass(source);
+        }
+
+        @Override
+        public EventClass[] newArray(int size) {
+            return new EventClass[size];
+        }
+    };
 }
