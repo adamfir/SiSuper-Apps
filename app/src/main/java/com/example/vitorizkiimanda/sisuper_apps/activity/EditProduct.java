@@ -10,15 +10,35 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.data.ProductClass;
+import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
+import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EditProduct extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    SessionManagement session;
     String unitProduct;
 
     EditText productNames;
     EditText productPrices;
+
+    String token;
+    String ID;
 
     Boolean cancel = false;
     Bundle bundle;
@@ -28,6 +48,9 @@ public class EditProduct extends AppCompatActivity implements AdapterView.OnItem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_product);
+
+        //session
+        session = new SessionManagement(this);
 
         bundle = getIntent().getExtras();
         model = bundle.getParcelable("model");
@@ -41,6 +64,7 @@ public class EditProduct extends AppCompatActivity implements AdapterView.OnItem
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+        spinner.setSelection(2);
 
         //init
         productNames = findViewById(R.id.product_name);
@@ -75,8 +99,8 @@ public class EditProduct extends AppCompatActivity implements AdapterView.OnItem
         View focusView = null;
         cancel = false;
 
-        String productName = productNames.getText().toString();
-        String productPrice = productPrices.getText().toString();
+        final String productName = productNames.getText().toString();
+        final String productPrice = productPrices.getText().toString();
 
         if(TextUtils.isEmpty(productName)){
             productNames.setError(getString(R.string.error_field_required));
@@ -97,6 +121,63 @@ public class EditProduct extends AppCompatActivity implements AdapterView.OnItem
             Log.d("nama", productName);
             Log.d("price", productPrice);
             Log.d("unit", unitProduct);
+
+            HashMap result = session.getUserDetails();
+            HashMap business = session.getBusiness();
+
+            token = (String) result.get("token");
+            ID = (String) business.get("business");
+            final String url = EndPoints.ROOT_URL+"/products/editProducts";
+
+            StringRequest postRequest  =  new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject result = new JSONObject(response);
+                                System.out.println(result);
+
+                                Toast.makeText(getApplication(), "Edit Produk Berhasil", Toast.LENGTH_LONG).show();
+//                                showProgress(false);
+                                finish();
+
+                            } catch (JSONException e) {
+                                Toast.makeText(getApplication(), "Internal Server Error", Toast.LENGTH_LONG).show();
+//                                showProgress(false);
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplication(), "Internal Server Error", Toast.LENGTH_LONG).show();
+                        }
+                    }
+            ){
+                @Override
+                protected Map<String, String> getParams()
+                {
+                    Map<String, String>  params = new HashMap<String, String>();
+                    params.put("productId", model.getProductId());
+                    params.put("productName", productName);
+                    params.put("productPrice", productPrice);
+                    params.put("productUnit", unitProduct);
+
+                    return params;
+                }
+
+                /** Passing some request headers* */
+                @Override
+                public Map getHeaders() throws AuthFailureError {
+                    HashMap headers = new HashMap();
+                    headers.put("Authorization", "Bearer " + token);
+                    return headers;
+                }
+            };
+
+            RequestQueue requestQueue = Volley.newRequestQueue(EditProduct.this);
+            requestQueue.add(postRequest);
         }
 
 

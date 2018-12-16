@@ -138,6 +138,7 @@ public class ProductListFragment extends Fragment implements ProductListAdapter.
                                 JSONObject produk = results.getJSONObject(i);
 
                                 ProductClass productClass = new ProductClass();
+                                productClass.setProductId(produk.getString("_id"));
                                 productClass.setProductName(produk.getString("name"));
                                 productClass.setProductPrice(produk.getString("price"));
                                 productClass.setProductUnit(produk.getString("unit"));
