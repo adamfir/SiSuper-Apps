@@ -221,6 +221,7 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
         EventClass clickedItem = eventList.get(position);
         System.out.println("haha"+clickedItem);
         intent.putExtra("model", clickedItem);
+        intent.putExtra("origin", "notAgenda");
         Log.d("clicked event", String.valueOf(clickedItem.getIdEvent()));
         startActivity(intent);
     }

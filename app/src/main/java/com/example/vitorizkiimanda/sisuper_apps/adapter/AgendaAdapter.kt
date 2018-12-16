@@ -21,7 +21,7 @@ class AgendaAdapter (private val events: List<AgendaEvent>)
 
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
-            p0.context?.startActivity<EventDetail>("model" to events[position], "origin" to "agenda")
+            p0.context?.startActivity<EventDetail>("id" to events[position].eventId, "origin" to "agenda")
         }
         return viewHolder
     }

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.data.EventClass;
 
@@ -51,6 +52,11 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         String eventName = currentEvent.getEventName();
         String eventDate = currentEvent.getDate();
         String eventLocation = currentEvent.getEventPlace();
+        String eventImage = currentEvent.getImage();
+
+        Glide.with(context)
+                .load(eventImage)
+                .into(holder.image);
 
         holder.eventName.setText(eventName);
         holder.eventPlace.setText(eventLocation);
