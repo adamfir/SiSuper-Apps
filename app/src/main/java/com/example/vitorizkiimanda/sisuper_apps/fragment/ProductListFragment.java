@@ -106,12 +106,14 @@ public class ProductListFragment extends Fragment implements ProductListAdapter.
 //            }
 //        });
 
-        getProductList();
+//        getProductList();
 
         return view;
     }
 
     public void getProductList(){
+        productList.clear();
+
         HashMap userProfile = session.getUserDetails();
         HashMap businessProfile = session.getBusiness();
 
@@ -132,10 +134,11 @@ public class ProductListFragment extends Fragment implements ProductListAdapter.
                             productClasses.setProductName("null");
                             productList.add(productClasses);
 
-                            for(int i = 0; i<results.length(); i++){
+                            for(int i = results.length() - 1; i>=0; i--){
                                 JSONObject produk = results.getJSONObject(i);
 
                                 ProductClass productClass = new ProductClass();
+                                productClass.setProductId(produk.getString("_id"));
                                 productClass.setProductName(produk.getString("name"));
                                 productClass.setProductPrice(produk.getString("price"));
                                 productClass.setProductUnit(produk.getString("unit"));
@@ -197,12 +200,17 @@ public class ProductListFragment extends Fragment implements ProductListAdapter.
     @Override
     public void onItemClick(int position) {
         Intent moveIntent = new Intent(mContext, EditProduct.class);
-        moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         ProductClass clickedItem = productList.get(position);
         moveIntent.putExtra("model", clickedItem);
         startActivity(moveIntent);
 
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getProductList();
     }
 
     static class BottomOffsetDecoration extends RecyclerView.ItemDecoration {
