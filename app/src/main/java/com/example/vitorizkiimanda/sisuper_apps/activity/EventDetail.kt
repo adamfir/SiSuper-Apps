@@ -15,6 +15,7 @@ import com.example.vitorizkiimanda.sisuper_apps.R.id.img_event_detail
 import com.example.vitorizkiimanda.sisuper_apps.data.EventClass
 import com.example.vitorizkiimanda.sisuper_apps.database.AgendaEvent
 import com.example.vitorizkiimanda.sisuper_apps.database.database
+import com.example.vitorizkiimanda.sisuper_apps.utils.formatDate
 import kotlinx.coroutines.selects.select
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
@@ -68,7 +69,7 @@ class EventDetail : AppCompatActivity() {
 
                     eventName.text = modelAgenda.eventName
                     eventOrganizer.text = modelAgenda.eventOrganizer
-                    eventDate.text = modelAgenda.eventDate
+                    eventDate.text = formatDate(modelAgenda.eventDate)
                     eventLocation.text = modelAgenda.eventPlace
                     eventDescription.text = modelAgenda.eventDescription
                 }
