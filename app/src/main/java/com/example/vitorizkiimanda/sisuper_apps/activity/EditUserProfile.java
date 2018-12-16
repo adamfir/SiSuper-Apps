@@ -5,6 +5,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ContentUris;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,9 +15,13 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -50,9 +56,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -68,13 +78,13 @@ public class EditUserProfile extends AppCompatActivity {
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
     ImageView Image;
     Bitmap bitmap;
+    Uri selectImage;
 
     private View mScrollView;
     private View mProgressView;
     private editProfileTask editProfileJobs = null;
     private editImageTask editImageJobs = null;
     private static final int STORAGE_PERMISSION_CODE = 123;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +107,7 @@ public class EditUserProfile extends AppCompatActivity {
         mScrollView = findViewById(R.id.profile_user_edit);
         mProgressView = findViewById(R.id.edit_user_progress);
 
+
         //get data
         getData();
 
@@ -105,7 +116,7 @@ public class EditUserProfile extends AppCompatActivity {
         Emails.setText(Email);
         Phones.setText(Phone);
         Addresses.setText(Address);
-        URI uri = URI.create("http://sisuper.codepanda.web.id/users/profilePicture/" + ID);
+        URI uri = URI.create(EndPoints.ROOT_URL + "/users/profilePicture/" + ID);
         Glide.with(getApplicationContext())
                 .load(Uri.parse("http://sisuper.codepanda.web.id/users/profilePicture/" + ID))
                 .apply(RequestOptions.signatureOf(new ObjectKey(Long.toString(System.currentTimeMillis()))))
@@ -115,7 +126,6 @@ public class EditUserProfile extends AppCompatActivity {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 String editAddress = Addresses.getText().toString();
                 String editPhones = Phones.getText().toString();
@@ -132,10 +142,8 @@ public class EditUserProfile extends AppCompatActivity {
                 SelectImage();
             }
         });
-
-
-
     }
+
 
     public void getData(){
         HashMap result = session.getUserDetails();
@@ -163,6 +171,7 @@ public class EditUserProfile extends AppCompatActivity {
                 if(items[i].equals("Camera")){
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(intent, REQUEST_CAMERA);
+
                 }
                 else if (items[i].equals("Gallery")){
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -178,6 +187,8 @@ public class EditUserProfile extends AppCompatActivity {
         builder.show();
     }
 
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -189,15 +200,16 @@ public class EditUserProfile extends AppCompatActivity {
                 bitmap = (Bitmap) bundle.get("data");
                 Image.setImageBitmap(bitmap);
 
+                selectImage = data.getData();
+                uploadMultipart(selectImage);
 
             }
             else if(requestCode == SELECT_FILE){
-                Uri selectImage = data.getData();
-//                Image.setImageURI(selectImage);
-
+                selectImage = data.getData();
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectImage);
                     Image.setImageBitmap(bitmap);
+                    System.out.println(selectImage);
                     uploadMultipart(selectImage);
 
 
@@ -237,7 +249,7 @@ public class EditUserProfile extends AppCompatActivity {
             String uploadId = UUID.randomUUID().toString();
 
             //Creating a multi part request
-            new MultipartUploadRequest(this, "1", "http://sisuper.codepanda.web.id/users/editProfilePicture/5be6c607474dd72b66cbdf81")
+            new MultipartUploadRequest(this, "1", EndPoints.ROOT_URL +"/users/editProfilePicture/" + ID)
                     .addFileToUpload(path, "userProfilePicture") //Adding file
                     .addHeader("Authorization", "Bearer " + Token)
                     .setMaxRetries(2)
@@ -266,12 +278,6 @@ public class EditUserProfile extends AppCompatActivity {
     }
 
 
-
-
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
