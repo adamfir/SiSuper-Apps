@@ -4,14 +4,24 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ProductClass implements Parcelable {
+    private String productId;
     private String productName;
     private String productPrice;
     private String productUnit;
 
     public ProductClass(){
+        this.productId = "";
         this.productName = "";
         this.productPrice = "";
         this.productUnit = "";
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public String getProductId() {
+        return productId;
     }
 
     public void setProductName(String productName) {
@@ -39,6 +49,7 @@ public class ProductClass implements Parcelable {
     }
 
     protected ProductClass(Parcel in) {
+        this.productId = in.readString();
         this.productName = in.readString();
         this.productPrice = in.readString();
         this.productUnit = in.readString();
@@ -64,6 +75,7 @@ public class ProductClass implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(this.productId);
         parcel.writeString(this.productName);
         parcel.writeString(this.productPrice);
         parcel.writeString(this.productUnit);

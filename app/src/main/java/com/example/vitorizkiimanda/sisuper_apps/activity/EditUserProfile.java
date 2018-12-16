@@ -253,7 +253,7 @@ public class EditUserProfile extends AppCompatActivity {
                     .addFileToUpload(path, "userProfilePicture") //Adding file
                     .addHeader("Authorization", "Bearer " + Token)
                     .setMaxRetries(2)
-                    .setNotificationConfig(new UploadNotificationConfig())
+//                    .setNotificationConfig(new UploadNotificationConfig())
                     .startUpload(); //Starting the upload
 
             Toast.makeText(this, "Upload Sukses", Toast.LENGTH_SHORT).show();
