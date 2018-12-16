@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,10 @@ import com.example.vitorizkiimanda.sisuper_apps.activity.EditProduct;
 import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.Onboarding;
 import com.example.vitorizkiimanda.sisuper_apps.activity.ProductInput;
+import com.example.vitorizkiimanda.sisuper_apps.adapter.EventListAdapter;
+import com.example.vitorizkiimanda.sisuper_apps.adapter.ProductListAdapter;
+import com.example.vitorizkiimanda.sisuper_apps.data.BusinessClass;
+import com.example.vitorizkiimanda.sisuper_apps.data.ProductClass;
 import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
@@ -30,15 +36,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProductListFragment extends Fragment {
+public class ProductListFragment extends Fragment implements ProductListAdapter.OnItemClickListener {
     Context mContext;
     SessionManagement session;
+    private ArrayList<ProductClass> productList;
+
+    ProductListAdapter productListAdapter;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private View mProgressView;
 
     String token;
     String businessID;
@@ -58,12 +71,20 @@ public class ProductListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_product_list, container, false);
 
+        this.productList = new ArrayList<>();
         //session
         session = new SessionManagement(mContext);
 
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_product_list, container, false);
+        //list
+        recyclerView = view.findViewById(R.id.product_list);
+        recyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+
+
         View addProductButton = view.findViewById(R.id.button_add_product);
         addProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,21 +94,21 @@ public class ProductListFragment extends Fragment {
             }
         });
 
-        View editProductItem = view.findViewById(R.id.product_item);
-        editProductItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveIntent = new Intent(getActivity(), EditProduct.class);
-                startActivity(moveIntent);
-            }
-        });
+//        View editProductItem = view.findViewById(R.id.product_item);
+//        editProductItem.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent moveIntent = new Intent(getActivity(), EditProduct.class);
+//                startActivity(moveIntent);
+//            }
+//        });
 
-        getData();
+        getProductList();
 
         return view;
     }
 
-    public void getData(){
+    public void getProductList(){
         HashMap userProfile = session.getUserDetails();
         HashMap businessProfile = session.getBusiness();
 
@@ -102,7 +123,27 @@ public class ProductListFragment extends Fragment {
                         try {
                             JSONObject result = new JSONObject(response);
                             JSONArray results = result.getJSONArray("result");
-                            System.out.println(results);
+
+                            //marker
+                            ProductClass productClasses = new ProductClass();
+                            productClasses.setProductName("null");
+                            productList.add(productClasses);
+
+                            for(int i = 0; i<results.length(); i++){
+                                JSONObject produk = results.getJSONObject(i);
+
+                                ProductClass productClass = new ProductClass();
+                                productClass.setProductName(produk.getString("name"));
+                                productClass.setProductPrice(produk.getString("price"));
+                                productClass.setProductUnit(produk.getString("unit"));
+
+                                productList.add(productClass);
+                            }
+
+                            productListAdapter = new ProductListAdapter(getActivity(), productList);
+                            recyclerView.setAdapter(productListAdapter);
+                            productListAdapter.setOnItemClickListener(ProductListFragment.this);
+
 
                             Toast.makeText(mContext, "Retrieve Produk Berhasil", Toast.LENGTH_LONG).show();
 //                            showProgress(false);
@@ -145,5 +186,8 @@ public class ProductListFragment extends Fragment {
     }
 
 
+    @Override
+    public void onItemClick(int position) {
 
+    }
 }
