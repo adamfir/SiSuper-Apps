@@ -15,6 +15,7 @@ import com.example.vitorizkiimanda.sisuper_apps.R.id.img_event_detail
 import com.example.vitorizkiimanda.sisuper_apps.data.EventClass
 import com.example.vitorizkiimanda.sisuper_apps.database.AgendaEvent
 import com.example.vitorizkiimanda.sisuper_apps.database.database
+import com.example.vitorizkiimanda.sisuper_apps.utils.formatDate
 import kotlinx.coroutines.selects.select
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
@@ -28,6 +29,7 @@ import org.w3c.dom.Text
 class EventDetail : AppCompatActivity() {
     private lateinit var bundle: Bundle
     private lateinit var model: EventClass
+    private lateinit var modelAgenda: AgendaEvent
     private lateinit var eventName: TextView
     private lateinit var eventOrganizer: TextView
     private lateinit var eventDate: TextView
@@ -42,13 +44,7 @@ class EventDetail : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_detail)
 
-        val data: EventClass = intent.getParcelableExtra<EventClass>("model")
-        model = data
-
-        id = model.idEvent
-
-        origin = "notAgenda"
-
+        //binding
         eventName = findViewById(R.id.name_event_detail)
         eventOrganizer = findViewById(R.id.organized_event_detail)
         eventDate = findViewById(R.id.date_event_detail)
@@ -56,11 +52,42 @@ class EventDetail : AppCompatActivity() {
         eventDescription = findViewById(R.id.description_event_detail)
         agendaButton = findViewById(R.id.add_agenda_button)
 
-        eventName.text = model.eventName
-        eventOrganizer.text = model.organized
-        eventDate.text = model.date
-        eventLocation.text = model.eventPlace
-        eventDescription.text = model.description
+        origin = intent.getStringExtra("origin")
+        if(origin == "agenda"){
+            id = intent.getStringExtra("id")
+            //get Match Data drom SQLite
+            database.use {
+                database.use {
+                    val result  = select("TABLE_AGENDA_EVENT")
+                            .whereArgs("(EVENT_ID = {eventId})",
+                                    "eventId" to id)
+
+                    val dataList = result.parseList(classParser<AgendaEvent>())
+                    val data = dataList[0]
+
+                    modelAgenda = data
+
+                    eventName.text = modelAgenda.eventName
+                    eventOrganizer.text = modelAgenda.eventOrganizer
+                    eventDate.text = formatDate(modelAgenda.eventDate)
+                    eventLocation.text = modelAgenda.eventPlace
+                    eventDescription.text = modelAgenda.eventDescription
+                }
+            }
+
+        }
+        else{
+            val data: EventClass = intent.getParcelableExtra<EventClass>("model")
+            model = data
+            id = model.idEvent
+
+            eventName.text = model.eventName
+            eventOrganizer.text = model.organized
+            eventDate.text = model.date
+            eventLocation.text = model.eventPlace
+            eventDescription.text = model.description
+        }
+
 
         checkAgenda()
     }
