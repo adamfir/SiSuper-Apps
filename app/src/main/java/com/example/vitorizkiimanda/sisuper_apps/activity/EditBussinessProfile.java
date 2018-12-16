@@ -178,6 +178,7 @@ public class EditBussinessProfile extends AppCompatActivity {
                             Toast.makeText(EditBussinessProfile.this, "Update Profile Sukses", Toast.LENGTH_LONG).show();
                             System.out.println(results);
                             showProgress(false);
+                            finish();
 
                         } catch (JSONException e) {
                             Toast.makeText(EditBussinessProfile.this, "Internal Server Error", Toast.LENGTH_LONG).show();

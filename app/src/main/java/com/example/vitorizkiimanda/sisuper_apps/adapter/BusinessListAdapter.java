@@ -2,6 +2,7 @@ package com.example.vitorizkiimanda.sisuper_apps.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,11 +13,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.TambahUsahaActivity;
 import com.example.vitorizkiimanda.sisuper_apps.data.BusinessClass;
 import com.example.vitorizkiimanda.sisuper_apps.data.EventClass;
+import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
 
 import java.util.ArrayList;
 
@@ -26,6 +29,7 @@ public class BusinessListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private ArrayList<BusinessClass> businessList;
     private OnItemClickListener mListener;
     String namaUsaha;
+    String logoUsaha;
 
     public BusinessListAdapter(Context context, ArrayList<BusinessClass> businessList){
         this.context = context;
@@ -66,6 +70,11 @@ public class BusinessListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private void initLayoutList(ViewHolderOne holder, int position){
         holder.namaUsaha.setText(namaUsaha);
+
+        if(logoUsaha != null){
+            Glide.with(context).load(EndPoints.ROOT_URL+"/business/getBusinessPicture/" + logoUsaha).into(holder.image);
+        }
+
     }
 
     @Override
@@ -74,6 +83,7 @@ public class BusinessListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         BusinessClass currentBusiness = businessList.get(position);
 
         namaUsaha = currentBusiness.getNamaUsaha();
+        logoUsaha = currentBusiness.getLogoUsaha();
         String lamaUsaha = currentBusiness.getLamaUsaha();
         String omzetUsaha = currentBusiness.getOmzetUsaha();
         String deskripsiUsaha = currentBusiness.getDeskripsiUsaha();

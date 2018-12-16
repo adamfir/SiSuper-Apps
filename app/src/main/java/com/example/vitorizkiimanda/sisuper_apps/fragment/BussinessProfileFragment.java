@@ -241,15 +241,23 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
             if (requestCode == REQUEST_CAMERA){
                 Bundle bundle = data.getExtras();
                 certificatePict = data.getData();
+                if(certificatePict == null){
+                    Toast.makeText(mContext, "Pilih Gambar Usaha", Toast.LENGTH_SHORT).show();
+                }
+                else {
                 uploadMultipart(certificatePict, certificatesName);
-
+                }
             }
             else if(requestCode == SELECT_FILE){
                 certificatePict = data.getData();
                 Log.d("uri", certificatePict.toString());
                 Log.d("name", certificatesName);
-
-                uploadMultipart(certificatePict, certificatesName);
+                if(certificatePict == null){
+                    Toast.makeText(mContext, "Pilih Gambar Usaha", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    uploadMultipart(certificatePict, certificatesName);
+                }
             }
         }
     }
@@ -421,7 +429,7 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
                     .addHeader("Authorization", "Bearer " + Token)
                     .addParameter("idOwner", ID)
                     .setMaxRetries(2)
-                    .setNotificationConfig(new UploadNotificationConfig())
+//                    .setNotificationConfig(new UploadNotificationConfig())
                     .startUpload(); //Starting the upload
 
         } catch (Exception exc) {

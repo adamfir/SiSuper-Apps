@@ -39,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -115,8 +116,8 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
                                 businessClass.setTwitterUsaha(event.getString("twitter"));
                                 businessClass.setLineUsaha(event.getString("line"));
                                 businessClass.setInstagramUsaha(event.getString("instagram"));
+                                businessClass.setLogoUsaha(event.getString("logo"));
 
-                                System.out.println(businessClass.getLineUsaha());
                                 businessList.add(businessClass);
                             }
 
@@ -232,7 +233,7 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
         startActivity(a);
     }
 
-    static class BottomOffsetDecoration extends RecyclerView.ItemDecoration {
+    public static class BottomOffsetDecoration extends RecyclerView.ItemDecoration {
         private int mBottomOffset;
 
         public BottomOffsetDecoration(int bottomOffset) {

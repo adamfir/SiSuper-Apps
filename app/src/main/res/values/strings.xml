@@ -59,6 +59,16 @@
         <item>Neptune</item>
     </string-array>
 
+    <!--Product Category-->
+    <string-array name="unitProduct">
+        <item>Kilogram</item>
+        <item>Pack</item>
+        <item>Kodi</item>
+        <item>RIM</item>
+        <item>Pcs</item>
+        <item>Lusin</item>
+    </string-array>
+
     <!--notif test-->
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
