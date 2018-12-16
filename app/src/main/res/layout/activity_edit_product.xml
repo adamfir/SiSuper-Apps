@@ -47,7 +47,6 @@
                     android:textColor="@color/colorWhite"
                     android:textColorLink="@color/colorWhite"
                     android:theme="@style/InputWhiteLine"
-                    android:text="Bebek Geprek"
                     />
 
             </android.support.design.widget.TextInputLayout>
@@ -72,7 +71,6 @@
                     android:textColor="@color/colorWhite"
                     android:textColorLink="@color/colorWhite"
                     android:theme="@style/InputWhiteLine"
-                    android:text="22000"
                     />
 
             </android.support.design.widget.TextInputLayout>

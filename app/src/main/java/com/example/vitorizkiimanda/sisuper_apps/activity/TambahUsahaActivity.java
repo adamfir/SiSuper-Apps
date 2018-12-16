@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -129,6 +130,7 @@ public class TambahUsahaActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 View focusView = null;
+                cancel = false;
 
                 //get text
                 String namaUsaha = NamaUsaha.getText().toString();
@@ -150,6 +152,7 @@ public class TambahUsahaActivity extends AppCompatActivity {
                     focusView = NamaUsaha;
                     cancel = true;
                 }
+
                 if (TextUtils.isEmpty(lamaUsaha)) {
                     LamaUsaha.setError(getString(R.string.error_field_required));
                     focusView = LamaUsaha;
@@ -209,6 +212,9 @@ public class TambahUsahaActivity extends AppCompatActivity {
 
                 if (cancel){
                     focusView.requestFocus();
+                }
+                else if(logoUsaha == null){
+                    Toast.makeText(TambahUsahaActivity.this, "Pilih Gambar Usaha", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     showProgress(true);
@@ -396,7 +402,7 @@ public class TambahUsahaActivity extends AppCompatActivity {
                         .addParameter("businessLine", lineUsaha).addParameter("businessInstagram", instagramUsaha)
                         .addHeader("Authorization", "Bearer " + Token)
                         .setMaxRetries(2)
-                        .setNotificationConfig(new UploadNotificationConfig())
+//                        .setNotificationConfig(new UploadNotificationConfig())
                         .startUpload(); //Starting the upload
 
 
@@ -417,6 +423,8 @@ public class TambahUsahaActivity extends AppCompatActivity {
 
         @Override
         public void onError(Exception exception) {
+            Toast.makeText(TambahUsahaActivity.this, "Gagal, Pilih Gambar", Toast.LENGTH_SHORT).show();
+            showProgress(false);
         }
 
         public void onCompleted(int serverResponseCode, byte[] serverResponseBody) {

@@ -18,6 +18,7 @@ public class BusinessClass implements Parcelable{
     private String facebokUsaha;
     private String twitterUsaha;
     private String instagramUsaha;
+    String logoUsaha;
 
     public BusinessClass(){
         this.ID = "";
@@ -34,6 +35,7 @@ public class BusinessClass implements Parcelable{
         this.facebokUsaha = "";
         this.twitterUsaha = "";
         this.instagramUsaha = "";
+        this.logoUsaha = "";
     }
 
     public String getID() {
@@ -148,6 +150,14 @@ public class BusinessClass implements Parcelable{
         this.websiteUsaha = websiteUsaha;
     }
 
+    public String getLogoUsaha() {
+        String[] Pisah = logoUsaha.split("\\.");
+        return Pisah[0];
+    }
+
+    public void setLogoUsaha(String logoUsaha) {
+        this.logoUsaha = logoUsaha;
+    }
 
     protected BusinessClass(Parcel in) {
         this.ID = in.readString();
@@ -164,6 +174,7 @@ public class BusinessClass implements Parcelable{
         this.facebokUsaha = in.readString();
         this.twitterUsaha = in.readString();
         this.instagramUsaha = in.readString();
+        this.logoUsaha = in.readString();
     }
 
     public static final Creator<BusinessClass> CREATOR = new Creator<BusinessClass>() {
@@ -199,5 +210,6 @@ public class BusinessClass implements Parcelable{
         parcel.writeString(this.facebokUsaha);
         parcel.writeString(this.twitterUsaha);
         parcel.writeString(this.instagramUsaha);
+        parcel.writeString(this.logoUsaha);
     }
 }
