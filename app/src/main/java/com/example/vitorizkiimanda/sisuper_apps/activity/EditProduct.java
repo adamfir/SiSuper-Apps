@@ -27,6 +27,8 @@ import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,13 +60,22 @@ public class EditProduct extends AppCompatActivity implements AdapterView.OnItem
         Spinner spinner = (Spinner) findViewById(R.id.product_spinner);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.unitProduct, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.unitProduct, R.layout.spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
-        spinner.setSelection(2);
+
+        String[] array = getApplication().getResources().getStringArray(R.array.unitProduct);
+        System.out.println(array[0]);
+        System.out.println(array.length);
+        for(int i = 0; i < array.length; i++){
+
+            if(array[i].equals(model.getProductUnit())){
+                spinner.setSelection(i);
+            }
+        }
 
         //init
         productNames = findViewById(R.id.product_name);
