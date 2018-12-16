@@ -61,10 +61,10 @@
 
     <!--Product Category-->
     <string-array name="unitProduct">
-        <item>Kilogram</item>
+        <item>Kg</item>
         <item>Pack</item>
         <item>Kodi</item>
-        <item>RIM</item>
+        <item>Rim</item>
         <item>Pcs</item>
         <item>Lusin</item>
     </string-array>
