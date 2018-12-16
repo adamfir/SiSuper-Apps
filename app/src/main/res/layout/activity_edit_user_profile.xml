@@ -163,7 +163,6 @@
                         android:textColor="@color/colorWhite"
                         />
 
-
                 </LinearLayout>
 
             </android.support.constraint.ConstraintLayout>
