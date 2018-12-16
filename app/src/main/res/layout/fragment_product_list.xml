@@ -8,20 +8,6 @@
     tools:context=".fragment.ProductListFragment"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button_add_product"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tambah_produk"
-        android:textColor="@color/colorWhite"
-        android:textAllCaps="false"
-        android:textSize="@dimen/button_font_size"
-        android:background="@drawable/rectangle_darkpurplebg_whitestroke"
-        android:layout_marginTop="@dimen/spacing_medium"
-        android:layout_marginLeft="@dimen/spacing_medium"
-        android:layout_marginRight="@dimen/spacing_medium"
-        android:layout_marginBottom="@dimen/spacing_medium"
-        />
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

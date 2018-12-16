@@ -4,6 +4,7 @@ package com.example.vitorizkiimanda.sisuper_apps.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,8 +22,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.EditProduct;
 import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
+import com.example.vitorizkiimanda.sisuper_apps.activity.MainActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.Onboarding;
 import com.example.vitorizkiimanda.sisuper_apps.activity.ProductInput;
 import com.example.vitorizkiimanda.sisuper_apps.adapter.EventListAdapter;
@@ -85,14 +88,14 @@ public class ProductListFragment extends Fragment implements ProductListAdapter.
         recyclerView.setLayoutManager(mLayoutManager);
 
 
-        View addProductButton = view.findViewById(R.id.button_add_product);
-        addProductButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveIntent = new Intent(getActivity(), ProductInput.class);
-                startActivity(moveIntent);
-            }
-        });
+//        View addProductButton = view.findViewById(R.id.button_add_product);
+//        addProductButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent moveIntent = new Intent(getActivity(), ProductInput.class);
+//                startActivity(moveIntent);
+//            }
+//        });
 
 //        View editProductItem = view.findViewById(R.id.product_item);
 //        editProductItem.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +147,11 @@ public class ProductListFragment extends Fragment implements ProductListAdapter.
                             recyclerView.setAdapter(productListAdapter);
                             productListAdapter.setOnItemClickListener(ProductListFragment.this);
 
+                            //setDecoration
+                            float offsetPx = getResources().getDimension(R.dimen.padding);
+                            ProductListFragment.BottomOffsetDecoration bottomOffsetDecoration = new ProductListFragment.BottomOffsetDecoration((int) offsetPx);
+                            recyclerView.addItemDecoration(bottomOffsetDecoration);
+
 
                             Toast.makeText(mContext, "Retrieve Produk Berhasil", Toast.LENGTH_LONG).show();
 //                            showProgress(false);
@@ -188,6 +196,33 @@ public class ProductListFragment extends Fragment implements ProductListAdapter.
 
     @Override
     public void onItemClick(int position) {
+        Intent moveIntent = new Intent(mContext, EditProduct.class);
+        moveIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        ProductClass clickedItem = productList.get(position);
+        moveIntent.putExtra("model", clickedItem);
+        startActivity(moveIntent);
 
+
+    }
+
+    static class BottomOffsetDecoration extends RecyclerView.ItemDecoration {
+        private int mBottomOffset;
+
+        public BottomOffsetDecoration(int bottomOffset) {
+            mBottomOffset = bottomOffset;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+            int dataSize = state.getItemCount();
+            int position = parent.getChildAdapterPosition(view);
+            if (dataSize > 0 && position == dataSize - 1) {
+                outRect.set(0, 0, 0, mBottomOffset);
+            } else {
+                outRect.set(0, 0, 0, 0);
+            }
+
+        }
     }
 }

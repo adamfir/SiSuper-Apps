@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.activity.ProductInput;
 import com.example.vitorizkiimanda.sisuper_apps.activity.TambahUsahaActivity;
 import com.example.vitorizkiimanda.sisuper_apps.data.BusinessClass;
 import com.example.vitorizkiimanda.sisuper_apps.data.ProductClass;
@@ -45,10 +46,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public int getItemViewType(int position){
         if (productList.get(position).getProductName() == "null") {
-            System.out.println("haha");
             return 1;
         } else if (productList.get(position) != null) {
-            System.out.println("hihi");
             return 2;
         }
         return -1;
@@ -58,7 +57,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if(viewType == 1){
-            View v = LayoutInflater.from(context).inflate(R.layout.adapter_product_list, parent, false);
+            View v = LayoutInflater.from(context).inflate(R.layout.adapter_product_list_button, parent, false);
             return new ViewHolderTwo(v);
         }
         else {
@@ -125,8 +124,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    Intent movesIntent = new Intent(context, TambahUsahaActivity.class);
-//                    context.startActivity(movesIntent);
+                Intent moveIntent = new Intent(context, ProductInput.class);
+                context.startActivity(moveIntent);
                 }
             });
         }

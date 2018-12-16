@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.data.ProductClass;
 
 public class EditProduct extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     String unitProduct;
@@ -20,12 +21,16 @@ public class EditProduct extends AppCompatActivity implements AdapterView.OnItem
     EditText productPrices;
 
     Boolean cancel = false;
-
+    Bundle bundle;
+    private ProductClass model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_product);
+
+        bundle = getIntent().getExtras();
+        model = bundle.getParcelable("model");
 
         Spinner spinner = (Spinner) findViewById(R.id.product_spinner);
 
@@ -40,6 +45,8 @@ public class EditProduct extends AppCompatActivity implements AdapterView.OnItem
         //init
         productNames = findViewById(R.id.product_name);
         productPrices = findViewById(R.id.product_price);
+        productNames.setText(model.getProductName());
+        productPrices.setText(model.getProductPrice());
 
 
         final Button editProduct = findViewById(R.id.edit_edit_produk);

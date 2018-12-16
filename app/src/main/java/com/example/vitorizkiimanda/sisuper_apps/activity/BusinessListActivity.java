@@ -233,7 +233,7 @@ public class BusinessListActivity extends AppCompatActivity implements BusinessL
         startActivity(a);
     }
 
-    static class BottomOffsetDecoration extends RecyclerView.ItemDecoration {
+    public static class BottomOffsetDecoration extends RecyclerView.ItemDecoration {
         private int mBottomOffset;
 
         public BottomOffsetDecoration(int bottomOffset) {
