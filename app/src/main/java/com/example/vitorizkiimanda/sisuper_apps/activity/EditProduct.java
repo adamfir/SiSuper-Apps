@@ -85,8 +85,6 @@ public class EditProduct extends AppCompatActivity implements AdapterView.OnItem
 
         if(cancel){
             focusView.requestFocus();
-
-
         }
         else {
             Log.d("nama", productName);
