@@ -122,6 +122,7 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
                                 eventClass.setDate(data.getString("date"));
                                 eventClass.setOrganized(data.getString("organized_by"));
                                 eventClass.setDescription(data.getString("description"));
+                                eventClass.setIdEvent(data.getString("_id"));
 
                                 eventList.add(eventClass);
                             }
@@ -220,6 +221,7 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
         EventClass clickedItem = eventList.get(position);
         System.out.println("haha"+clickedItem);
         intent.putExtra("model", clickedItem);
+        Log.d("clicked event", String.valueOf(clickedItem.getIdEvent()));
         startActivity(intent);
     }
 

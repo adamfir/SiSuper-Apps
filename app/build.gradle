@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 27
@@ -41,5 +42,15 @@ dependencies {
     implementation "net.gotev:uploadservice:2.1"
 
 
+    //kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
+    //anko
+    implementation "org.jetbrains.anko:anko:0.10.8"
+    implementation "org.jetbrains.anko:anko-design:0.10.8"
+    implementation "org.jetbrains.anko:anko-sqlite:0.10.8"
+}
+repositories {
+    mavenCentral()
 }
