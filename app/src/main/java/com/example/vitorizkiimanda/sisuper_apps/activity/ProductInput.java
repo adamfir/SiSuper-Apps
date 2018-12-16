@@ -61,7 +61,7 @@ public class ProductInput extends AppCompatActivity implements AdapterView.OnIte
         //spinner
         Spinner spinner = (Spinner) findViewById(R.id.input_product_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.unitProduct, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.unitProduct, R.layout.spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         // Apply the adapter to the spinner
