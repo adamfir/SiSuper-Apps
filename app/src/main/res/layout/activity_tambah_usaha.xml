@@ -203,7 +203,6 @@
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
-                    android:inputType="number"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textColor="@color/colorWhite"
