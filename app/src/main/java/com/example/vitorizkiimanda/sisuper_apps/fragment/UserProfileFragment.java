@@ -24,6 +24,7 @@ import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.EditUserProfile;
 import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.TambahUsahaActivity;
+import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
 import java.util.HashMap;
@@ -169,7 +170,7 @@ public class UserProfileFragment extends Fragment {
         Phones.setText(Phone);
         Addresses.setText(Address);
         Glide.with(view)
-                .load("http://sisuper.codepanda.web.id/users/profilePicture/" + Id)
+                .load(EndPoints.ROOT_URL + "/users/profilePicture/" + Id)
                 .apply(RequestOptions.signatureOf(new ObjectKey(Long.toString(System.currentTimeMillis()))))
                 .into(Image);
 
