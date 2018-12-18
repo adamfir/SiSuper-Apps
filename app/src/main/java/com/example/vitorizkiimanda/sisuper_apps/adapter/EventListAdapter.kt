@@ -12,6 +12,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.vitorizkiimanda.sisuper_apps.R
 import com.example.vitorizkiimanda.sisuper_apps.data.EventClass
 import com.example.vitorizkiimanda.sisuper_apps.utils.formatDate
@@ -44,6 +45,7 @@ class EventListAdapter(private val context: Context, private val eventList: Arra
 
         Glide.with(context)
                 .load(eventImage)
+                .apply(RequestOptions.placeholderOf(R.drawable.logo))
                 .into(holder.image)
 
         Log.d("check Link", "image link : $eventImage")
