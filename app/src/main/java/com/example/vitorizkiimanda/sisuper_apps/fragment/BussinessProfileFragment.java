@@ -192,7 +192,6 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
         BussinessProfileFragment.getBusisnessTask getBusisnessTask = new BussinessProfileFragment.getBusisnessTask();
         getBusisnessTask.execute();
 
-        getCertificatelist();
         return view;
     }
 
@@ -230,6 +229,29 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgressCertificate(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
+    }
+
     private void SelectImage(){
         final CharSequence[] items = {"Camera", "Gallery", "Cancel"};
 
@@ -264,9 +286,10 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
                 Bundle bundle = data.getExtras();
                 certificatePict = data.getData();
                 if(certificatePict == null){
-                    Toast.makeText(mContext, "Pilih Gambar Usaha", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Pilih Gambar Sertifikat", Toast.LENGTH_SHORT).show();
                 }
                 else {
+
                 uploadMultipart(certificatePict, certificatesName);
                 }
             }
@@ -275,7 +298,7 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
                 Log.d("uri", certificatePict.toString());
                 Log.d("name", certificatesName);
                 if(certificatePict == null){
-                    Toast.makeText(mContext, "Pilih Gambar Usaha", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Pilih Gambar Sertifikat", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     uploadMultipart(certificatePict, certificatesName);
@@ -414,9 +437,7 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
         document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
         cursor.close();
 
-        cursor = mContext.getContentResolver().query(
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor = mContext.getContentResolver().query(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
         cursor.moveToFirst();
         String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
         cursor.close();
@@ -433,6 +454,7 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
     }
 
     public void uploadMultipart(Uri filePath, String namaCertificate) {
+        showProgressCertificate(true);
 
         //getting the actual path of the image
         String path = getPath(filePath);
@@ -459,8 +481,31 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
         }
     }
 
-    private void editCertificate(){
+    private void certificateChoice(final String ID){
         System.out.println("mantaps");
+
+        final CharSequence[] items = {"Perbarui Sertifikat", "Hapus Sertifikat", "Cancel"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Select Method");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(items[i].equals("Perbarui Sertifikat")){
+                    System.out.println("aww");
+                }
+                else if (items[i].equals("Hapus Sertifikat")){
+                    System.out.println("eww");
+                    showProgressCertificate(true);
+                    deleteCertificate(ID);
+                    onResume();
+                }
+                else if (items[i].equals("Cancel")){
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+        builder.show();
     }
 
     @Override
@@ -481,6 +526,8 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
     @Override
     public void onCompleted(int serverResponseCode, byte[] serverResponseBody) {
         System.out.println(serverResponseBody.toString());
+        showProgressCertificate(false);
+        getCertificatelist();
         Toast.makeText(mContext, "Upload Sukses", Toast.LENGTH_SHORT).show();
     }
 
@@ -491,18 +538,9 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
 
     @Override
     public void onItemClick(int position) {
-        editCertificate();
+        BusinessClass clickedItem = certificateList.get(position);
+        certificateChoice(clickedItem.getCertificateId());
 
-    }
-
-
-    public class getBusisnessTask extends AsyncTask<String, Void, Void>{
-
-        @Override
-        protected Void doInBackground(String... strings) {
-            getData();
-            return null;
-        }
     }
 
     public void getCertificatelist(){
@@ -555,7 +593,7 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
                             recyclerView.addItemDecoration(bottomOffsetDecoration);
 
 
-                            Toast.makeText(mContext, "Retrieve Produk Berhasil", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, "Retrieve Sertifikat Berhasil", Toast.LENGTH_LONG).show();
 //                            showProgress(false);
 
                         } catch (JSONException e) {
@@ -594,11 +632,78 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
         requestQueue.add(postRequest);
     }
 
+    public void deleteCertificate(final String ID){
+        HashMap userProfile = session.getUserDetails();
+
+        Token = (String) userProfile.get("token");
+        final String url = EndPoints.ROOT_URL+"/certificates/deleteCertificate";
+
+        StringRequest postRequest  =  new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject result = new JSONObject(response);
+                            System.out.println("haha" + result.toString());
+
+                            Toast.makeText(mContext, "Hapus Sertifikat Berhasil", Toast.LENGTH_LONG).show();
+                            showProgressCertificate(false);
+
+                        } catch (JSONException e) {
+                            Toast.makeText(mContext, "Internal Server Error", Toast.LENGTH_LONG).show();
+//                            showProgress(false);
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(mContext, "Internal Server Error", Toast.LENGTH_LONG).show();
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("certificateId", ID);
+
+                return params;
+            }
+
+            /** Passing some request headers* */
+            @Override
+            public Map getHeaders() throws AuthFailureError {
+                HashMap headers = new HashMap();
+                headers.put("Authorization", "Bearer " + Token);
+                return headers;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(mContext);
+        requestQueue.add(postRequest);
+
+    }
+
+
+    public class getBusisnessTask extends AsyncTask<String, Void, Void>{
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            getData();
+            return null;
+        }
+    }
+
+
+
     @Override
     public void onResume() {
         super.onResume();
         uploadReceiver.register(mContext);
         getData();
+        getCertificatelist();
 
     }
 }
