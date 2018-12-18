@@ -376,8 +376,6 @@ public class MainActivity extends AppCompatActivity
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(postRequest);
 
-
-
     }
 
     public void getDataBusiness(){

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,9 @@ import com.example.vitorizkiimanda.sisuper_apps.data.ProductClass;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.ProductListFragment;
 import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
@@ -30,6 +33,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     String productName;
     String productPrice;
     String productUnit;
+    int priceFormated;
+    Locale localeID = new Locale("in", "ID");
 
     public ProductListAdapter(Context context, ArrayList<ProductClass> productList){
         this.context = context;
@@ -78,8 +83,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         int viewType = holder.getItemViewType();
 
         ProductClass currentEvent = productList.get(position);
+
+//
+//        //format price
+//        String temp = currentEvent.getProductPrice();
+//        priceFormated = Integer.parseInt(temp);
+//        java.text.NumberFormat format = java.text.ChoiceFormat.getCurrencyInstance(localeID);
+
         productName = currentEvent.getProductName();
-        productPrice = currentEvent.getProductPrice();
+//        productPrice = format.format(priceFormated);
+        productPrice = "Rp."+currentEvent.getProductPrice();
         productUnit = currentEvent.getProductUnit();
 
         if(viewType == 2){
