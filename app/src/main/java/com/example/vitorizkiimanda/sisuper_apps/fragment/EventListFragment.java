@@ -56,7 +56,7 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
     private RecyclerView.LayoutManager mLayoutManager;
     private View mProgressView;
     private View mRcView;
-
+    private String tempImageURL;
 
 
 
@@ -125,8 +125,13 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
                                 eventClass.setDate(data.getString("date"));
                                 eventClass.setOrganized(data.getString("organized_by"));
                                 eventClass.setDescription(data.getString("description"));
-                                eventClass.setImage(data.getString("picture"));
                                 eventClass.setIdEvent(data.getString("_id"));
+
+                                //image URL
+                                tempImageURL = data.getString("picture");
+                                tempImageURL = tempImageURL.substring(0, tempImageURL.length() - 4);
+
+                                eventClass.setImage(tempImageURL);
 
                                 eventList.add(eventClass);
                             }
