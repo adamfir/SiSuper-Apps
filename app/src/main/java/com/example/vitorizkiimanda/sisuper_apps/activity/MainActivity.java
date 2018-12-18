@@ -259,17 +259,17 @@ public class MainActivity extends AppCompatActivity
     private void sendNotification(Context context, String title, String desc, int id) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(
                 Context.NOTIFICATION_SERVICE);
-        Intent intent = new Intent(context, MainActivity.class);
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, id, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+//        Intent intent = new Intent(context, MainActivity.class);
+//
+//        PendingIntent pendingIntent = PendingIntent.getActivity(context, id, intent,
+//                PendingIntent.FLAG_UPDATE_CURRENT);
 
         Uri uriTone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                 .setContentTitle(title)
                 .setContentText(desc)
-                .setContentIntent(pendingIntent)
+//                .setContentIntent(pendingIntent)
                 .setColor(ContextCompat.getColor(context, android.R.color.transparent))
                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -334,10 +334,10 @@ public class MainActivity extends AppCompatActivity
                             numberCerf = certificate.length();
 
                             //check data
-                            if(Id == null || Username == null || Email == null || Address == null || Phone == null || Image == null || numberCerf == 0){
-                                sendNotification(getApplication(), "Profil",
-                                        "Lengkapi profil Anda", 1001);
-                            }
+                            if(Phone == null) sendNotification(getApplication(), "Nomor Telepon", "Lengkapi Nomor Telepon Anda", 1001);
+                            if(Address == null) sendNotification(getApplication(), "Alamat", "Lengkapi Alamat Anda", 1002);
+                            if(numberCerf == 0) sendNotification(getApplication(), "Sertifikat", "Lengkapi Sertifikat Anda", 1003);
+                            if(numberCerf == 0) sendNotification(getApplication(), "Undangan", "Anda mendapat undangan!\nCek Undangan sekarang juga", 1004);
 
 //                            Log.d("getCertificate", result.toString());
 
