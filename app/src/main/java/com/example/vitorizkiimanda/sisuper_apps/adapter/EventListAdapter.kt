@@ -12,8 +12,10 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.vitorizkiimanda.sisuper_apps.R
 import com.example.vitorizkiimanda.sisuper_apps.data.EventClass
+import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints
 import com.example.vitorizkiimanda.sisuper_apps.utils.formatDate
 
 import java.util.ArrayList
@@ -40,10 +42,14 @@ class EventListAdapter(private val context: Context, private val eventList: Arra
         val eventName = currentEvent.eventName
         val eventDate = currentEvent.date
         val eventLocation = currentEvent.eventPlace
-        val eventImage = currentEvent.image
+        var eventImage = currentEvent.image
+
+//        //remove .jpg
+//        eventImage = eventImage.substring(0, eventImage.length - 4);
 
         Glide.with(context)
-                .load(eventImage)
+                .load(EndPoints.ROOT_URL+"/events/eventPicture/"+eventImage)
+                .apply(RequestOptions.placeholderOf(R.drawable.logo))
                 .into(holder.image)
 
         Log.d("check Link", "image link : $eventImage")

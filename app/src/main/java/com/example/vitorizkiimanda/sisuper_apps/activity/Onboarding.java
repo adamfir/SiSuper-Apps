@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.provider.OnboardingAdapter;
+import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
 public class Onboarding extends AppCompatActivity {
 
@@ -26,11 +27,17 @@ public class Onboarding extends AppCompatActivity {
     private Button actionButton;
 
     private OnboardingAdapter onboardingAdapter;
+    SessionManagement session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
+
+
+        // Session Manager
+        session = new SessionManagement(getApplicationContext());
+        session.checkLogin();
 
         mSlideViewPager = findViewById(R.id.slideViewPager);
         mDotsLayout = findViewById(R.id.dotsLayout);
