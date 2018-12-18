@@ -150,12 +150,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -192,8 +192,6 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_profil_akun) {
             doUserProfle();
-
-        } else if (id == R.id.nav_send) {
 
         }
         else if(id == R.id.nav_ganti_usaha){

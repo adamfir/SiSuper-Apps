@@ -47,6 +47,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -117,6 +118,9 @@ public class UserProfileFragment extends Fragment {
                 SelectImage();
             }
         });
+
+
+        Objects.requireNonNull(getActivity()).setTitle("Profil Akun");
 
         return view;
     }
@@ -192,6 +196,7 @@ public class UserProfileFragment extends Fragment {
         Addresses.setText(Address);
         Glide.with(view)
                 .load(EndPoints.ROOT_URL + "/users/profilePicture/" + Id)
+                .apply(RequestOptions.placeholderOf(R.drawable.logo))
                 .apply(RequestOptions.signatureOf(new ObjectKey(Long.toString(System.currentTimeMillis()))))
                 .into(Image);
 
