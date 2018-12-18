@@ -68,7 +68,7 @@
             android:name=".activity.EditProduct"
             android:label="Edit Produk" />
         <activity android:name=".adapter.BusinessListAdapter" />
-        <activity android:name=".adapter.businessCertifiateAdapter"></activity>
+        <activity android:name=".adapter.BusinessCertifiateAdapter"></activity>
     </application>
 
 </manifest>

@@ -382,7 +382,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/business_list">
+                    android:id="@+id/certificate_list">
                 </android.support.v7.widget.RecyclerView>x
 
             </LinearLayout>
@@ -417,6 +417,8 @@
                         android:text="SUNTING PROFIL"
                         android:textColor="@color/colorWhite"
                         />
+
+
                     <Button
                         android:id="@+id/logout"
                         android:layout_width="match_parent"
