@@ -18,6 +18,8 @@ public class BusinessClass implements Parcelable{
     private String facebokUsaha;
     private String twitterUsaha;
     private String instagramUsaha;
+    private String certificate;
+    private String certificateId;
     String logoUsaha;
 
     public BusinessClass(){
@@ -36,6 +38,8 @@ public class BusinessClass implements Parcelable{
         this.twitterUsaha = "";
         this.instagramUsaha = "";
         this.logoUsaha = "";
+        this.certificate = "";
+        this.certificateId = "";
     }
 
     public String getID() {
@@ -155,6 +159,23 @@ public class BusinessClass implements Parcelable{
         return Pisah[0];
     }
 
+    public void setCertificate(String certificate) {
+        this.certificate = certificate;
+    }
+
+    public String getCertificate() {
+        String[] Pisah = certificate.split("\\.");
+        return Pisah[0];
+    }
+
+    public void setCertificateId(String certificateId) {
+        this.certificateId = certificateId;
+    }
+
+    public String getCertificateId() {
+        return certificateId;
+    }
+
     public void setLogoUsaha(String logoUsaha) {
         this.logoUsaha = logoUsaha;
     }
@@ -175,6 +196,8 @@ public class BusinessClass implements Parcelable{
         this.twitterUsaha = in.readString();
         this.instagramUsaha = in.readString();
         this.logoUsaha = in.readString();
+        this.certificate = in.readString();
+        this.certificateId = in.readString();
     }
 
     public static final Creator<BusinessClass> CREATOR = new Creator<BusinessClass>() {
@@ -211,5 +234,7 @@ public class BusinessClass implements Parcelable{
         parcel.writeString(this.twitterUsaha);
         parcel.writeString(this.instagramUsaha);
         parcel.writeString(this.logoUsaha);
+        parcel.writeString(this.certificate);
+        parcel.writeString(this.certificateId);
     }
 }
