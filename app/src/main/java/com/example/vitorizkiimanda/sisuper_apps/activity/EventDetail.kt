@@ -8,13 +8,17 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 import com.example.vitorizkiimanda.sisuper_apps.R
 import com.example.vitorizkiimanda.sisuper_apps.R.id.img_event_detail
 import com.example.vitorizkiimanda.sisuper_apps.data.EventClass
 import com.example.vitorizkiimanda.sisuper_apps.database.AgendaEvent
 import com.example.vitorizkiimanda.sisuper_apps.database.database
+import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints
 import com.example.vitorizkiimanda.sisuper_apps.utils.formatDate
 import kotlinx.coroutines.selects.select
 import org.jetbrains.anko.db.classParser
@@ -35,6 +39,7 @@ class EventDetail : AppCompatActivity() {
     private lateinit var eventDate: TextView
     private lateinit var eventLocation: TextView
     private lateinit var eventDescription: TextView
+    private lateinit var imgEventDetail : ImageView
     private var isAgenda: Boolean = false
     private lateinit var origin: String
     private lateinit var agendaButton: Button
@@ -51,6 +56,7 @@ class EventDetail : AppCompatActivity() {
         eventLocation = findViewById(R.id.location_event_detail)
         eventDescription = findViewById(R.id.description_event_detail)
         agendaButton = findViewById(R.id.add_agenda_button)
+        imgEventDetail = findViewById(R.id.img_event_detail)
 
         origin = intent.getStringExtra("origin")
         if(origin == "agenda"){
@@ -67,6 +73,8 @@ class EventDetail : AppCompatActivity() {
 
                     modelAgenda = data
 
+
+
                     eventName.text = modelAgenda.eventName
                     eventOrganizer.text = modelAgenda.eventOrganizer
                     eventDate.text = formatDate(modelAgenda.eventDate)
@@ -81,6 +89,8 @@ class EventDetail : AppCompatActivity() {
             model = data
             id = model.idEvent
 
+
+
             eventName.text = model.eventName
             eventOrganizer.text = model.organized
             eventDate.text = model.date
@@ -88,8 +98,30 @@ class EventDetail : AppCompatActivity() {
             eventDescription.text = model.description
         }
 
-
+        loadImage()
         checkAgenda()
+    }
+
+    private fun loadImage(){
+
+        var imageLink =""
+        if(origin == "agenda"){
+//            //remove .jpg
+//            imageLink = modelAgenda.eventImage!!.substring(0, modelAgenda.eventImage!!.length - 4)
+
+            imageLink = modelAgenda.eventImage!!
+        }
+        else{
+//            //remove .jpg
+//            imageLink = model.image.substring(0, model.image.length - 4)
+
+            imageLink = model.image
+        }
+
+        Glide.with(this)
+                .load(EndPoints.ROOT_URL+"/events/eventPicture/$imageLink")
+                .apply(RequestOptions.placeholderOf(R.drawable.logo))
+                .into(imgEventDetail)
     }
 
     private fun checkAgenda() {

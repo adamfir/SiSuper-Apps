@@ -9,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.vitorizkiimanda.sisuper_apps.R
 import com.example.vitorizkiimanda.sisuper_apps.activity.EventDetail
 import com.example.vitorizkiimanda.sisuper_apps.database.AgendaEvent
+import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints
 import com.example.vitorizkiimanda.sisuper_apps.utils.formatDate
 import kotlinx.android.synthetic.main.adapter_list_evets.view.*
 import org.jetbrains.anko.startActivity
@@ -37,16 +38,18 @@ class AgendaAdapter (private val events: List<AgendaEvent>)
 }
 
 class AgendaAdapterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    private val eventImage = view.image_event_list
+    private var eventImage = view.image_event_list
     private val evenDate = view.date_event_list
     private val eventName = view.name_event_list
     private val eventPlace = view.place_event_list
 
     fun bindItem(events: AgendaEvent) {
+
         Glide.with(itemView.context)
-                .load(events.eventImage)
+                .load(EndPoints.ROOT_URL+"/events/eventPicture/"+events.eventImage)
                 .apply(RequestOptions().placeholder(R.mipmap.ic_launcher))
                 .into(eventImage)
+
         evenDate?.text = formatDate(events.eventDate)
         eventName?.text = events.eventName
         eventPlace?.text = events.eventPlace
