@@ -41,10 +41,13 @@ class EventListAdapter(private val context: Context, private val eventList: Arra
         val eventName = currentEvent.eventName
         val eventDate = currentEvent.date
         val eventLocation = currentEvent.eventPlace
-        val eventImage = currentEvent.image
+        var eventImage = currentEvent.image
+
+        //remove .jpg
+        eventImage = eventImage.substring(0, eventImage.length - 4);
 
         Glide.with(context)
-                .load(eventImage)
+                .load("http://sisuper.codepanda.id/events/eventPicture/"+eventImage)
                 .apply(RequestOptions.placeholderOf(R.drawable.logo))
                 .into(holder.image)
 

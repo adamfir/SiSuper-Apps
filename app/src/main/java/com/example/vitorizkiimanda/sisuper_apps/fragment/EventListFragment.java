@@ -111,6 +111,7 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
                     public void onResponse(JSONObject response) {
                         try {
                             JSONArray events = response.getJSONArray("event");
+                            Log.d("event", "data events :" +events);
 
                             for (int i = 0; i<events.length(); i++){
                                 JSONObject data = events.getJSONObject(i);
@@ -124,7 +125,7 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
                                 eventClass.setDate(data.getString("date"));
                                 eventClass.setOrganized(data.getString("organized_by"));
                                 eventClass.setDescription(data.getString("description"));
-//                                eventClass.setImage(data.getString("picture"));
+                                eventClass.setImage(data.getString("picture"));
                                 eventClass.setIdEvent(data.getString("_id"));
 
                                 eventList.add(eventClass);
