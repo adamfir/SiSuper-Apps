@@ -46,6 +46,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -112,6 +113,7 @@ public class ProductListFragment extends Fragment implements ProductListAdapter.
 //            }
 //        });
 
+        Objects.requireNonNull(getActivity()).setTitle("Produk-ku");
         return view;
     }
 

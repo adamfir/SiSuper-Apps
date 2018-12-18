@@ -41,6 +41,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -90,9 +91,7 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
         getEventsTask getEventsTask = new getEventsTask();
         getEventsTask.execute();
 
-
-
-
+        Objects.requireNonNull(getActivity()).setTitle("Kegiatan");
 
         return view;
     }

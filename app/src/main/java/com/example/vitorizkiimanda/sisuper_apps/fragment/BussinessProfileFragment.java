@@ -66,6 +66,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 import static android.os.Build.ID;
@@ -193,6 +194,8 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
         getBusisnessTask.execute();
 
         getCertificatelist();
+
+        Objects.requireNonNull(getActivity()).setTitle("Profil Usaha");
         return view;
     }
 
