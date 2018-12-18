@@ -118,7 +118,7 @@ public class EditUserProfile extends AppCompatActivity {
         Addresses.setText(Address);
         URI uri = URI.create(EndPoints.ROOT_URL + "/users/profilePicture/" + ID);
         Glide.with(getApplicationContext())
-                .load(Uri.parse("http://sisuper.codepanda.web.id/users/profilePicture/" + ID))
+                .load(Uri.parse(EndPoints.ROOT_URL + "/users/profilePicture/" + ID))
                 .apply(RequestOptions.signatureOf(new ObjectKey(Long.toString(System.currentTimeMillis()))))
                 .into(Image);
 

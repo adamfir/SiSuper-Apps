@@ -31,6 +31,7 @@ import com.example.vitorizkiimanda.sisuper_apps.activity.EventDetail;
 import com.example.vitorizkiimanda.sisuper_apps.activity.ProductInput;
 import com.example.vitorizkiimanda.sisuper_apps.adapter.EventListAdapter;
 import com.example.vitorizkiimanda.sisuper_apps.data.EventClass;
+import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
 import org.json.JSONArray;
@@ -99,7 +100,7 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
     public void getData(){
         HashMap result = session.getUserDetails();
         token = (String) result.get("token");
-        String URI = "http://sisuper.codepanda.web.id/events";
+        String URI = EndPoints.ROOT_URL +"/events";
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,

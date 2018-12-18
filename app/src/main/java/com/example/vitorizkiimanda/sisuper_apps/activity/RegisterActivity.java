@@ -44,6 +44,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -237,7 +238,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     }
 
     private void register(final String username, final String email, final String password, final String phone, final String address){
-        final String url = "http://sisuper.codepanda.web.id/users/signUp";
+        final String url = EndPoints.ROOT_URL + "/users/signUp";
         StringRequest postRequest  =  new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override

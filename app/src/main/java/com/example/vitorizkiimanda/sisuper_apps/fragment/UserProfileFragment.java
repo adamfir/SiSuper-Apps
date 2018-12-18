@@ -9,13 +9,23 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
@@ -24,9 +34,19 @@ import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.EditUserProfile;
 import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.TambahUsahaActivity;
+import com.example.vitorizkiimanda.sisuper_apps.adapter.ProductListAdapter;
+import com.example.vitorizkiimanda.sisuper_apps.data.BusinessClass;
+import com.example.vitorizkiimanda.sisuper_apps.data.ProductClass;
+import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +62,7 @@ public class UserProfileFragment extends Fragment {
     String Address;
     String Image;
     String Id;
+
 
 
     public UserProfileFragment() {
@@ -62,6 +83,7 @@ public class UserProfileFragment extends Fragment {
 
         // Session Manager
         session = new SessionManagement(mContext);
+
 
         View Logout = view.findViewById(R.id.logout);
         Logout.setOnClickListener(new View.OnClickListener() {
@@ -169,11 +191,12 @@ public class UserProfileFragment extends Fragment {
         Phones.setText(Phone);
         Addresses.setText(Address);
         Glide.with(view)
-                .load("http://sisuper.codepanda.web.id/users/profilePicture/" + Id)
+                .load(EndPoints.ROOT_URL + "/users/profilePicture/" + Id)
                 .apply(RequestOptions.signatureOf(new ObjectKey(Long.toString(System.currentTimeMillis()))))
                 .into(Image);
 
     }
+
 
     @Override
     public void onResume() {

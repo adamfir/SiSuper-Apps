@@ -19,6 +19,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,6 +48,7 @@ import com.example.vitorizkiimanda.sisuper_apps.activity.EditBussinessProfile;
 import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.MainActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.TambahUsahaActivity;
+import com.example.vitorizkiimanda.sisuper_apps.adapter.BusinessCertifiateAdapter;
 import com.example.vitorizkiimanda.sisuper_apps.adapter.BusinessListAdapter;
 import com.example.vitorizkiimanda.sisuper_apps.data.BusinessClass;
 import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
@@ -60,6 +63,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -69,7 +73,7 @@ import static android.os.Build.ID;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BussinessProfileFragment extends Fragment implements SingleUploadBroadcastReceiver.Delegate {
+public class BussinessProfileFragment extends Fragment implements SingleUploadBroadcastReceiver.Delegate, BusinessCertifiateAdapter.OnItemClickListener {
 
 
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
@@ -99,6 +103,13 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
     BusinessClass model;
     Dialog namesDialog;
     String certificatesName = "";
+
+    String businessID;
+
+    BusinessCertifiateAdapter businessCertifiateAdapter;
+    private ArrayList<BusinessClass> certificateList;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     private final SingleUploadBroadcastReceiver uploadReceiver = new SingleUploadBroadcastReceiver();
 
@@ -148,6 +159,15 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
         // Session Manager
         session = new SessionManagement(mContext);
 
+        //certificate List
+        this.certificateList = new ArrayList<>();
+
+        //rc
+        recyclerView = view.findViewById(R.id.certificate_list);
+        recyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+
 
         //camera
         Button addCertificate = view.findViewById(R.id.add_certificate);
@@ -171,6 +191,8 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
         showProgress(true);
         BussinessProfileFragment.getBusisnessTask getBusisnessTask = new BussinessProfileFragment.getBusisnessTask();
         getBusisnessTask.execute();
+
+        getCertificatelist();
         return view;
     }
 
@@ -294,7 +316,6 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
 //                                    .load(EndPoints.ROOT_URL + "/business/getBusinessPicture/" + result.getString("logo"))
 //                                    .apply(RequestOptions.signatureOf(new ObjectKey(Long.toString(System.currentTimeMillis()))))
 //                                    .into(LogoUsaha);
-                            System.out.println(result);
 
                         } catch (JSONException e) {
                             Toast.makeText(mContext, "Internal Server Error", Toast.LENGTH_LONG).show();
@@ -355,7 +376,7 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
         alertDialog.show();
     }
 
-    private void showDialog(){
+    public void showDialog(){
         namesDialog = new Dialog(mContext);
         namesDialog.setContentView(R.layout.dialog);
         final EditText certificateNames = namesDialog.findViewById(R.id.body);
@@ -438,6 +459,10 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
         }
     }
 
+    private void editCertificate(){
+        System.out.println("mantaps");
+    }
+
     @Override
     public void onProgress(int progress) {
 
@@ -464,6 +489,12 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
 
     }
 
+    @Override
+    public void onItemClick(int position) {
+        editCertificate();
+
+    }
+
 
     public class getBusisnessTask extends AsyncTask<String, Void, Void>{
 
@@ -474,11 +505,101 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
         }
     }
 
+    public void getCertificatelist(){
+        certificateList.clear();
+
+        HashMap userProfile = session.getUserDetails();
+        HashMap businessProfile = session.getBusiness();
+
+        Token = (String) userProfile.get("token");
+        businessID = (String) businessProfile.get("business");
+        System.out.println(businessID);
+        final String url = EndPoints.ROOT_URL+"/certificates/getCertificateUser";
+
+        StringRequest postRequest  =  new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject result = new JSONObject(response);
+                            JSONArray results = result.getJSONArray("result");
+
+                            System.out.println("haha" + result.toString());
+
+
+                            for(int i = results.length() - 1; i>=0; i--){
+                                JSONObject certificate = results.getJSONObject(i);
+
+                                BusinessClass businessClass = new BusinessClass();
+                                businessClass.setCertificate(certificate.getString("image"));
+                                businessClass.setCertificateId(certificate.getString("_id"));
+
+
+                                certificateList.add(businessClass);
+                            }
+
+
+                            for(int i =0 ; i<certificateList.toArray().length;i++){
+                                System.out.println(certificateList.get(i).getCertificateId());
+                            }
+
+
+                            businessCertifiateAdapter = new BusinessCertifiateAdapter(getActivity(), certificateList);
+                            recyclerView.setAdapter(businessCertifiateAdapter);
+                            businessCertifiateAdapter.setOnItemClickListener(BussinessProfileFragment.this);
+//                            BusinessCertifiateAdapter.setOnItemClickListener(BussinessProfileFragment.this);
+
+                            //setDecoration
+                            float offsetPx = getResources().getDimension(R.dimen.padding);
+                            ProductListFragment.BottomOffsetDecoration bottomOffsetDecoration = new ProductListFragment.BottomOffsetDecoration((int) offsetPx);
+                            recyclerView.addItemDecoration(bottomOffsetDecoration);
+
+
+                            Toast.makeText(mContext, "Retrieve Produk Berhasil", Toast.LENGTH_LONG).show();
+//                            showProgress(false);
+
+                        } catch (JSONException e) {
+                            Toast.makeText(mContext, "Internal Server Error", Toast.LENGTH_LONG).show();
+//                            showProgress(false);
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(mContext, "Internal Server Error", Toast.LENGTH_LONG).show();
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("userId", businessID);
+
+                return params;
+            }
+
+            /** Passing some request headers* */
+            @Override
+            public Map getHeaders() throws AuthFailureError {
+                HashMap headers = new HashMap();
+                headers.put("Authorization", "Bearer " + Token);
+                return headers;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(mContext);
+        requestQueue.add(postRequest);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         uploadReceiver.register(mContext);
         getData();
+
     }
 }
 

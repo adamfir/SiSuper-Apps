@@ -47,6 +47,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
 import org.json.JSONException;
@@ -380,7 +381,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         private void login(){
-            final String url = "http://sisuper.codepanda.web.id/users/signIn";
+            final String url = EndPoints.ROOT_URL +"/users/signIn";
             StringRequest postRequest  =  new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
                         @Override
