@@ -16,6 +16,7 @@ import com.example.vitorizkiimanda.sisuper_apps.database.AgendaEvent
 import com.example.vitorizkiimanda.sisuper_apps.database.database
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,6 +48,7 @@ class AgendaKotlinFragment : Fragment() {
         listMatch.layoutManager = LinearLayoutManager(context)
 
 
+        activity!!.setTitle("Agenda")
         showFavorite()
         return view
     }
