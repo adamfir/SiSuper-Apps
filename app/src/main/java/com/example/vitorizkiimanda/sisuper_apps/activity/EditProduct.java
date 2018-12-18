@@ -138,7 +138,7 @@ public class EditProduct extends AppCompatActivity implements AdapterView.OnItem
 
             token = (String) result.get("token");
             ID = (String) business.get("business");
-            final String url = EndPoints.ROOT_URL+"/products/editProducts";
+            final String url = EndPoints.ROOT_URL+"/products/editProduct";
 
             StringRequest postRequest  =  new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
