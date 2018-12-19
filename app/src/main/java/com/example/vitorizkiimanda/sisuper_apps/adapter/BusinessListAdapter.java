@@ -119,7 +119,7 @@ public class BusinessListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             super(itemView);
             image = itemView.findViewById(R.id.image_business_list);
             namaUsaha = itemView.findViewById(R.id.name_business_list);
-            numberInvitation = itemView.findViewById(R.id.number_business_list);
+//            numberInvitation = itemView.findViewById(R.id.number_business_list);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
