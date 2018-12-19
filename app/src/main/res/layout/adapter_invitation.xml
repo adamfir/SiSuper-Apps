@@ -33,7 +33,5 @@
             android:text="Organizer"
             android:maxLines="1"
             android:ellipsize="end"/>
-
     </LinearLayout>
-
 </LinearLayout>
