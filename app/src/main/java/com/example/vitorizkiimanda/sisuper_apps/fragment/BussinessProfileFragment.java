@@ -343,10 +343,12 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
                             InstagramUsaha.setText(result.getString("instagram"));
                             showProgress(false);
 
-//                            Glide.with(mContext)
-//                                    .load(EndPoints.ROOT_URL + "/business/getBusinessPicture/" + result.getString("logo"))
-//                                    .apply(RequestOptions.signatureOf(new ObjectKey(Long.toString(System.currentTimeMillis()))))
-//                                    .into(LogoUsaha);
+                            String logo = result.getString("logo");
+                            String[] Pisah = logo.split("\\.");
+
+                            Glide.with(mContext)
+                                    .load(EndPoints.ROOT_URL + "/business/getBusinessPicture/" + Pisah[0])
+                                    .into(LogoUsaha);
 
                         } catch (JSONException e) {
                             Toast.makeText(mContext, "Internal Server Error", Toast.LENGTH_LONG).show();
