@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/spacing_medium"
+    android:gravity="center">
+    <ImageView
+        android:id="@+id/invitation_image"
+        android:layout_weight="0.2"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_launcher_round"/>
+    <LinearLayout
+        android:layout_weight="0.7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_medium">
+        <TextView
+            android:id="@+id/invitation_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Invitation Title"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="@dimen/font_medium"/>
+        <TextView
+            android:id="@+id/invitation_organizer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Organizer"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+    </LinearLayout>
+</LinearLayout>
