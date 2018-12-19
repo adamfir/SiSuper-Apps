@@ -1,5 +1,7 @@
 package com.example.vitorizkiimanda.sisuper_apps.activity;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -91,6 +93,14 @@ public class EditProduct extends AppCompatActivity implements AdapterView.OnItem
 
                 editProduct();
 
+            }
+        });
+
+        final Button deleteProduct = findViewById(R.id.delete_edit_produk);
+        deleteProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogDelete();
             }
         });
 
@@ -190,7 +200,87 @@ public class EditProduct extends AppCompatActivity implements AdapterView.OnItem
             RequestQueue requestQueue = Volley.newRequestQueue(EditProduct.this);
             requestQueue.add(postRequest);
         }
+    }
 
+    public void deleteProduct(){
+
+        HashMap result = session.getUserDetails();
+        HashMap business = session.getBusiness();
+
+        token = (String) result.get("token");
+        ID = (String) business.get("business");
+        final String url = EndPoints.ROOT_URL+"/products/deleteProduct";
+        System.out.println(token);
+        System.out.println(model.getProductId());
+
+        StringRequest postRequest  =  new StringRequest(Request.Method.DELETE, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject result = new JSONObject(response);
+                            System.out.println(result);
+
+                            Toast.makeText(getApplication(), "Hapus Produk Berhasil", Toast.LENGTH_LONG).show();
+//                                showProgress(false);
+                            finish();
+
+                        } catch (JSONException e) {
+                            Toast.makeText(getApplication(), "Internal Server Error", Toast.LENGTH_LONG).show();
+//                                showProgress(false);
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplication(), "Internal Server Error", Toast.LENGTH_LONG).show();
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("productId", model.getProductId());
+
+                return params;
+            }
+
+            /** Passing some request headers* */
+            @Override
+            public Map getHeaders() throws AuthFailureError {
+                HashMap headers = new HashMap();
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(EditProduct.this);
+        requestQueue.add(postRequest);
+    }
+
+    public void dialogDelete(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage("Apakah anda yakin ingin menghapus produk ini?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        deleteProduct();
+                    }
+                })
+
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
 
     }
 }
