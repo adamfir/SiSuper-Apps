@@ -96,7 +96,7 @@ public class InvitationFragment extends Fragment implements InvitationAdapter.On
         InvitationFragment.getEventsTask getEventsTask = new InvitationFragment.getEventsTask();
         getEventsTask.execute();
 
-        Objects.requireNonNull(getActivity()).setTitle("Kegiatan");
+        Objects.requireNonNull(getActivity()).setTitle("Undangan");
         return view;
     }
 
@@ -105,7 +105,7 @@ public class InvitationFragment extends Fragment implements InvitationAdapter.On
         showProgress(true);
         invitationList.clear();
 
-//        showProgress(true);
+        showProgress(true);
         HashMap userProfile = session.getUserDetails();
 
         token = (String) userProfile.get("token");
