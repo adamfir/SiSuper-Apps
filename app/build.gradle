@@ -50,7 +50,6 @@ dependencies {
     implementation "org.jetbrains.anko:anko-design:0.10.8"
     implementation "org.jetbrains.anko:anko-sqlite:0.10.8"
 
-
     //testing
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

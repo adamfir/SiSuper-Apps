@@ -52,6 +52,7 @@ import com.example.vitorizkiimanda.sisuper_apps.fragment.BussinessProfileFragmen
 import com.example.vitorizkiimanda.sisuper_apps.fragment.EventListFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.ProductListFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.UserProfileFragment;
+import com.example.vitorizkiimanda.sisuper_apps.fragment.invitation.InvitationFragment;
 import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
@@ -186,7 +187,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_kegiatan) {
             doKegiatan();
         } else if (id == R.id.nav_undangan) {
-
+            doUndangan();
         } else if (id == R.id.nav_profil_usaha) {
             doProfilUsaha();
 
@@ -256,20 +257,29 @@ public class MainActivity extends AppCompatActivity
         mFragmentTransaction.commit();
     }
 
+    public void doUndangan(){
+        //fragment
+        FragmentManager mFragmentManager = getSupportFragmentManager();
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        InvitationFragment invitationFragment = new InvitationFragment();
+        mFragmentTransaction.replace(R.id.frame_container, invitationFragment, InvitationFragment.class.getSimpleName());
+        mFragmentTransaction.commit();
+    }
+
     private void sendNotification(Context context, String title, String desc, int id) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(
                 Context.NOTIFICATION_SERVICE);
-        Intent intent = new Intent(context, MainActivity.class);
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, id, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+//        Intent intent = new Intent(context, MainActivity.class);
+//
+//        PendingIntent pendingIntent = PendingIntent.getActivity(context, id, intent,
+//                PendingIntent.FLAG_UPDATE_CURRENT);
 
         Uri uriTone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                 .setContentTitle(title)
                 .setContentText(desc)
-                .setContentIntent(pendingIntent)
+//                .setContentIntent(pendingIntent)
                 .setColor(ContextCompat.getColor(context, android.R.color.transparent))
                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -334,10 +344,10 @@ public class MainActivity extends AppCompatActivity
                             numberCerf = certificate.length();
 
                             //check data
-                            if(Id == null || Username == null || Email == null || Address == null || Phone == null || Image == null || numberCerf == 0){
-                                sendNotification(getApplication(), "Profil",
-                                        "Lengkapi profil Anda", 1001);
-                            }
+                            if(Phone == null) sendNotification(getApplication(), "Nomor Telepon", "Lengkapi Nomor Telepon Anda", 1001);
+                            if(Address == null) sendNotification(getApplication(), "Alamat", "Lengkapi Alamat Anda", 1002);
+                            if(numberCerf == 0) sendNotification(getApplication(), "Sertifikat", "Lengkapi Sertifikat Anda", 1003);
+                            if(numberCerf == 0) sendNotification(getApplication(), "Undangan", "Anda mendapat undangan!\nCek Undangan sekarang juga", 1004);
 
 //                            Log.d("getCertificate", result.toString());
 
@@ -375,8 +385,6 @@ public class MainActivity extends AppCompatActivity
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(postRequest);
-
-
 
     }
 
