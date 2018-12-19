@@ -110,7 +110,7 @@ public class InvitationFragment extends Fragment implements InvitationAdapter.On
 
         token = (String) userProfile.get("token");
         id = (String) userProfile.get("id");
-        final String url = EndPoints.ROOT_URL+"/invitations/getUserById/"+id;
+        final String url = EndPoints.ROOT_URL+"/invitations/getInvitationByUser/"+id;
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -121,7 +121,7 @@ public class InvitationFragment extends Fragment implements InvitationAdapter.On
                     public void onResponse(JSONObject response) {
                         try {
                             JSONArray invitation = response.getJSONArray("invitation");
-                            Log.d("event", "data events :" +invitation);
+                            Log.d("event", "data invitation :" +invitation);
 
                             for (int i = 0; i<invitation.length(); i++){
                                 JSONObject data = invitation.getJSONObject(i).getJSONObject("event");
