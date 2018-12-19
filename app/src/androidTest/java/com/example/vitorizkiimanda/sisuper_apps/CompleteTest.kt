@@ -50,10 +50,10 @@ class CompleteTest{
         Espresso.onView(ViewMatchers.withId(login_layout))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(ViewMatchers.withId(email)).perform(
-                (ViewActions.typeText("jokowi@gmail.com")))
+                (ViewActions.typeText("vitorizkiimanda@gmail.com")))
         Thread.sleep(1500)
         Espresso.onView(ViewMatchers.withId(password)).perform(
-                (ViewActions.typeText("123456")))
+                (ViewActions.typeText("vitovito")))
         Thread.sleep(1500)
         Espresso.onView(ViewMatchers.withId(email_sign_in_button)).perform(
                 (ViewActions.click()))
@@ -61,8 +61,12 @@ class CompleteTest{
 
         ////choose business
         Espresso.onView(ViewMatchers.withId(business_list)).perform(
-                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(2, ViewActions.click()))
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(1, ViewActions.click()))
         Thread.sleep(1500)
+
+        //Produk-ku
+        Espresso.onView(ViewMatchers.withId(business_list)).perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(1, ViewActions.click()))
     }
 
 }
