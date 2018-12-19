@@ -36,6 +36,9 @@ import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -88,7 +91,11 @@ public class EditBussinessProfile extends AppCompatActivity {
         TwitterUsaha = findViewById(R.id.twitter_edit);
         LineUsaha = findViewById(R.id.id_line_edit);
         InstagramUsaha = findViewById(R.id.instagram_edit);
-        parsingData();
+        try {
+            parsingData();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         //progressview
         mProgressView = findViewById(R.id.progress_edit_business_profile);
@@ -257,9 +264,9 @@ public class EditBussinessProfile extends AppCompatActivity {
 
 
 
-    public void parsingData(){
+    public void parsingData() throws ParseException {
         NamaUsaha.setText(model.getNamaUsaha());
-        LamaUsaha.setText(model.getLamaUsaha());
+//        LamaUsaha.setText(model.getLamaUsaha());
         OmzetUsaha.setText(model.getOmzetUsaha());
         DeskripsiUsaha.setText(model.getDeskripsiUsaha());
         AlamatUsaha.setText(model.getAlamatUsaha());
@@ -270,6 +277,16 @@ public class EditBussinessProfile extends AppCompatActivity {
         TwitterUsaha.setText(model.getTwitterUsaha());
         LineUsaha.setText(model.getLineUsaha());
         InstagramUsaha.setText(model.getInstagramUsaha());
+
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+        Date dates = fmt.parse(model.getLamaUsaha());
+
+        String date = dates.toString().substring(0, 10);
+        String year = dates.toString().substring(30, 34);
+        System.out.println(year);
+
+        LamaUsaha.setText(date + ", " + year);
+
 
     }
 }

@@ -6,12 +6,10 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -39,37 +37,30 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.signature.ObjectKey;
 import com.example.vitorizkiimanda.sisuper_apps.R;
-import com.example.vitorizkiimanda.sisuper_apps.activity.BusinessListActivity;
 import com.example.vitorizkiimanda.sisuper_apps.activity.EditBussinessProfile;
-
-import com.example.vitorizkiimanda.sisuper_apps.activity.LoginActivity;
-import com.example.vitorizkiimanda.sisuper_apps.activity.MainActivity;
-import com.example.vitorizkiimanda.sisuper_apps.activity.TambahUsahaActivity;
 import com.example.vitorizkiimanda.sisuper_apps.adapter.BusinessCertifiateAdapter;
-import com.example.vitorizkiimanda.sisuper_apps.adapter.BusinessListAdapter;
 import com.example.vitorizkiimanda.sisuper_apps.data.BusinessClass;
 import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SingleUploadBroadcastReceiver;
+import com.example.vitorizkiimanda.sisuper_apps.utils.UtilsKt;
 
 import net.gotev.uploadservice.MultipartUploadRequest;
-import net.gotev.uploadservice.UploadNotificationConfig;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
+import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
-
-import static android.os.Build.ID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -343,13 +334,27 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
                             InstagramUsaha.setText(result.getString("instagram"));
                             showProgress(false);
 
-//                            Glide.with(mContext)
-//                                    .load(EndPoints.ROOT_URL + "/business/getBusinessPicture/" + result.getString("logo"))
-//                                    .apply(RequestOptions.signatureOf(new ObjectKey(Long.toString(System.currentTimeMillis()))))
-//                                    .into(LogoUsaha);
+                            String logo = result.getString("logo");
+                            String[] Pisah = logo.split("\\.");
+
+                            String date = result.getString("established_date");
+                            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+                            Date dates = fmt.parse(date);
+
+                            date = dates.toString().substring(0, 10);
+                            String year = dates.toString().substring(30, 34);
+                            System.out.println(year);
+
+                            LamaUsaha.setText(date + ", " + year);
+
+                            Glide.with(mContext)
+                                    .load(EndPoints.ROOT_URL + "/business/getBusinessPicture/" + Pisah[0])
+                                    .into(LogoUsaha);
 
                         } catch (JSONException e) {
                             Toast.makeText(mContext, "Internal Server Error", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        } catch (ParseException e) {
                             e.printStackTrace();
                         }
 

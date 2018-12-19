@@ -78,7 +78,7 @@
                     android:id="@+id/lama_usaha_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/lama_usaha"
+                    android:hint="Berdiri Sejak"
                     android:text="20"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
