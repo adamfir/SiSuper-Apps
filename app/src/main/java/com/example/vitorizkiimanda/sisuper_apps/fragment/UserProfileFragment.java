@@ -110,13 +110,13 @@ public class UserProfileFragment extends Fragment {
 
 
         //camera
-        Button addCertificate = view.findViewById(R.id.add_certificate);
-        addCertificate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SelectImage();
-            }
-        });
+    //        Button addCertificate = view.findViewById(R.id.add_certificate);
+    //        addCertificate.setOnClickListener(new View.OnClickListener() {
+    //            @Override
+    //            public void onClick(View view) {
+    //                SelectImage();
+    //            }
+    //        });
 
         return view;
     }

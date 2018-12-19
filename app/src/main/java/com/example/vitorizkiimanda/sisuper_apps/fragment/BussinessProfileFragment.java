@@ -105,6 +105,7 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
     String certificatesName = "";
 
     String businessID;
+    Integer marker = 0;
 
     BusinessCertifiateAdapter businessCertifiateAdapter;
     private ArrayList<BusinessClass> certificateList;
@@ -191,6 +192,8 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
         showProgress(true);
         BussinessProfileFragment.getBusisnessTask getBusisnessTask = new BussinessProfileFragment.getBusisnessTask();
         getBusisnessTask.execute();
+
+        marker = 1;
 
         return view;
     }
@@ -527,7 +530,9 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
     public void onCompleted(int serverResponseCode, byte[] serverResponseBody) {
         System.out.println(serverResponseBody.toString());
         showProgressCertificate(false);
-        getCertificatelist();
+//        getCertificatelist();
+        marker = 1;
+        onResume();
         Toast.makeText(mContext, "Upload Sukses", Toast.LENGTH_SHORT).show();
     }
 
@@ -593,7 +598,7 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
                             recyclerView.addItemDecoration(bottomOffsetDecoration);
 
 
-                            Toast.makeText(mContext, "Retrieve Sertifikat Berhasil", Toast.LENGTH_LONG).show();
+    //                            Toast.makeText(mContext, "Retrieve Sertifikat Berhasil", Toast.LENGTH_LONG).show();
 //                            showProgress(false);
 
                         } catch (JSONException e) {
@@ -702,8 +707,11 @@ public class BussinessProfileFragment extends Fragment implements SingleUploadBr
     public void onResume() {
         super.onResume();
         uploadReceiver.register(mContext);
-        getData();
-        getCertificatelist();
+
+        if(marker == 1){
+            getData();
+            getCertificatelist();
+        }
 
     }
 }
