@@ -151,13 +151,10 @@ public class MainActivity extends AppCompatActivity
 
         Name.setText(businessData.get("businessName").toString());
         Emails.setText(businessData.get("businessEmail").toString());
-<<<<<<< HEAD
-=======
+
         String photo = model.getLogoUsaha();
         Glide.with(this).load(EndPoints.ROOT_URL + "/business/getBusinessPicture/" + photo).into(businessPhoto);
 
-
->>>>>>> ae7750ae2ca969794f34ab850ff46da9b8d8305e
     }
 
     @Override
