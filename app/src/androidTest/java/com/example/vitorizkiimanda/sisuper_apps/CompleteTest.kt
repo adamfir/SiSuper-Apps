@@ -64,9 +64,21 @@ class CompleteTest{
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(1, ViewActions.click()))
         Thread.sleep(1500)
 
-        //Produk-ku
-        Espresso.onView(ViewMatchers.withId(business_list)).perform(
-                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(1, ViewActions.click()))
+        ////Produk-ku
+        //create product
+        Espresso.onView(ViewMatchers.withId(product_list)).perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, ViewActions.click()))
+        Thread.sleep(1500)
+
+        Espresso.onView(ViewMatchers.withId(name_input_product)).perform(
+                (ViewActions.typeText("Geprek Presentasi")))
+        Thread.sleep(1500)
+        Espresso.onView(ViewMatchers.withId(price_input_product)).perform(
+                (ViewActions.typeText("30000")))
+        Thread.sleep(1500)
+        Espresso.onView(ViewMatchers.withId(add_input_product)).perform(
+                (ViewActions.click()))
+        Thread.sleep(1500)
     }
 
 }
