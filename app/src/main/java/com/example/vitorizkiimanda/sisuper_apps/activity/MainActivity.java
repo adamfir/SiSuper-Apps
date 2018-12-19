@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity
 
     TextView Name;
     TextView Emails;
+    ImageView businessPhoto;
 
     View headers;
     JSONArray certificate;
@@ -145,8 +146,18 @@ public class MainActivity extends AppCompatActivity
         headers = navigationView.getHeaderView(0);
         Name = (TextView) headers.findViewById(R.id.business_name);
         Emails = (TextView) headers.findViewById(R.id.business_email);
+        businessPhoto = headers.findViewById(R.id.business_photo);
+
+
         Name.setText(businessData.get("businessName").toString());
         Emails.setText(businessData.get("businessEmail").toString());
+<<<<<<< HEAD
+=======
+        String photo = model.getLogoUsaha();
+        Glide.with(this).load(EndPoints.ROOT_URL + "/business/getBusinessPicture/" + photo).into(businessPhoto);
+
+
+>>>>>>> ae7750ae2ca969794f34ab850ff46da9b8d8305e
     }
 
     @Override
