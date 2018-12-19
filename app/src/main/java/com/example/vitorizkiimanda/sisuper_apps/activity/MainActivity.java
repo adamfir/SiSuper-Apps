@@ -40,10 +40,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.vitorizkiimanda.sisuper_apps.R;
+import com.example.vitorizkiimanda.sisuper_apps.adapter.InvitationAdapter;
 import com.example.vitorizkiimanda.sisuper_apps.data.BusinessClass;
 import com.example.vitorizkiimanda.sisuper_apps.data.EventClass;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.AgendaFragment;
@@ -60,6 +62,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,6 +95,12 @@ public class MainActivity extends AppCompatActivity
     View headers;
     JSONArray certificate;
 
+    //invitaion
+    private ArrayList<EventClass> invitationList;
+    String id;
+    String token;
+
+
     HashMap businessData;
 
     @SuppressLint({"WrongViewCast", "SetTextI18n"})
@@ -111,6 +120,7 @@ public class MainActivity extends AppCompatActivity
 //            }
 //        });
 
+        this.invitationList = new ArrayList<>();
         bundle = getIntent().getExtras();
         model = bundle.getParcelable("model");
 
@@ -137,8 +147,6 @@ public class MainActivity extends AppCompatActivity
         Emails = (TextView) headers.findViewById(R.id.business_email);
         Name.setText(businessData.get("businessName").toString());
         Emails.setText(businessData.get("businessEmail").toString());
-
-
     }
 
     @Override
@@ -333,6 +341,8 @@ public class MainActivity extends AppCompatActivity
         Token = (String) getToken.get("token");
         ID = (String) result.get("business");
 
+        getInvitationList();
+
         final String url = EndPoints.ROOT_URL+"/certificates/getCertificateUser";
         StringRequest postRequest  =  new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -342,12 +352,13 @@ public class MainActivity extends AppCompatActivity
                             JSONObject results = new JSONObject(response);
                             certificate = results.getJSONArray("result");
                             numberCerf = certificate.length();
+                            int numberInvitation = invitationList.size();
 
                             //check data
                             if(Phone == null) sendNotification(getApplication(), "Nomor Telepon", "Lengkapi Nomor Telepon Anda", 1001);
                             if(Address == null) sendNotification(getApplication(), "Alamat", "Lengkapi Alamat Anda", 1002);
                             if(numberCerf == 0) sendNotification(getApplication(), "Sertifikat", "Lengkapi Sertifikat Anda", 1003);
-                            if(numberCerf == 0) sendNotification(getApplication(), "Undangan", "Anda mendapat undangan!\nCek Undangan sekarang juga", 1004);
+                            if(numberInvitation > 0) sendNotification(getApplication(), "Undangan", "Anda mendapat undangan!\nCek Undangan sekarang juga", 1004);
 
 //                            Log.d("getCertificate", result.toString());
 
@@ -391,5 +402,79 @@ public class MainActivity extends AppCompatActivity
     public void getDataBusiness(){
         businessData = session.getBusiness();
     }
+
+
+    public void getInvitationList(){
+        invitationList.clear();
+        HashMap userProfile = session.getUserDetails();
+
+        token = (String) userProfile.get("token");
+        id = (String) userProfile.get("id");
+        final String url = EndPoints.ROOT_URL+"/invitations/getInvitationByUser/"+id;
+        RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray invitation = response.getJSONArray("invitation");
+                            Log.d("event", "data invitation :" +invitation);
+
+                            for (int i = 0; i<invitation.length(); i++){
+                                JSONObject data = invitation.getJSONObject(i).getJSONObject("event");
+                                Log.d("data event", String.valueOf(data));
+
+                                System.out.println(data);
+                                EventClass eventClass = new EventClass();
+
+                                eventClass.setEventName(data.getString("name"));
+                                eventClass.setEventPlace(data.getString("location"));
+                                eventClass.setDate(data.getString("date"));
+                                eventClass.setOrganized(data.getString("organized_by"));
+                                eventClass.setDescription(data.getString("description"));
+                                eventClass.setIdEvent(data.getString("_id"));
+
+                                //image URL
+                                String tempImageURL = data.getString("picture");
+                                tempImageURL = tempImageURL.substring(0, tempImageURL.length() - 4);
+
+                                eventClass.setImage(tempImageURL);
+
+                                invitationList.add(eventClass);
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Internal Server Error", Toast.LENGTH_LONG).show();
+
+                    }
+                }
+        )
+        {
+            /** Passing some request headers* */
+            @Override
+            public Map getHeaders() throws AuthFailureError {
+                HashMap headers = new HashMap();
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
+
+    }
+
+
+
 
 }
