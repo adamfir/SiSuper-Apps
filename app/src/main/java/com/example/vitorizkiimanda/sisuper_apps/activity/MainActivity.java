@@ -50,9 +50,9 @@ import com.example.vitorizkiimanda.sisuper_apps.fragment.AgendaFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.AgendaKotlinFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.BussinessProfileFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.EventListFragment;
+import com.example.vitorizkiimanda.sisuper_apps.fragment.InvitationFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.ProductListFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.UserProfileFragment;
-import com.example.vitorizkiimanda.sisuper_apps.fragment.invitation.InvitationFragment;
 import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
