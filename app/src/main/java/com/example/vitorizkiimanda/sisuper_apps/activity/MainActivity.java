@@ -52,6 +52,7 @@ import com.example.vitorizkiimanda.sisuper_apps.fragment.BussinessProfileFragmen
 import com.example.vitorizkiimanda.sisuper_apps.fragment.EventListFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.ProductListFragment;
 import com.example.vitorizkiimanda.sisuper_apps.fragment.UserProfileFragment;
+import com.example.vitorizkiimanda.sisuper_apps.fragment.invitation.InvitationFragment;
 import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
@@ -186,7 +187,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_kegiatan) {
             doKegiatan();
         } else if (id == R.id.nav_undangan) {
-
+            doUndangan();
         } else if (id == R.id.nav_profil_usaha) {
             doProfilUsaha();
 
@@ -253,6 +254,15 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         AgendaKotlinFragment agendaKotlinFragment = new AgendaKotlinFragment();
         mFragmentTransaction.replace(R.id.frame_container, agendaKotlinFragment, AgendaKotlinFragment.class.getSimpleName());
+        mFragmentTransaction.commit();
+    }
+
+    public void doUndangan(){
+        //fragment
+        FragmentManager mFragmentManager = getSupportFragmentManager();
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        InvitationFragment invitationFragment = new InvitationFragment();
+        mFragmentTransaction.replace(R.id.frame_container, invitationFragment, InvitationFragment.class.getSimpleName());
         mFragmentTransaction.commit();
     }
 

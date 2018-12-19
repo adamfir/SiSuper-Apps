@@ -84,11 +84,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         ProductClass currentEvent = productList.get(position);
 
-//
+
 //        //format price
 //        String temp = currentEvent.getProductPrice();
 //        priceFormated = Integer.parseInt(temp);
 //        java.text.NumberFormat format = java.text.ChoiceFormat.getCurrencyInstance(localeID);
+//
 
         productName = currentEvent.getProductName();
 //        productPrice = format.format(priceFormated);
