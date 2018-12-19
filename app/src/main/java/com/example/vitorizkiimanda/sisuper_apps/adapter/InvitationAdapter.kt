@@ -6,21 +6,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.vitorizkiimanda.sisuper_apps.R
 import com.example.vitorizkiimanda.sisuper_apps.data.EventClass
 import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints
 import com.example.vitorizkiimanda.sisuper_apps.utils.formatDate
-
 import java.util.ArrayList
 
-class EventListAdapter(private val context: Context, private val eventList: ArrayList<EventClass>) : RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
+class InvitationAdapter(private val context: Context, private val invitationList: ArrayList<EventClass>) : RecyclerView.Adapter<InvitationAdapter.ViewHolder>() {
     private var mListener: OnItemClickListener? = null
 
     interface OnItemClickListener {
@@ -33,15 +30,14 @@ class EventListAdapter(private val context: Context, private val eventList: Arra
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(context).inflate(R.layout.adapter_list_evets, parent, false)
+        val v = LayoutInflater.from(context).inflate(R.layout.adapter_invitation, parent, false)
         return ViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentEvent = eventList[position]
+        val currentEvent = invitationList[position]
         val eventName = currentEvent.eventName
-        val eventDate = currentEvent.date
-        val eventLocation = currentEvent.eventPlace
+        val eventOrganizer = currentEvent.organized
         var eventImage = currentEvent.image
 
 //        //remove .jpg
@@ -55,27 +51,23 @@ class EventListAdapter(private val context: Context, private val eventList: Arra
         Log.d("check Link", "image link : $eventImage")
 
         holder.eventName.text = eventName
-        holder.eventPlace.text = eventLocation
-        holder.date.text = formatDate(eventDate)
+        holder.organizer.text = eventOrganizer
     }
 
     override fun getItemCount(): Int {
-        return eventList.size
+        return invitationList.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         internal var image: ImageView
-        internal var date: TextView
         internal var eventName: TextView
-        internal var eventPlace: TextView
-        internal var parentEventListLayout: RelativeLayout? = null
+        internal var organizer: TextView
 
         init {
-            image = itemView.findViewById(R.id.image_event_list)
-            date = itemView.findViewById(R.id.date_event_list)
-            eventName = itemView.findViewById(R.id.name_event_list)
-            eventPlace = itemView.findViewById(R.id.place_event_list)
+            image = itemView.findViewById(R.id.invitation_image)
+            eventName = itemView.findViewById(R.id.invitation_title)
+            organizer = itemView.findViewById(R.id.invitation_organizer)
 
             itemView.setOnClickListener {
                 if (mListener != null) {
@@ -88,6 +80,6 @@ class EventListAdapter(private val context: Context, private val eventList: Arra
     }
 
     companion object {
-        private val TAG = "EventListAdapter"
+        private val TAG = "InvitationAdapter"
     }
 }

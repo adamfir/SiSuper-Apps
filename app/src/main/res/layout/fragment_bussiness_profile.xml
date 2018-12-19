@@ -397,11 +397,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="10dp"
-                        android:drawableStart="@drawable/ic_person_black_24dp"
+                        android:drawableStart="@drawable/ic_store_black_24dp"
                         android:paddingLeft="80dp"
                         android:paddingRight="80dp"
                         android:background="@color/colorPurpleDark"
-                        android:text="SUNTING PROFIL"
+                        android:text="SUNTING PROFIL USAHA"
                         android:textColor="@color/colorWhite"
                         />
 

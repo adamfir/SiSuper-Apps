@@ -25,12 +25,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.vitorizkiimanda.sisuper_apps.R;
 import com.example.vitorizkiimanda.sisuper_apps.activity.EventDetail;
-import com.example.vitorizkiimanda.sisuper_apps.activity.ProductInput;
 import com.example.vitorizkiimanda.sisuper_apps.adapter.EventListAdapter;
+import com.example.vitorizkiimanda.sisuper_apps.adapter.InvitationAdapter;
+import com.example.vitorizkiimanda.sisuper_apps.adapter.ProductListAdapter;
 import com.example.vitorizkiimanda.sisuper_apps.data.EventClass;
+import com.example.vitorizkiimanda.sisuper_apps.data.ProductClass;
 import com.example.vitorizkiimanda.sisuper_apps.provider.EndPoints;
 import com.example.vitorizkiimanda.sisuper_apps.provider.SessionManagement;
 
@@ -46,22 +49,24 @@ import java.util.Objects;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventListFragment extends Fragment implements EventListAdapter.OnItemClickListener{
-    SessionManagement session;
+public class InvitationFragment extends Fragment implements InvitationAdapter.OnItemClickListener {
+
+
     Context mContext;
-    String token;
-    private String TAG = "MainActivity";
-    private ArrayList<EventClass> eventList;
-    private EventListAdapter eventListAdapter;
+    SessionManagement session;
+    private ArrayList<EventClass> invitationList;
+
+    InvitationAdapter invitationAdapter;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private View mProgressView;
+
+    String id;
+    String token;
+
     private View mRcView;
-    private String tempImageURL;
 
-
-
-    public EventListFragment() {
+    public InvitationFragment() {
         // Required empty public constructor
     }
 
@@ -76,44 +81,50 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_event_list, container, false);
-        recyclerView = view.findViewById(R.id.event_list);
+        View view = inflater.inflate(R.layout.fragment_invitation, container, false);
+        recyclerView = view.findViewById(R.id.invitation_list);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(mLayoutManager);
 
-        mRcView = view.findViewById(R.id.event_list);
-        mProgressView = view.findViewById(R.id.events_progress);
+        mRcView = view.findViewById(R.id.invitation_list);
+        mProgressView = view.findViewById(R.id.invitations_progress);
         //session manager
         session = new SessionManagement(mContext);
-        this.eventList = new ArrayList<>();
+        this.invitationList = new ArrayList<>();
         showProgress(true);
-        getEventsTask getEventsTask = new getEventsTask();
+        InvitationFragment.getEventsTask getEventsTask = new InvitationFragment.getEventsTask();
         getEventsTask.execute();
 
         Objects.requireNonNull(getActivity()).setTitle("Kegiatan");
-
         return view;
     }
 
-    public void getData(){
-        HashMap result = session.getUserDetails();
-        token = (String) result.get("token");
-        String URI = EndPoints.ROOT_URL +"/events";
+    public void getInvitationList(){
+
+        showProgress(true);
+        invitationList.clear();
+
+//        showProgress(true);
+        HashMap userProfile = session.getUserDetails();
+
+        token = (String) userProfile.get("token");
+        id = (String) userProfile.get("id");
+        final String url = EndPoints.ROOT_URL+"/invitations/getInvitationByUser/"+id;
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
-                URI,
+                url,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONArray events = response.getJSONArray("event");
-                            Log.d("event", "data events :" +events);
+                            JSONArray invitation = response.getJSONArray("invitation");
+                            Log.d("event", "data invitation :" +invitation);
 
-                            for (int i = 0; i<events.length(); i++){
-                                JSONObject data = events.getJSONObject(i);
+                            for (int i = 0; i<invitation.length(); i++){
+                                JSONObject data = invitation.getJSONObject(i).getJSONObject("event");
                                 Log.d("data event", String.valueOf(data));
 
                                 System.out.println(data);
@@ -127,16 +138,16 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
                                 eventClass.setIdEvent(data.getString("_id"));
 
                                 //image URL
-                                tempImageURL = data.getString("picture");
+                                String tempImageURL = data.getString("picture");
                                 tempImageURL = tempImageURL.substring(0, tempImageURL.length() - 4);
 
                                 eventClass.setImage(tempImageURL);
 
-                                eventList.add(eventClass);
+                                invitationList.add(eventClass);
                             }
-                            eventListAdapter = new EventListAdapter(mContext, eventList);
-                            recyclerView.setAdapter(eventListAdapter);
-                            eventListAdapter.setOnItemClickListener(EventListFragment.this);
+                            invitationAdapter = new InvitationAdapter(mContext, invitationList);
+                            recyclerView.setAdapter(invitationAdapter);
+                            invitationAdapter.setOnItemClickListener(InvitationFragment.this);
                             showProgress(false);
 
 
@@ -168,49 +179,50 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
     }
 
 
-        /**
-         * Shows the progress UI and hides the login form.
-         */
-        @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-        private void showProgress(final boolean show) {
-            // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-            // for very easy animations. If available, use these APIs to fade-in
-            // the progress spinner.
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-                int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-                mRcView.setVisibility(show ? View.GONE : View.VISIBLE);
-                mRcView.animate().setDuration(shortAnimTime).alpha(
-                        show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        mRcView.setVisibility(show ? View.GONE : View.VISIBLE);
-                    }
-                });
+    /**
+     * Shows the progress UI and hides the login form.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                mProgressView.animate().setDuration(shortAnimTime).alpha(
-                        show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                    }
-                });
-            } else {
-                // The ViewPropertyAnimator APIs are not available, so simply show
-                // and hide the relevant UI components.
-                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                mRcView.setVisibility(show ? View.GONE : View.VISIBLE);
-            }
+            mRcView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mRcView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mRcView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mRcView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+    }
 
 
-    public class getEventsTask extends AsyncTask<String, Void, Void>{
+    public class getEventsTask extends AsyncTask<String, Void, Void> {
 
         @Override
         protected Void doInBackground(String... strings) {
 
-            getData();
+            getInvitationList();
 
             return null;
         }
@@ -226,12 +238,13 @@ public class EventListFragment extends Fragment implements EventListAdapter.OnIt
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(mContext, EventDetail.class);
-        EventClass clickedItem = eventList.get(position);
+        EventClass clickedItem = invitationList.get(position);
         System.out.println("haha"+clickedItem);
         intent.putExtra("model", clickedItem);
         intent.putExtra("origin", "notAgenda");
         Log.d("clicked event", String.valueOf(clickedItem.getIdEvent()));
         startActivity(intent);
     }
+
 
 }

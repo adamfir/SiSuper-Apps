@@ -54,16 +54,20 @@
         <activity
             android:name=".activity.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.BusinessListActivity" />
-        <activity android:name=".activity.TambahUsahaActivity" />
-        <activity android:name=".activity.ProductInput" />
+        <activity android:name=".activity.BusinessListActivity"
+            android:label="Daftar Usaha"/>
+        <activity android:name=".activity.TambahUsahaActivity"
+            android:label="Tambah Usaha"/>
+        <activity android:name=".activity.ProductInput"
+            android:label="Tambah Produk"/>
         <activity
             android:name=".activity.EventDetail"
             android:label="@string/label_detail_kegiatan" />
-        <activity android:name=".activity.EditBussinessProfile" />
+        <activity android:name=".activity.EditBussinessProfile"
+            android:label="Sunting Profil Akun"/>
         <activity
             android:name=".activity.EditUserProfile"
-            android:label="Edit User Profile" />
+            android:label="Sunting Profil Usaha" />
         <activity
             android:name=".activity.EditProduct"
             android:label="Edit Produk" />
